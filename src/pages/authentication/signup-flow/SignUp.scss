@@ -1,0 +1,137 @@
+/* ------ SignUp-Flow Start ------ */
+
+.authentication {
+    .left {
+        flex-direction: column;
+
+        .progress {
+            margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: fit-content;
+            background-color: transparent;
+
+            .data {
+                font-family: var(--dm-sans);
+                background-color: #FFFFFF33;
+                color: var(--white);
+                padding: 18px 26px;
+                border-radius: 16px;
+                width: 100%;
+
+                .number {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 38px;
+                    height: 38px;
+                    font-size: 22px;
+                    font-weight: 700;
+                    border-radius: 50%;
+                    // color: var(--blue);
+                    background-color: var(--white);
+                    margin-right: 20px;
+
+                    p {
+                        margin-bottom: 0;
+                        background: linear-gradient(180deg, #4442A7 0%, #020140 100%);
+                        -webkit-background-clip: text;
+                        color: transparent;
+                    }
+
+                    &.active {
+                        // background-color: var(--blue);
+                        background: linear-gradient(180deg, #4442A7 0%, #020140 100%);
+
+                        color: var(--white);
+
+                        p {
+                            color: var(--white);
+                        }
+                    }
+                }
+
+                span {
+                    font-size: 22px;
+                    font-weight: 700;
+                }
+
+                &.active {
+                    background-color: var(--white);
+
+                    // color: var(--blue);
+                    span {
+                        background: linear-gradient(180deg, #4442A7 0%, #020140 100%);
+                        -webkit-background-clip: text;
+                        color: transparent;
+                    }
+                }
+            }
+
+
+            .line {
+                background: var(--white);
+                width: 2px;
+                height: 35px;
+                margin-block: 12px;
+                // animation: lineFade 0.1s ease-in-out;
+            }
+
+            // @keyframes lineFade {
+            //     0% {
+            //         height: 0;
+            //         opacity: 0;
+            //     }
+
+            //     100% {
+            //         height: 40px;
+            //         opacity: 1;
+            //     }
+            // }
+        }
+    }
+
+    .right {
+        .introducation {
+
+            /* --- Congratulations Start --- */
+            .congratulation_loader {
+                margin-top: 10px;
+
+                .lottie_loader {
+                    width: 35% !important;
+                }
+            }
+
+            /* --- Congratulations End --- */
+
+        }
+
+        form {
+            .form-select {
+                background: var(--fc-bg);
+                padding: 20px 25px;
+                border: 0;
+                border-radius: 16px;
+
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 18px;
+                color: var(--fc-color);
+
+                &::placeholder {
+                    color: var(--placeholder);
+                }
+
+                option {
+                    &:first-of-type {
+                        color: var(--placeholder);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ------ SignUp-Flow End ------ */

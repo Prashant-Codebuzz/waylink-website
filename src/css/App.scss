@@ -1,0 +1,100 @@
+/* ------ Fonts ------ */
+/* -- Mulish -- */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* -- Montserrat -- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* -- DM Sans -- */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body,
+#root {
+    /* scroll-behavior: smooth; */
+    overflow-x: hidden;
+    height: 100%;
+}
+
+
+
+/* ------ Variable ------ */
+:root {
+    /* -- Font-Family -- */
+    --mulish: "Mulish", sans-serif;
+    --montserrat: "Montserrat", sans-serif;
+    --dm-sans: "DM Sans", sans-serif;
+
+
+    /* -- Color -- */
+    --white: #fff;
+    --blue: #040273;
+
+
+    /* -- Text-Color -- */
+
+
+    /* -- Form-Input -- */
+    --fc-bg: #F2F2F2;
+    --placeholder: #9E9E9E;
+    --fc-color: #696969;
+}
+
+
+
+ul,
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.form-control,
+.form-select {
+    box-shadow: none !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+
+
+
+/* ------ Main-Button ------ */
+.main_btn {
+    background-color: var(--blue);
+    border-radius: 10px;
+    padding: 12px 47px;
+
+    font-family: var(--dm-sans);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--white);
+
+    border: 2px solid var(--blue);
+    border-right: 0;
+    background: linear-gradient(to right, var(--white) 50%, var(--blue) 50%);
+    background-size: 200% 100%;
+    background-position: right bottom;
+    transition: all .2s ease-out;
+}
+
+.main_btn:hover {
+    background-position: left bottom;
+    color: var(--blue);
+    border: 2px solid var(--blue);
+}
