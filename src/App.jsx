@@ -33,7 +33,6 @@ function App() {
                 {/* Sign-Up-Flow */}
                 <Route path='/sign-up' element={<SignUpFlow />} />
             </Routes>
-
         </>
     )
 }

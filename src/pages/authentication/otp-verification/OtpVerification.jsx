@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react'
 
 // Image
 import OtpVerificationLogo from '../../../assets/images/authentication/otp-verification-logo.svg';
+import { useDispatch } from 'react-redux';
+import { reqToOtpVerification, reqTouserReSendOtp } from '../../../reduxToolkit/services/userAuthServices';
+import toast from 'react-hot-toast';
 
 
 const initialOtpState = ["", "", "", ""];
 
 const initialResendState = {
-    timeLeft: 120,
+    timeLeft: 30,
     disabled: true
 };
 
-const OtpVerification = ({ authStep, setAuthStep, authType }) => {
+const OtpVerification = ({ authStep, setAuthStep, authType, email }) => {
+    const dispatch = useDispatch();
 
     const [otp, setOtp] = useState(initialOtpState);
-
     const [resend, setResend] = useState(initialResendState);
 
 
@@ -72,28 +74,38 @@ const OtpVerification = ({ authStep, setAuthStep, authType }) => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const enteredOtp = otp?.join('');
 
         if (enteredOtp.length === 4) {
-            if (authType === "forgot-password") {
-                setAuthStep(4); // Redirect to OTP-Verification
-            }
+            const res = await dispatch(reqToOtpVerification({
+                email: email,
+                otp: enteredOtp
+            }))
 
-            if (authType === "sign-up") {
-                setAuthStep(3); // Redirect to Create-Profile
+            if (res.payload.data.status) {
+                localStorage.setItem("accessToken", res?.payload.data?.authentication?.accessToken)
+                if (authType === "forgot-password") {
+                    setAuthStep(4); // Redirect to OTP-Verification
+                }
+
+                if (authType === "sign-up") {
+                    setAuthStep(3); // Redirect to Create-Profile
+                }
             }
-        } else {
-            alert("Please enter all 4 digits");
+        }
+        else {
+            toast.error("Please enter all 4 digits");
         }
     }
 
 
-    const handleResend = () => {
-        console.log("OTP Resent Clicked");
-
+    const handleResend = async () => {
+        const res = await dispatch(reqTouserReSendOtp({
+            email: email
+        }))
         setOtp(initialOtpState);
 
         setResend(initialResendState);
@@ -172,9 +184,9 @@ const OtpVerification = ({ authStep, setAuthStep, authType }) => {
                     </button>
                     {/* in 120 sec */}
                     {resend.disabled ?
-                         <span> in {resend.timeLeft} sec</span>
+                        <span> in {resend.timeLeft} sec</span>
                         :
-                         <span> in {resend.timeLeft} sec</span>
+                        <span> in {resend.timeLeft} sec</span>
                     }
                 </div>
 

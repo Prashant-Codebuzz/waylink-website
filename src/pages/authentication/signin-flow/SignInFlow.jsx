@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 // Css
 import "./SignIn.scss";
@@ -16,6 +16,7 @@ import CreatePassword from './create-password/CreatePassword';
 const SignInFlow = () => {
 
     const [authStep, setAuthStep] = useState(1);
+    const [email, setEmail] = useState("");
 
     return (
         <>
@@ -49,17 +50,17 @@ const SignInFlow = () => {
 
                             {/* --- Forgot-Password --- */}
                             {authStep === 2 && (
-                                <ForgotPassword authStep={authStep} setAuthStep={setAuthStep} />
+                                <ForgotPassword authStep={authStep} setAuthStep={setAuthStep} setEmail={setEmail} />
                             )}
 
                             {/* --- OTP-Verification --- */}
                             {authStep === 3 && (
-                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="forgot-password" />
+                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="forgot-password" email={email} />
                             )}
 
                             {/* --- Create-Password --- */}
                             {authStep === 4 && (
-                                <CreatePassword authStep={authStep} setAuthStep={setAuthStep} />
+                                <CreatePassword authStep={authStep} setAuthStep={setAuthStep} email={email} />
                             )}
 
                         </div>
