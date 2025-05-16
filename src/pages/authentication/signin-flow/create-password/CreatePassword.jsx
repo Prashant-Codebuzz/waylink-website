@@ -1,14 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Image
 import CreatePasswordLogo from '../../../../assets/images/authentication/create-password-logo.svg';
+import { useDispatch } from 'react-redux';
+import { reqTouserChangePass } from '../../../../reduxToolkit/services/userAuthServices';
 
-const CreatePassword = ({ authStep, setAuthStep }) => {
+const initialState = {
+    password: "",
+    confirmPassword: ""
+}
+const CreatePassword = ({ authStep, setAuthStep, email }) => {
+    const dispatch = useDispatch();
+    const [formData, setFormData] = useState(initialState)
 
-    const handleSubmit = (e) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const payload = {
+            ...formData,
+            email: email,
+        };
 
-        setAuthStep(1); // Redirect to Sign-In
+        const res = await dispatch(reqTouserChangePass(payload))
+        if (res?.payload?.data?.status) {
+            setAuthStep(1); // Redirect to Sign-In
+        }
     }
 
     return (
@@ -37,16 +61,20 @@ const CreatePassword = ({ authStep, setAuthStep }) => {
                         name="password"
                         className="form-control"
                         placeholder="Password"
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
                 <div className='mb-4'>
                     <input
                         type="password"
-                        id="repassword"
-                        name="repassword"
+                        id="confirmPassword"
+                        name="confirmPassword"
                         className="form-control"
                         placeholder="Re-enter password"
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 

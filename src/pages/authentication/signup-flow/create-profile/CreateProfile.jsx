@@ -1,14 +1,59 @@
-import React from 'react';
+import { useState } from 'react';
 
 // Image
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
+import { useDispatch } from 'react-redux';
+import { reqToCreateUserProfile } from '../../../../reduxToolkit/services/userAuthServices';
 
+const initialState = {
+    mobileNumber: "",
+    name: "",
+    gender: "",
+    dateOfBirth: "",
+    country: "",
+    state: "",
+    city: "",
+    address: ""
+}
 const CreateProfile = ({ authStep, setAuthStep }) => {
+    const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    const [formData, setFormData] = useState(initialState)
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        let formattedValue = value;
+
+        if (name === "dateOfBirth" && value) {
+            const [year, month, day] = value.split("-");
+            formattedValue = `${day}-${month}-${year}`;
+        }
+
+        if (name === "mobileNumber") {
+            if (!value.startsWith("+91")) {
+                const digits = value.replace(/\D/g, "");
+                formattedValue = `+91 ${digits}`;
+            }
+        }
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: formattedValue,
+        }));
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setAuthStep(4); // Redirect to Congratulations
+        try {
+            const res = await dispatch(reqToCreateUserProfile(formData))
+            if (res?.payload?.data?.status) {
+                setAuthStep(4); // Redirect to Congratulations
+            }
+        } catch (error) {
+            throw error
+        }
+
     }
 
     return (
@@ -35,11 +80,12 @@ const CreateProfile = ({ authStep, setAuthStep }) => {
                         type="text"
                         pattern='\d*'
                         maxLength="16"
-                        id="phone"
-                        name="phone"
+                        id="mobileNumber"
+                        name="mobileNumber"
                         className="form-control"
                         placeholder="Enter mobile number"
                         onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -50,6 +96,7 @@ const CreateProfile = ({ authStep, setAuthStep }) => {
                         name="name"
                         className="form-control"
                         placeholder="Enter name"
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -58,6 +105,7 @@ const CreateProfile = ({ authStep, setAuthStep }) => {
                         id="gender"
                         name="gender"
                         className="form-select"
+                        onChange={handleChange}
                     >
                         <option value="">Select gender</option>
                         <option value="male">Male</option>
@@ -68,10 +116,11 @@ const CreateProfile = ({ authStep, setAuthStep }) => {
                 <div className='mb-4'>
                     <input
                         type="date"
-                        id="name"
-                        name="name"
+                        id="dateOfBirth"
+                        name="dateOfBirth"
                         className="form-control"
                         placeholder="Select birthdate"
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -80,6 +129,7 @@ const CreateProfile = ({ authStep, setAuthStep }) => {
                         id="country"
                         name="country"
                         className="form-select"
+                        onChange={handleChange}
                     >
                         <option value="">Select country</option>
                         <option value="india">India</option>
@@ -92,6 +142,7 @@ const CreateProfile = ({ authStep, setAuthStep }) => {
                         id="state"
                         name="state"
                         className="form-select"
+                        onChange={handleChange}
                     >
                         <option value="">Select state</option>
                         <option value="gujarat">Gujarat</option>
@@ -104,6 +155,7 @@ const CreateProfile = ({ authStep, setAuthStep }) => {
                         id="city"
                         name="city"
                         className="form-select"
+                        onChange={handleChange}
                     >
                         <option value="">Select city</option>
                         <option value="surat">Surat</option>
@@ -119,6 +171,7 @@ const CreateProfile = ({ authStep, setAuthStep }) => {
                         className="form-control"
                         placeholder="Enter address"
                         rows={4}
+                        onChange={handleChange}
                     />
                 </div>
 

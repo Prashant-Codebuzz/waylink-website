@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // Image
 import ForgotPasswordLogo from '../../../../assets/images/authentication/forgot-password-logo.svg';
+import { useDispatch } from 'react-redux';
+import { reqToUseForgetPass } from '../../../../reduxToolkit/services/userAuthServices';
 
-const ForgotPassword = ({ authStep, setAuthStep }) => {
+const ForgotPassword = ({ setAuthStep, setEmail }) => {
+    const dispatch = useDispatch();
 
+    const [formEmail, setFormEmail] = useState("")
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const res = await dispatch(reqToUseForgetPass({ email: formEmail }))
 
-        setAuthStep(3); // Redirect to OTP-Verification
+        if (res?.payload?.data?.status) {
+            setAuthStep(3); // Redirect to OTP-Verification
+            setEmail(formEmail)
+        }
     }
 
     return (
@@ -39,6 +47,8 @@ const ForgotPassword = ({ authStep, setAuthStep }) => {
                         name="email"
                         className="form-control"
                         placeholder="Email"
+                        onChange={(e) => setFormEmail(e.target.value)}
+                        required
                     />
                 </div>
 

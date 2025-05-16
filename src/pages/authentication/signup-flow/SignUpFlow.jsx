@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 // Css
 import "./SignUp.scss";
@@ -16,6 +16,7 @@ import Congratulations from './congratulations/Congratulations';
 const SignUpFlow = () => {
 
     const [authStep, setAuthStep] = useState(1);
+    const [email, setEmail] = useState("");
 
     return (
         <>
@@ -69,12 +70,12 @@ const SignUpFlow = () => {
 
                             {/* --- Sign-Up --- */}
                             {authStep === 1 && (
-                                <SignUp authStep={authStep} setAuthStep={setAuthStep} />
+                                <SignUp authStep={authStep} setAuthStep={setAuthStep} setEmail={setEmail} />
                             )}
 
                             {/* --- OTP-Verification --- */}
                             {authStep === 2 && (
-                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="sign-up" />
+                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="sign-up" email={email} />
                             )}
 
                             {/* --- Create-Profile --- */}

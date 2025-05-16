@@ -1,18 +1,42 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 // Image
 import EmailLogo from '../../../../assets/images/authentication/email-logo.svg';
 import GoogleLogo from '../../../../assets/images/authentication/google-logo.svg';
+import { useDispatch } from 'react-redux';
+import { reqToRegisterUser } from '../../../../reduxToolkit/services/userAuthServices';
 
-const SignUp = ({ authStep, setAuthStep }) => {
+const initialState = {
+    email: "",
+    password: "",
+    confirmPassword: ""
+}
 
-    const navigate = useNavigate();
+const SignUp = ({ setAuthStep, setEmail }) => {
+    const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    const [formData, setFormData] = useState(initialState)
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setAuthStep(2); // Redirect to OTP-Verification
+        const res = await dispatch(reqToRegisterUser(formData))
+
+        if (res?.payload?.data?.status) {
+            setAuthStep(2); // Redirect to OTP-Verification
+            setEmail(formData.email)
+        }
+
     }
 
 
@@ -42,6 +66,8 @@ const SignUp = ({ authStep, setAuthStep }) => {
                         name="email"
                         className="form-control"
                         placeholder="Email"
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
@@ -52,16 +78,20 @@ const SignUp = ({ authStep, setAuthStep }) => {
                         name="password"
                         className="form-control"
                         placeholder="Password"
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
                 <div className='mb-4'>
                     <input
                         type="password"
-                        id="repassword"
-                        name="repassword"
+                        id="confirmPassword"
+                        name="confirmPassword"
                         className="form-control"
                         placeholder="Re-enter password"
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 

@@ -1,24 +1,59 @@
-import React from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
 // Image
 import EmailLogo from '../../../../assets/images/authentication/email-logo.svg';
 import GoogleLogo from '../../../../assets/images/authentication/google-logo.svg';
+import { useDispatch } from 'react-redux';
+import { reqToUserSignIn } from '../../../../reduxToolkit/services/userAuthServices';
 
-const SignIn = ({ authStep, setAuthStep }) => {
+const initialState = {
+    email: "",
+    password: "",
+}
+
+
+const SignIn = ({ setAuthStep }) => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const handleSubmit = (e) => {
+    const [formData, setFormData] = useState(initialState)
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        navigate("/home2");
+        const res = await dispatch(reqToUserSignIn(formData))
+
+        if (res?.payload?.data?.status) {
+            navigate("/home2");
+        }
     }
 
 
     const handleForgotPassword = () => {
         setAuthStep(2); // Redirect to Forgot-Password
     }
+
+    // const redirectToGoogle = () => {
+    //     const clientId = "YOUR_GOOGLE_CLIENT_ID";
+    //     const redirectUri = "http://localhost:5175/api/auth/google/callback";
+    //     const scope = "openid email profile";
+    //     const responseType = "code";
+
+    //     const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
+
+    //     window.location.href = url;
+    // };
 
 
     return (
@@ -47,6 +82,8 @@ const SignIn = ({ authStep, setAuthStep }) => {
                         name="email"
                         className="form-control"
                         placeholder="Email"
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
@@ -57,6 +94,8 @@ const SignIn = ({ authStep, setAuthStep }) => {
                         name="password"
                         className="form-control"
                         placeholder="Password"
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
