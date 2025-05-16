@@ -13,7 +13,10 @@ import OtpVerification from '../otp-verification/OtpVerification';
 import CreatePassword from './create-password/CreatePassword';
 
 
-const SignInFlow = () => {
+const SignInFlow = ({ role }) => {
+
+    console.log(role);
+    // const IsRoleUser = role === "user";
 
     const [authStep, setAuthStep] = useState(1);
     const [email, setEmail] = useState("");
@@ -45,22 +48,22 @@ const SignInFlow = () => {
 
                             {/* --- Sign-In --- */}
                             {authStep === 1 && (
-                                <SignIn authStep={authStep} setAuthStep={setAuthStep} />
+                                <SignIn authStep={authStep} setAuthStep={setAuthStep} role={role} />
                             )}
 
                             {/* --- Forgot-Password --- */}
                             {authStep === 2 && (
-                                <ForgotPassword authStep={authStep} setAuthStep={setAuthStep} setEmail={setEmail} />
+                                <ForgotPassword authStep={authStep} setAuthStep={setAuthStep} setEmail={setEmail} role={role}/>
                             )}
 
                             {/* --- OTP-Verification --- */}
                             {authStep === 3 && (
-                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="forgot-password" email={email} />
+                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="forgot-password" email={email} role={role}/>
                             )}
 
                             {/* --- Create-Password --- */}
                             {authStep === 4 && (
-                                <CreatePassword authStep={authStep} setAuthStep={setAuthStep} email={email} />
+                                <CreatePassword authStep={authStep} setAuthStep={setAuthStep} email={email} role={role}/>
                             )}
 
                         </div>

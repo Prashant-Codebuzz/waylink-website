@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import "./Header.scss";
 import Logo from '../../assets/images/header/logo.png';
 
-const Header = () => {
+const Header = ({ handleRoleSelect }) => {
     return (
         <>
 
@@ -49,8 +49,10 @@ const Header = () => {
 
                                     <div className='group-btn'>
                                         <Link
-                                            to="/sign-in"
-                                            className='main_btn login_btn'>
+                                            // to="/user/sign-in"
+                                            className='main_btn login_btn'
+                                            onClick={handleRoleSelect}
+                                        >
                                             Login
                                         </Link>
 

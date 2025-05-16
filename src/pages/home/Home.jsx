@@ -51,7 +51,7 @@ import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-const Home = () => {
+const Home = ({ handleRoleSelect }) => {
 
     const navigate = useNavigate();
 
@@ -135,7 +135,8 @@ const Home = () => {
                                 <button
                                     type="button"
                                     className='main_btn discover_btn'
-                                    onClick={() => navigate("/sign-in")}
+                                    // onClick={() => navigate("/user/sign-in")}
+                                    onClick={handleRoleSelect}
                                 >
                                     Discover Solutions
                                 </button>
@@ -213,7 +214,8 @@ const Home = () => {
                                 <button
                                     type="button"
                                     className='main_btn learn_btn'
-                                    onClick={() => navigate("/sign-in")}
+                                    // onClick={() => navigate("/sign-in")}
+                                    onClick={handleRoleSelect}
                                 >
                                     Learn More
                                 </button>
@@ -642,7 +644,8 @@ const Home = () => {
                                 <button
                                     type="button"
                                     className='main_btn learn_btn'
-                                    onClick={() => navigate("/sign-in")}
+                                    // onClick={() => navigate("/user/sign-in")}
+                                    onClick={handleRoleSelect}
                                 >
                                     Start Your Journey
                                 </button>

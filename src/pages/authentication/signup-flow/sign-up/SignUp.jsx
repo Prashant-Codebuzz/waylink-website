@@ -1,9 +1,15 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
 // Image
 import EmailLogo from '../../../../assets/images/authentication/email-logo.svg';
 import GoogleLogo from '../../../../assets/images/authentication/google-logo.svg';
+
+import EmailInput from '../../../../assets/images/authentication/email-input.svg';
+import PasswordInput from '../../../../assets/images/authentication/password-input.svg';
+import PasswordHideInput from '../../../../assets/images/authentication/password-hide-input.svg';
+import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
+
 import { useDispatch } from 'react-redux';
 import { reqToRegisterUser } from '../../../../reduxToolkit/services/userAuthServices';
 
@@ -13,10 +19,26 @@ const initialState = {
     confirmPassword: ""
 }
 
-const SignUp = ({ setAuthStep, setEmail }) => {
+const initialShowPasswordState = {
+    password: false,
+    confirmPassword: false
+}
+
+const SignUp = ({ authStep, setAuthStep, setEmail, role }) => {
+
+    const IsRoleUser = role === "user";
     const dispatch = useDispatch();
 
-    const [formData, setFormData] = useState(initialState)
+    const [formData, setFormData] = useState(initialState);
+
+    const [showPassword, setShowPassword] = useState(initialShowPasswordState);
+
+    const PasswordShowHide = (field) => {
+        setShowPassword((prev) => ({
+            ...prev,
+            [field]: !prev[field],
+        }));
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -59,40 +81,69 @@ const SignUp = ({ setAuthStep, setEmail }) => {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div className='mb-4'>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        className="form-control"
-                        placeholder="Email"
-                        onChange={handleChange}
-                        required
-                    />
+                <div className="mb-4">
+                    <div className={`input-group ${formData.email ? 'active' : ''}`}>
+                        <span className='icon'>
+                            <img src={EmailInput} alt="" className='img-fluid' />
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            className="form-control"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                 </div>
 
                 <div className='mb-4'>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        className="form-control"
-                        placeholder="Password"
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className={`input-group ${formData.password ? 'active' : ''}`}>
+                        <span className='icon'>
+                            <img src={PasswordInput} alt="" className='img-fluid' />
+                        </span>
+
+                        <input
+                            type={showPassword.password ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            className="form-control"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <span className='icon password cursor-pointer' onClick={() => PasswordShowHide('password')}>
+                            <img src={showPassword ? PasswordHideInput : PasswordShowInput} alt="" className='img-fluid' />
+                        </span>
+                    </div>
                 </div>
 
                 <div className='mb-4'>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        className="form-control"
-                        placeholder="Re-enter password"
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className={`input-group ${formData.confirmPassword ? 'active' : ''}`}>
+                        <span className='icon'>
+                            <img src={PasswordInput} alt="" className='img-fluid' />
+                        </span>
+
+                        <input
+                            type={showPassword.confirmPassword ? "text" : "password"}
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            className="form-control"
+                            placeholder="Re-enter password"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <span className='icon password cursor-pointer' onClick={() => PasswordShowHide('confirmPassword')}>
+                            <img src={showPassword ? PasswordHideInput : PasswordShowInput} alt="" className='img-fluid' />
+                        </span>
+                    </div>
                 </div>
 
                 <div>
@@ -100,7 +151,7 @@ const SignUp = ({ setAuthStep, setEmail }) => {
                         Sign up
                     </button>
                 </div>
-            </form>
+            </form >
 
             <div className='or d-flex align-items-center justify-content-center'>
                 <span></span>
@@ -114,7 +165,7 @@ const SignUp = ({ setAuthStep, setEmail }) => {
             </button>
 
             <p className='account mb-0'>
-                Already have an account? <Link to="/sign-in">Sign in</Link>
+                Already have an account? <Link to="/user/sign-in">Sign in</Link>
             </p>
             {/* ------ Sign-Up End ------ */}
 

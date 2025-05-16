@@ -10,7 +10,10 @@ import CongratulationsAnimation from "../../../../components/loader/json/Animati
 // Animation-Package
 import Lottie from 'lottie-react';
 
-const Congratulations = ({ authStep, setAuthStep }) => {
+const Congratulations = ({ authStep, setAuthStep, role }) => {
+
+    const IsRoleUser = role === "user";
+
 
     return (
         <>
@@ -34,7 +37,7 @@ const Congratulations = ({ authStep, setAuthStep }) => {
                     <Lottie
                         animationData={CongratulationsAnimation}
                         loop={true}
-                        className='lottie_loader' 
+                        className='lottie_loader'
                     />
                 </div>
             </div>

@@ -11,9 +11,13 @@ import SignUp from './sign-up/SignUp';
 import OtpVerification from '../otp-verification/OtpVerification';
 import CreateProfile from './create-profile/CreateProfile';
 import Congratulations from './congratulations/Congratulations';
+import ServiceDetail from './service-detail/ServiceDetail';
 
 
-const SignUpFlow = () => {
+const SignUpFlow = ({ role }) => {
+
+    console.log(role);
+    // const IsRoleUser = role === "user";
 
     const [authStep, setAuthStep] = useState(1);
     const [email, setEmail] = useState("");
@@ -56,9 +60,9 @@ const SignUpFlow = () => {
 
                                 <div className="line"></div>
 
-                                <div className={`data ${authStep === 3 || authStep === 4 ? 'active' : ''}`}>
+                                <div className={`data ${authStep === 3 || authStep === 4 || authStep === 5 ? 'active' : ''}`}>
                                     <div className="d-flex align-items-center">
-                                        <div className={`number ${authStep === 3 || authStep === 4 ? 'active' : ''}`}><p>3</p></div>
+                                        <div className={`number ${authStep === 3 || authStep === 4 || authStep === 5 ? 'active' : ''}`}><p>3</p></div>
                                         <span>Complete your profile</span>
                                     </div>
                                 </div>
@@ -70,22 +74,27 @@ const SignUpFlow = () => {
 
                             {/* --- Sign-Up --- */}
                             {authStep === 1 && (
-                                <SignUp authStep={authStep} setAuthStep={setAuthStep} setEmail={setEmail} />
+                                <SignUp authStep={authStep} setAuthStep={setAuthStep} setEmail={setEmail} role={role} />
                             )}
 
                             {/* --- OTP-Verification --- */}
                             {authStep === 2 && (
-                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="sign-up" email={email} />
+                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="sign-up" email={email} role={role} />
                             )}
 
                             {/* --- Create-Profile --- */}
                             {authStep === 3 && (
-                                <CreateProfile authStep={authStep} setAuthStep={setAuthStep} />
+                                <CreateProfile authStep={authStep} setAuthStep={setAuthStep} role={role} />
                             )}
 
                             {/* --- Congratulations --- */}
                             {authStep === 4 && (
-                                <Congratulations authStep={authStep} setAuthStep={setAuthStep} />
+                                <Congratulations authStep={authStep} setAuthStep={setAuthStep} role={role} />
+                            )}
+
+                            {/* --- Service-Detail --- */}
+                            {authStep === 5 && (
+                                <ServiceDetail authStep={authStep} setAuthStep={setAuthStep} role={role} />
                             )}
 
                         </div>

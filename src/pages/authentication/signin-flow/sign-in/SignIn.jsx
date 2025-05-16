@@ -1,24 +1,36 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
 // Image
 import EmailLogo from '../../../../assets/images/authentication/email-logo.svg';
 import GoogleLogo from '../../../../assets/images/authentication/google-logo.svg';
+import EmailInput from '../../../../assets/images/authentication/email-input.svg';
+import PasswordInput from '../../../../assets/images/authentication/password-input.svg';
+import PasswordHideInput from '../../../../assets/images/authentication/password-hide-input.svg';
+import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
+
 import { useDispatch } from 'react-redux';
 import { reqToUserSignIn } from '../../../../reduxToolkit/services/userAuthServices';
+
 
 const initialState = {
     email: "",
     password: "",
 }
 
+const SignIn = ({ authStep, setAuthStep, role }) => {
 
-const SignIn = ({ setAuthStep }) => {
-
+    const IsRoleUser = role === "user";
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [formData, setFormData] = useState(initialState)
+    const [formData, setFormData] = useState(initialState);
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const PasswordShowHide = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,7 +47,7 @@ const SignIn = ({ setAuthStep }) => {
         const res = await dispatch(reqToUserSignIn(formData))
 
         if (res?.payload?.data?.status) {
-            navigate("/home2");
+            navigate(IsRoleUser ? "/user/home2" : "/agent/home2");
         }
     }
 
@@ -75,28 +87,48 @@ const SignIn = ({ setAuthStep }) => {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div className='mb-4'>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        className="form-control"
-                        placeholder="Email"
-                        onChange={handleChange}
-                        required
-                    />
+
+                <div className="mb-4">
+
+                    <div className={`input-group ${formData.email ? 'active' : ''}`}>
+                        <span className='icon'>
+                            <img src={EmailInput} alt="" className='img-fluid' />
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            className="form-control"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                 </div>
 
                 <div className='mb-3'>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        className="form-control"
-                        placeholder="Password"
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className={`input-group ${formData.password ? 'active' : ''}`}>
+                        <span className='icon'>
+                            <img src={PasswordInput} alt="" className='img-fluid' />
+                        </span>
+
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            className="form-control"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <span className='icon password cursor-pointer' onClick={PasswordShowHide}>
+                            <img src={showPassword ? PasswordHideInput : PasswordShowInput} alt="" className='img-fluid' />
+                        </span>
+                    </div>
                 </div>
 
                 <div className='mb-4 text-end forgot-password'>
@@ -108,7 +140,7 @@ const SignIn = ({ setAuthStep }) => {
                         Sign in
                     </button>
                 </div>
-            </form>
+            </form >
 
             <div className='or d-flex align-items-center justify-content-center'>
                 <span></span>
@@ -122,7 +154,7 @@ const SignIn = ({ setAuthStep }) => {
             </button>
 
             <p className='account mb-0'>
-                Don’t have an account? <Link to="/sign-up">Sign up</Link>
+                Don’t have an account? <Link to={IsRoleUser ? "/user/sign-up" : "/agent/sign-up"}>Sign up</Link>
             </p>
             {/* ------ Sign-In End ------ */}
 

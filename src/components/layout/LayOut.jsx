@@ -3,11 +3,11 @@ import { Outlet } from 'react-router-dom';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
-const LayOut = () => {
+const LayOut = ({ handleRoleSelect }) => {
     return (
         <>
 
-            <Header />
+            <Header handleRoleSelect={handleRoleSelect} />
                 <Outlet />
             <Footer />
 

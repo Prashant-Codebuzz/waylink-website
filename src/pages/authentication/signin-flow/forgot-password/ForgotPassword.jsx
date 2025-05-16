@@ -3,21 +3,39 @@ import { Link } from 'react-router-dom';
 
 // Image
 import ForgotPasswordLogo from '../../../../assets/images/authentication/forgot-password-logo.svg';
+import EmailInput from '../../../../assets/images/authentication/email-input.svg';
+
 import { useDispatch } from 'react-redux';
 import { reqToUseForgetPass } from '../../../../reduxToolkit/services/userAuthServices';
 
-const ForgotPassword = ({ setAuthStep, setEmail }) => {
-    const dispatch = useDispatch();
+const initialState = {
+    email: ""
+}
 
-    const [formEmail, setFormEmail] = useState("")
+
+const ForgotPassword = ({ authStep, setAuthStep, setEmail, role }) => {
+
+    const dispatch = useDispatch();
+    const IsRoleUser = role === "user";
+
+    const [formData, setFormData] = useState(initialState);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await dispatch(reqToUseForgetPass({ email: formEmail }))
+        const res = await dispatch(reqToUseForgetPass(formData))
 
         if (res?.payload?.data?.status) {
             setAuthStep(3); // Redirect to OTP-Verification
-            setEmail(formEmail)
+            setEmail(formData?.email)
         }
     }
 
@@ -40,16 +58,23 @@ const ForgotPassword = ({ setAuthStep, setEmail }) => {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div className='mb-4'>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        className="form-control"
-                        placeholder="Email"
-                        onChange={(e) => setFormEmail(e.target.value)}
-                        required
-                    />
+                <div className="mb-4">
+                    <div className={`input-group ${formData.email ? 'active' : ''}`}>
+                        <span className='icon'>
+                            <img src={EmailInput} alt="" className='img-fluid' />
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            className="form-control"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                 </div>
 
                 <div>
@@ -57,7 +82,7 @@ const ForgotPassword = ({ setAuthStep, setEmail }) => {
                         Submit
                     </button>
                 </div>
-            </form>
+            </form >
             {/* ------ Forgot-Password End ------ */}
 
         </>

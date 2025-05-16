@@ -4,14 +4,38 @@ import React, { useState } from 'react'
 import CreatePasswordLogo from '../../../../assets/images/authentication/create-password-logo.svg';
 import { useDispatch } from 'react-redux';
 import { reqTouserChangePass } from '../../../../reduxToolkit/services/userAuthServices';
+import PasswordInput from '../../../../assets/images/authentication/password-input.svg';
+import PasswordHideInput from '../../../../assets/images/authentication/password-hide-input.svg';
+import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
 
 const initialState = {
     password: "",
     confirmPassword: ""
 }
-const CreatePassword = ({ authStep, setAuthStep, email }) => {
+
+const initialShowPasswordState = {
+    password: false,
+    confirmPassword: false
+}
+
+
+const CreatePassword = ({ authStep, setAuthStep, email, role }) => {
+
+    const IsRoleUser = role === "user";
+
     const dispatch = useDispatch();
-    const [formData, setFormData] = useState(initialState)
+
+
+    const [formData, setFormData] = useState(initialState);
+
+    const [showPassword, setShowPassword] = useState(initialShowPasswordState);
+
+    const PasswordShowHide = (field) => {
+        setShowPassword((prev) => ({
+            ...prev,
+            [field]: !prev[field],
+        }));
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,6 +54,8 @@ const CreatePassword = ({ authStep, setAuthStep, email }) => {
         };
 
         const res = await dispatch(reqTouserChangePass(payload))
+        console.log("sss2", res);
+
         if (res?.payload?.data?.status) {
             setAuthStep(1); // Redirect to Sign-In
         }
@@ -54,28 +80,49 @@ const CreatePassword = ({ authStep, setAuthStep, email }) => {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div className='mb-4'>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        className="form-control"
-                        placeholder="Password"
-                        onChange={handleChange}
-                        required
-                    />
+
+                <div className="mb-4">
+                    <div className={`input-group ${formData.password ? 'active' : ''}`}>
+                        <span className='icon'>
+                            <img src={PasswordInput} alt="" className='img-fluid' />
+                        </span>
+                        <input
+                            type={showPassword.password ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            className="form-control"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <span className='icon password cursor-pointer' onClick={() => PasswordShowHide('password')}>
+                            <img src={showPassword.password ? PasswordHideInput : PasswordShowInput} alt="" className='img-fluid' />
+                        </span>
+                    </div>
                 </div>
 
                 <div className='mb-4'>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        className="form-control"
-                        placeholder="Re-enter password"
-                        onChange={handleChange}
-                        required
-                    />
+                    <div className={`input-group ${formData.confirmPassword ? 'active' : ''}`}>
+                        <span className='icon'>
+                            <img src={PasswordInput} alt="" className='img-fluid' />
+                        </span>
+                        <input
+                            type={showPassword.confirmPassword ? "text" : "password"}
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            className="form-control"
+                            placeholder="Re-enter password"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <span className='icon password cursor-pointer' onClick={() => PasswordShowHide('confirmPassword')}>
+                            <img src={showPassword.confirmPassword ? PasswordHideInput : PasswordShowInput} alt="" className='img-fluid' />
+                        </span>
+                    </div>
                 </div>
 
                 <div>

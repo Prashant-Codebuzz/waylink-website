@@ -153,7 +153,7 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email }) => {
             </div>
 
             <form onSubmit={handleSubmit}>
-                <div className='mb-3 otp-container'>
+                <div className='mb-4 otp-container'>
                     {otp?.map((digit, index) => (
                         <input
                             key={index}

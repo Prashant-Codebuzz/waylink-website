@@ -1,79 +1,52 @@
-import { useState } from 'react';
+import React, { useState } from 'react'
 
 // Image
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
-import { useDispatch } from 'react-redux';
-import { reqToCreateUserProfile } from '../../../../reduxToolkit/services/userAuthServices';
+
 
 const initialState = {
-    mobileNumber: "",
-    name: "",
-    gender: "",
-    dateOfBirth: "",
+    service_type: "individual",
+    work: "",
+    experience: "",
+    birthdate: "",
     country: "",
     state: "",
     city: "",
-    address: ""
+    address: "",
 }
 
-const CreateProfile = ({ authStep, setAuthStep, role }) => {
+const ServiceDetail = ({ authStep, setAuthStep, role }) => {
 
     const IsRoleUser = role === "user";
-    const dispatch = useDispatch();
 
-    const [formData, setFormData] = useState(initialState)
+    const [formData, setFormData] = useState(initialState);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        let formattedValue = value;
-
-        if (name === "dateOfBirth" && value) {
-            const [year, month, day] = value.split("-");
-            formattedValue = `${day}-${month}-${year}`;
-        }
-
-        if (name === "mobileNumber") {
-            if (!value.startsWith("+91")) {
-                const digits = value.replace(/\D/g, "");
-                formattedValue = `+91 ${digits}`;
-            }
-        }
 
         setFormData((prev) => ({
             ...prev,
-            [name]: formattedValue,
+            [name]: value,
         }));
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
-        try {
-            const res = await dispatch(reqToCreateUserProfile(formData))
-            if (res?.payload?.data?.status) {
-                if (IsRoleUser) {
-                    setAuthStep(4); // Redirect to Congratulations
-                }
-                else {
-                    setAuthStep(5); // Redirect to Service-Detail
-                }
-            }
-        } catch (error) {
-            throw error
-        }
+        setAuthStep(4); // Redirect to Congratulations
     }
 
     return (
         <>
 
-            {/* ------ Create-Profile Start ------ */}
+            {/* ------ Service-Detail Start ------ */}
             <div className="introducation">
                 <div className='logo_img'>
                     <img src={CreateProfileLogo} alt="" className='img-fluid' />
                 </div>
 
                 <div className="info">
-                    <h1>Basic Details</h1>
+                    <h1>Service Details</h1>
                     <p className='mb-0'>
                         Please enter your details, this details only <br />
                         you can see, no one else will be able to see it.
@@ -82,52 +55,67 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
             </div>
 
             <form onSubmit={handleSubmit}>
+                <div className='mb-4 d-flex'>
+                    <div className="form-check me-4">
+                        <input
+                            type="radio"
+                            id="individual"
+                            name="service_type"
+                            className="form-check-input"
+                            value={"individual"}
+                            checked={formData.service_type === "individual"}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label class="form-check-label" for="individual">
+                            Individual
+                        </label>
+                    </div>
+                    <div className="form-check">
+                        <input
+                            type="radio"
+                            id="company"
+                            name="service_type"
+                            className="form-check-input"
+                            value={"company"}
+                            checked={formData.service_type === "company"}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label class="form-check-label" for="company">
+                            Company
+                        </label>
+                    </div>
+                </div>
+
                 <div className='mb-4'>
                     <input
                         type="text"
-                        pattern='\d*'
-                        maxLength="16"
-                        id="mobileNumber"
-                        name="mobileNumber"
+                        id="work"
+                        name="work"
                         className="form-control"
-                        placeholder="Enter mobile number"
-                        onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
-                        onChange={handleChange}
+                        placeholder="Enter your work"
                     />
                 </div>
 
                 <div className='mb-4'>
                     <input
                         type="text"
-                        id="name"
-                        name="name"
+                        id="experience"
+                        name="experience"
                         className="form-control"
-                        placeholder="Enter name"
-                        onChange={handleChange}
+                        placeholder="Enter your experience"
                     />
                 </div>
 
-                <div className='mb-4'>
-                    <select
-                        id="gender"
-                        name="gender"
-                        className="form-select"
-                        onChange={handleChange}
-                    >
-                        <option value="">Select gender</option>
-                        <option value="male">Male</option>
-                        <option value="feMale">FeMale</option>
-                    </select>
-                </div>
 
                 <div className='mb-4'>
                     <input
                         type="date"
-                        id="dateOfBirth"
-                        name="dateOfBirth"
+                        id="birthdate"
+                        name="birthdate"
                         className="form-control"
                         placeholder="Select birthdate"
-                        onChange={handleChange}
                     />
                 </div>
 
@@ -136,7 +124,6 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
                         id="country"
                         name="country"
                         className="form-select"
-                        onChange={handleChange}
                     >
                         <option value="">Select country</option>
                         <option value="india">India</option>
@@ -149,7 +136,6 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
                         id="state"
                         name="state"
                         className="form-select"
-                        onChange={handleChange}
                     >
                         <option value="">Select state</option>
                         <option value="gujarat">Gujarat</option>
@@ -162,7 +148,6 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
                         id="city"
                         name="city"
                         className="form-select"
-                        onChange={handleChange}
                     >
                         <option value="">Select city</option>
                         <option value="surat">Surat</option>
@@ -178,7 +163,6 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
                         className="form-control"
                         placeholder="Enter address"
                         rows={4}
-                        onChange={handleChange}
                     />
                 </div>
 
@@ -188,10 +172,10 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
                     </button>
                 </div>
             </form>
-            {/* ------ Create-Profile End ------ */}
+            {/* ------ Service-Detail End ------ */}
 
         </>
     )
 }
 
-export default CreateProfile;
+export default ServiceDetail;
