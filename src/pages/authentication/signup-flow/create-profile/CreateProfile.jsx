@@ -48,18 +48,28 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const res = await dispatch(reqToCreateUserProfile(formData))
-            if (res?.payload?.data?.status) {
-                if (IsRoleUser) {
-                    setAuthStep(4); // Redirect to Congratulations
+        if (IsRoleUser) {
+            try {
+                const res = await dispatch(reqToCreateUserProfile(formData))
+                if (res?.payload?.data?.status) {
+                    if (IsRoleUser) {
+                        setAuthStep(4); // Redirect to Congratulations
+                    }
+                    else {
+                        setAuthStep(5); // Redirect to Service-Detail
+                    }
                 }
-                else {
-                    setAuthStep(5); // Redirect to Service-Detail
-                }
+            } catch (error) {
+                throw error
             }
-        } catch (error) {
-            throw error
+        }
+        else {
+            if (IsRoleUser) {
+                setAuthStep(4); // Redirect to Congratulations
+            }
+            else {
+                setAuthStep(5); // Redirect to Service-Detail
+            }
         }
     }
 

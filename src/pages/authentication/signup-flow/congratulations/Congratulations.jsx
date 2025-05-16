@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // Image
 import CongratulationsLogo from '../../../../assets/images/authentication/congratulations-logo.svg';
@@ -9,11 +9,18 @@ import CongratulationsAnimation from "../../../../components/loader/json/Animati
 
 // Animation-Package
 import Lottie from 'lottie-react';
+import { useNavigate } from 'react-router-dom';
 
 const Congratulations = ({ authStep, setAuthStep, role }) => {
 
     const IsRoleUser = role === "user";
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        setTimeout(() => {
+            navigate(IsRoleUser ? "/user/sign-in" : "/agent/sign-in")
+        }, 5000);
+    }, [IsRoleUser])
 
     return (
         <>

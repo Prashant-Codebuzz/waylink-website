@@ -31,9 +31,16 @@ const ForgotPassword = ({ authStep, setAuthStep, setEmail, role }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await dispatch(reqToUseForgetPass(formData))
 
-        if (res?.payload?.data?.status) {
+        if (IsRoleUser) {
+            const res = await dispatch(reqToUseForgetPass(formData))
+
+            if (res?.payload?.data?.status) {
+                setAuthStep(3); // Redirect to OTP-Verification
+                setEmail(formData?.email)
+            }
+        }
+        else {
             setAuthStep(3); // Redirect to OTP-Verification
             setEmail(formData?.email)
         }

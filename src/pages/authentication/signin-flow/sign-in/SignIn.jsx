@@ -44,9 +44,14 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = await dispatch(reqToUserSignIn(formData))
+        if (IsRoleUser) {
+            const res = await dispatch(reqToUserSignIn(formData))
 
-        if (res?.payload?.data?.status) {
+            if (res?.payload?.data?.status) {
+                navigate(IsRoleUser ? "/user/home2" : "/agent/home2");
+            }
+        }
+        else {
             navigate(IsRoleUser ? "/user/home2" : "/agent/home2");
         }
     }

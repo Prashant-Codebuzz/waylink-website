@@ -27,6 +27,7 @@ const initialShowPasswordState = {
 const SignUp = ({ authStep, setAuthStep, setEmail, role }) => {
 
     const IsRoleUser = role === "user";
+
     const dispatch = useDispatch();
 
     const [formData, setFormData] = useState(initialState);
@@ -52,9 +53,15 @@ const SignUp = ({ authStep, setAuthStep, setEmail, role }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const res = await dispatch(reqToRegisterUser(formData))
+        if (IsRoleUser) {
+            const res = await dispatch(reqToRegisterUser(formData))
 
-        if (res?.payload?.data?.status) {
+            if (res?.payload?.data?.status) {
+                setAuthStep(2); // Redirect to OTP-Verification
+                setEmail(formData.email)
+            }
+        }
+        else {
             setAuthStep(2); // Redirect to OTP-Verification
             setEmail(formData.email)
         }

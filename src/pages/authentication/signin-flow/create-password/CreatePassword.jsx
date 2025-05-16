@@ -48,15 +48,21 @@ const CreatePassword = ({ authStep, setAuthStep, email, role }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const payload = {
             ...formData,
             email: email,
         };
 
-        const res = await dispatch(reqTouserChangePass(payload))
-        console.log("sss2", res);
+        if (IsRoleUser) {
+            const res = await dispatch(reqTouserChangePass(payload))
+            console.log("sss2", res);
 
-        if (res?.payload?.data?.status) {
+            if (res?.payload?.data?.status) {
+                setAuthStep(1); // Redirect to Sign-In
+            }
+        }
+        else {
             setAuthStep(1); // Redirect to Sign-In
         }
     }

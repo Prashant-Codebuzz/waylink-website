@@ -14,7 +14,9 @@ const initialResendState = {
     disabled: true
 };
 
-const OtpVerification = ({ authStep, setAuthStep, authType, email }) => {
+const OtpVerification = ({ authStep, setAuthStep, authType, email, role }) => {
+
+    const IsRoleUser = role === "user";
     const dispatch = useDispatch();
 
     const [otp, setOtp] = useState(initialOtpState);
@@ -80,13 +82,24 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email }) => {
         const enteredOtp = otp?.join('');
 
         if (enteredOtp.length === 4) {
-            const res = await dispatch(reqToOtpVerification({
-                email: email,
-                otp: enteredOtp
-            }))
+            if (IsRoleUser) {
+                const res = await dispatch(reqToOtpVerification({
+                    email: email,
+                    otp: enteredOtp
+                }))
 
-            if (res.payload.data.status) {
-                localStorage.setItem("accessToken", res?.payload.data?.authentication?.accessToken)
+                if (res.payload.data.status) {
+                    localStorage.setItem("accessToken", res?.payload.data?.authentication?.accessToken)
+                    if (authType === "forgot-password") {
+                        setAuthStep(4); // Redirect to OTP-Verification
+                    }
+
+                    if (authType === "sign-up") {
+                        setAuthStep(3); // Redirect to Create-Profile
+                    }
+                }
+            }
+            else {
                 if (authType === "forgot-password") {
                     setAuthStep(4); // Redirect to OTP-Verification
                 }
@@ -147,7 +160,7 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email }) => {
                     <h1>OTP Verification</h1>
                     <p className='mb-0'>
                         Please enter OTP that we have send <br />
-                        on testuser@gmail.com
+                        on {email}
                     </p>
                 </div>
             </div>
