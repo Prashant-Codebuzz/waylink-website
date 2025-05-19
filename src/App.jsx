@@ -2,20 +2,32 @@ import { useState } from 'react'
 // Css
 import './css/App.scss'
 import { Route, Routes } from 'react-router-dom'
+
 // Scroll-To-Top
 import ScrollToTop from './components/scroll-to-top/ScrollToTop'
+
+
 // LayOut
-import LayOut from './components/layout/Layout'
-// Home
-import Home from './pages/home/Home'
+import { LandingLayOut, UserLayOut } from './components/layout/Layout'
+
+// Modal -- Role-Selection
+import LandingHome from './pages/landing-home/LandingHome'
+
+
 // Sign-In-Flow
 import SignInFlow from './pages/authentication/signin-flow/SignInFlow'
 // Sign-Up-Flow
 import SignUpFlow from './pages/authentication/signup-flow/SignUpFlow'
+
+
+// Modal -- Role-Selection
 import RoleSelection from './components/modal/role-selection/RoleSelection'
+
+
 
 function App() {
 
+    // Role-Selection
     const [showRoleSelection, setShowRoleSelection] = useState(false);
 
     const handleClose = () => {
@@ -34,9 +46,9 @@ function App() {
             <ScrollToTop />
 
             <Routes>
-                <Route element={<LayOut handleRoleSelect={handleRoleSelect} />}>
+                <Route element={<LandingLayOut handleRoleSelect={handleRoleSelect} />}>
                     {/* --- Home --- */}
-                    <Route path='/' element={<Home handleRoleSelect={handleRoleSelect} />} />
+                    <Route path='/' element={<LandingHome handleRoleSelect={handleRoleSelect} />} />
                 </Route>
 
 
@@ -49,6 +61,9 @@ function App() {
 
                 {/* Sign-Up-Flow */}
                 <Route path='/user/sign-up' element={<SignUpFlow role="user" />} />
+
+                {/* Home */}
+
 
 
                 {/* Agent */}

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Css
-import "./Home.scss";
+import "./LandingHome.scss";
 
 // Image
 import PlanIcon from '../../assets/images/home/plan_icon.png';
@@ -44,14 +44,14 @@ import TestimonialsRight from '../../assets/images/home/testimonials_right.png';
 import ScrollToSection from '../../hooks/useScrollToSection';
 
 // Static-Data
-import { AgentData, ConsultancyTabsData, CountryChoiceData, CountryData, TestimonialsData } from '../../constants/Data/Home';
+import { AgentData, ConsultancyTabsData, CountryChoiceData, CountryData, TestimonialsData } from '../../constants/data/LandingHome';
 
 // Ui-Package
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-const Home = ({ handleRoleSelect }) => {
+const LandingHome = ({ handleRoleSelect }) => {
 
     const navigate = useNavigate();
 
@@ -910,4 +910,4 @@ const Home = ({ handleRoleSelect }) => {
     )
 }
 
-export default Home;
+export default LandingHome;

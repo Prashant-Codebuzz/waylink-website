@@ -3,16 +3,26 @@ import { Outlet } from 'react-router-dom';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 
-const LayOut = ({ handleRoleSelect }) => {
+export const LandingLayOut = ({ handleRoleSelect }) => {
     return (
         <>
 
             <Header handleRoleSelect={handleRoleSelect} />
-                <Outlet />
+            <Outlet />
             <Footer />
 
         </>
     )
 }
 
-export default LayOut;
+
+
+export const UserLayOut = () => {
+    return (
+        <>
+
+
+
+        </>
+    )
+}
