@@ -1,15 +1,15 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import Header from '../header/Header';
-import Footer from '../footer/Footer';
+import LandingHeader from '../header/landing/Header';
+import LandingFooter from '../footer/landing/Footer';
 
 export const LandingLayOut = ({ handleRoleSelect }) => {
     return (
         <>
 
-            <Header handleRoleSelect={handleRoleSelect} />
-            <Outlet />
-            <Footer />
+            <LandingHeader handleRoleSelect={handleRoleSelect} />
+                <Outlet />
+            <LandingFooter />
 
         </>
     )
