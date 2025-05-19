@@ -1,6 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { reqToCreateUserProfile, reqToOtpVerification, reqToRegisterUser, reqToUseForgetPass, reqTouserChangePass, reqTouserReSendOtp, reqToUserSignIn } from "../services/userAuthServices";
-
+import { createSlice } from "@reduxjs/toolkit";
+import { reqToCreateUserProfile, reqToOtpVerification, reqToRegisterUser, reqToUseForgetPass, reqTouserChangePass, reqTouserReSendOtp, reqToUserSignIn } from "../../../services/user/auth/userAuthServices";
 
 const initialState = {
     loader: false,

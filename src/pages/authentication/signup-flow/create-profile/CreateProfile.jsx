@@ -3,7 +3,7 @@ import { useState } from 'react';
 // Image
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
 import { useDispatch } from 'react-redux';
-import { reqToCreateUserProfile } from '../../../../reduxToolkit/services/userAuthServices';
+import { reqToCreateUserProfile } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 
 const initialState = {
     mobileNumber: "",

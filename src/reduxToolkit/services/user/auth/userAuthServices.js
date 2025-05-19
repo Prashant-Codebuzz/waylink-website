@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import Axios, { authHeaders } from "../helper/axios";
-import { apiendpoints } from "../../constants";
+import { Axios, authHeaders } from "../../../helper/axios";
+import { apiendpoints } from "../../../../constants/api-routes";
 import toast from "react-hot-toast";
 
 

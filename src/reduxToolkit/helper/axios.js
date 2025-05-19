@@ -1,17 +1,16 @@
 import axios from "axios";
-import { API_URL } from "../../config";
+// import { API_URL } from "../../config";
 
 export const authHeaders = () => {
-    const token = localStorage.getItem("accessToken")
+    const token = localStorage.getItem("otp-verify-token");
     return {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
         }
     }
 }
 
-const Axios = axios.create({
-    baseURL: API_URL,
-})
-
-export default Axios;
+export const Axios = axios.create({
+    baseURL: import.meta.env.VITE_APP_ADMIN_API,
+});

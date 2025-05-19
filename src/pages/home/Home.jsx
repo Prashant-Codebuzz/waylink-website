@@ -41,7 +41,7 @@ import TestimonialsRight from '../../assets/images/home/testimonials_right.png';
 // import Luxembourg from '../../assets/images/home/country/luxembourg.png';
 
 // Custom-Hooks
-import ScrollToSection from '../../hooks/ScrollToSection';
+import ScrollToSection from '../../hooks/useScrollToSection';
 
 // Static-Data
 import { AgentData, ConsultancyTabsData, CountryChoiceData, CountryData, TestimonialsData } from '../../constants/Data/Home';

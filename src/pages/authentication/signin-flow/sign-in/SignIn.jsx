@@ -10,7 +10,7 @@ import PasswordHideInput from '../../../../assets/images/authentication/password
 import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
 
 import { useDispatch } from 'react-redux';
-import { reqToUserSignIn } from '../../../../reduxToolkit/services/userAuthServices';
+import { reqToUserSignIn } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 
 
 const initialState = {

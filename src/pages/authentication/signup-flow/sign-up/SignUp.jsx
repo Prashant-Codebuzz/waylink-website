@@ -11,7 +11,7 @@ import PasswordHideInput from '../../../../assets/images/authentication/password
 import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
 
 import { useDispatch } from 'react-redux';
-import { reqToRegisterUser } from '../../../../reduxToolkit/services/userAuthServices';
+import { reqToRegisterUser } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 
 const initialState = {
     email: "",

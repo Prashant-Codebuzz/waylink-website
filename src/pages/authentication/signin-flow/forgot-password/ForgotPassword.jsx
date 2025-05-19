@@ -6,7 +6,7 @@ import ForgotPasswordLogo from '../../../../assets/images/authentication/forgot-
 import EmailInput from '../../../../assets/images/authentication/email-input.svg';
 
 import { useDispatch } from 'react-redux';
-import { reqToUseForgetPass } from '../../../../reduxToolkit/services/userAuthServices';
+import { reqToUseForgetPass } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 
 const initialState = {
     email: ""

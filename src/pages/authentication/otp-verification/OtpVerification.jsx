@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 // Image
 import OtpVerificationLogo from '../../../assets/images/authentication/otp-verification-logo.svg';
 import { useDispatch } from 'react-redux';
-import { reqToOtpVerification, reqTouserReSendOtp } from '../../../reduxToolkit/services/userAuthServices';
+import { reqToOtpVerification, reqTouserReSendOtp } from '../../../reduxToolkit/services/user/auth/userAuthServices';
 import toast from 'react-hot-toast';
 
 
@@ -89,7 +89,8 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email, role }) => {
                 }))
 
                 if (res.payload.data.status) {
-                    localStorage.setItem("accessToken", res?.payload.data?.authentication?.accessToken)
+                    localStorage.setItem("otp-verify-token", res?.payload.data?.authentication?.accessToken);
+                    
                     if (authType === "forgot-password") {
                         setAuthStep(4); // Redirect to OTP-Verification
                     }

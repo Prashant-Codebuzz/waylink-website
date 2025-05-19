@@ -256,6 +256,52 @@
             }
         }
     }
+
+
+
+    @media (min-width: 2000px) {
+        .right {
+            max-width: 75%;
+            margin: auto;
+        }
+    }
+
+
+    @media (max-width: 1699px) {
+        .right {
+            padding: 90px 140px;
+        }
+    }
+
+    @media (max-width: 1399px) {
+        .right {
+            padding: 98px 110px;
+
+            .introducation {
+                margin-bottom: 40px;
+
+                .logo_img {
+                    margin-bottom: 40px;
+                }
+
+                .info {
+                    h1 {
+                        font-size: 45px;
+                    }
+
+                    p {
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1199px) {
+        .right {
+            padding: 70px 70px;
+        }
+    }
 }
 
 /* ------ SignIn-Flow End ------ */

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 // Image
 import CreatePasswordLogo from '../../../../assets/images/authentication/create-password-logo.svg';
 import { useDispatch } from 'react-redux';
-import { reqTouserChangePass } from '../../../../reduxToolkit/services/userAuthServices';
+import { reqTouserChangePass } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 import PasswordInput from '../../../../assets/images/authentication/password-input.svg';
 import PasswordHideInput from '../../../../assets/images/authentication/password-hide-input.svg';
 import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
