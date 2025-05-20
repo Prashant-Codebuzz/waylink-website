@@ -10,8 +10,11 @@ import ScrollToTop from './components/scroll-to-top/ScrollToTop'
 // LayOut
 import { LandingLayOut, UserLayOut } from './components/layout/Layout'
 
-// Modal -- Role-Selection
+// Landing-Home
 import LandingHome from './pages/landing-home/LandingHome'
+
+// Modal -- Role-Selection
+import RoleSelection from './components/modal/role-selection/RoleSelection'
 
 
 // Sign-In-Flow
@@ -19,10 +22,19 @@ import SignInFlow from './pages/authentication/signin-flow/SignInFlow'
 // Sign-Up-Flow
 import SignUpFlow from './pages/authentication/signup-flow/SignUpFlow'
 
-
-// Modal -- Role-Selection
-import RoleSelection from './components/modal/role-selection/RoleSelection'
-
+// ---- User ----
+// Home
+import UserHome from './pages/user/home/Home'
+// Agent
+import Agent from './pages/user/agent/Agent'
+// Agent-Detail
+import AgentDetail from './pages/user/agent-detail/AgentDetail'
+// News
+import News from './pages/user/news/News'
+// News-Detail
+import NewsDetail from './pages/user/news-detail/NewsDetail'
+// Contact-Us
+import ContactUs from './pages/user/contact-us/ContactUs'
 
 
 function App() {
@@ -42,19 +54,21 @@ function App() {
     return (
         <>
 
-            {/* --- Scroll-To-Top --- */}
+            {/* Scroll-To-Top */}
             <ScrollToTop />
 
             <Routes>
+                {/* ---- Landing ---- */}
+                {/* -- LayOut -- */}
                 <Route element={<LandingLayOut handleRoleSelect={handleRoleSelect} />}>
-                    {/* --- Home --- */}
+                    {/* Home */}
                     <Route path='/' element={<LandingHome handleRoleSelect={handleRoleSelect} />} />
                 </Route>
 
 
 
-                {/* --- Authentication --- */}
-                {/* User */}
+                {/* ---- User ---- */}
+                {/* -- Authentication -- */}
 
                 {/* Sign-In-Flow */}
                 <Route path='/user/sign-in' element={<SignInFlow role="user" />} />
@@ -62,11 +76,28 @@ function App() {
                 {/* Sign-Up-Flow */}
                 <Route path='/user/sign-up' element={<SignUpFlow role="user" />} />
 
-                {/* Home */}
+
+                {/* -- LayOut -- */}
+                <Route element={<UserLayOut />}>
+                    {/* Home */}
+                    <Route path='/user/home' element={<UserHome />} />
+                    {/* Agent */}
+                    <Route path='/user/agent' element={<Agent />} />
+                    {/* Agent-Detail */}
+                    <Route path='/user/agent-detail/:id' element={<AgentDetail />} />
+                    {/* News */}
+                    <Route path='/user/news' element={<News />} />
+                    {/* News-Detail */}
+                    <Route path='/user/news-detail/:id' element={<NewsDetail />} />
+                    {/* Contact-Us */}
+                    <Route path='/user/contact-us' element={<ContactUs />} />
+                </Route>
 
 
 
-                {/* Agent */}
+                {/* ---- Agent ---- */}
+                {/* -- Authentication -- */}
+
                 {/* Sign-In-Flow */}
                 <Route path='/agent/sign-in' element={<SignInFlow role="agent" />} />
 

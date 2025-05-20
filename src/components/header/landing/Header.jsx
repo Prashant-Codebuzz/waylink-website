@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import "./Header.scss";
 import Logo from '../../../assets/images/header/logo.png';
@@ -69,7 +69,6 @@ const LandingHeader = ({ handleRoleSelect }) => {
                 </div>
             </header>
             {/* ------ Header End ------ */}
-
 
         </>
     )

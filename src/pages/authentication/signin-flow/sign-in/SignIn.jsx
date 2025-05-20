@@ -99,7 +99,6 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
             <form onSubmit={handleSubmit}>
 
                 <div className="mb-4">
-
                     <div className={`input-group ${formData.email ? 'active' : ''}`}>
                         <span className='icon'>
                             <img src={EmailInput} alt="" className='img-fluid' />

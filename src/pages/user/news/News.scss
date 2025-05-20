@@ -1,0 +1,59 @@
+/* ------ News Start ------ */
+
+.latest_news.news {
+    background-color: var(--white);
+
+    .top {
+        .filter_btn {
+            display: flex;
+            align-items: center;
+
+            background-color: #0402731A;
+            border: 0;
+            border-radius: 16px;
+            padding: 18px 22px;
+
+
+            font-family: var(--dm-sans);
+            font-weight: 500;
+            font-size: 18px;
+            color: var(--blue);
+        }
+
+        .input-group {
+            max-width: 75%;
+
+            .form-control {
+                background-color: var(--white);
+                border: 2px solid #0402731A;
+                padding: 18px 20px 18px 55px;
+                border-radius: 18px;
+
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 18px;
+                color: #696969;
+
+                &::placeholder {
+                    color: var(--placeholder);
+                }
+
+                border-top-left-radius: 16px !important;
+                border-bottom-left-radius: 16px !important;
+            }
+
+            .icon {
+                position: absolute;
+                top: 50%;
+                left: 20px;
+                transform: translateY(-50%);
+                z-index: 10;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+/* ------ News End ------ */

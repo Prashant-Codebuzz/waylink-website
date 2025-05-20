@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const ScrollToSection = () => {
+const useScrollToSection = () => {
 
     const location = useLocation();
 
@@ -22,4 +22,4 @@ const ScrollToSection = () => {
     }, [location.hash]);
 };
 
-export default ScrollToSection;
+export default useScrollToSection;

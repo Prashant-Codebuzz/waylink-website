@@ -5,46 +5,46 @@ import { Link, useNavigate } from 'react-router-dom';
 import "./LandingHome.scss";
 
 // Image
-import PlanIcon from '../../assets/images/home/plan_icon.png';
-import BannerRight from '../../assets/images/home/banner_right.png';
-import CountryTrack from '../../assets/images/home/country_track.png';
-import WhoWaylinkLeft from '../../assets/images/home/who_waylink_left.png';
-import HowHelpIcon1 from '../../assets/images/home/how_help_icon1.png';
-import HowHelpIcon2 from '../../assets/images/home/how_help_icon2.png';
-import HowHelpIcon3 from '../../assets/images/home/how_help_icon3.png';
-import HowHelpIcon4 from '../../assets/images/home/how_help_icon4.png';
-import HowHelpIcon5 from '../../assets/images/home/how_help_icon5.png';
-import TrueIcon from '../../assets/images/home/true_icon.png';
-import OurConsultancyLeft from '../../assets/images/home/our_consultancy_left.png';
-import AgentButton from '../../assets/images/home/agent_btn.png';
-import WhyWaylinkRight from '../../assets/images/home/why_waylink_right.png';
-import WhyWaylinkLeft1 from '../../assets/images/home/why_waylink_left1.png';
-import WhyWaylinkLeft2 from '../../assets/images/home/why_waylink_left2.png';
-import DownloadAppLogo from '../../assets/images/home/download_app_logo.png';
-import DownloadAppIphone from '../../assets/images/home/download_app_iphone.png';
-import DownloadAppAndroid from '../../assets/images/home/download_app_android.png';
-import DownloadAppRight from '../../assets/images/home/download_app_right.png';
-import TestimonialsLeft from '../../assets/images/home/testimonials_left.png';
-import TestimonialsRight from '../../assets/images/home/testimonials_right.png';
+import PlanIcon from '../../assets/images/home/landing/plan_icon.png';
+import BannerRight from '../../assets/images/home/landing/banner_right.png';
+import CountryTrack from '../../assets/images/home/landing/country_track.png';
+import WhoWaylinkLeft from '../../assets/images/home/landing/who_waylink_left.png';
+import HowHelpIcon1 from '../../assets/images/home/landing/how_help_icon1.png';
+import HowHelpIcon2 from '../../assets/images/home/landing/how_help_icon2.png';
+import HowHelpIcon3 from '../../assets/images/home/landing/how_help_icon3.png';
+import HowHelpIcon4 from '../../assets/images/home/landing/how_help_icon4.png';
+import HowHelpIcon5 from '../../assets/images/home/landing/how_help_icon5.png';
+import TrueIcon from '../../assets/images/home/landing/true_icon.png';
+import OurConsultancyLeft from '../../assets/images/home/landing/our_consultancy_left.png';
+import AgentButton from '../../assets/images/home/landing/agent_btn.png';
+import WhyWaylinkRight from '../../assets/images/home/landing/why_waylink_right.png';
+import WhyWaylinkLeft1 from '../../assets/images/home/landing/why_waylink_left1.png';
+import WhyWaylinkLeft2 from '../../assets/images/home/landing/why_waylink_left2.png';
+import DownloadAppLogo from '../../assets/images/home/landing/download_app_logo.png';
+import DownloadAppIphone from '../../assets/images/home/landing/download_app_iphone.png';
+import DownloadAppAndroid from '../../assets/images/home/landing/download_app_android.png';
+import DownloadAppRight from '../../assets/images/home/landing/download_app_right.png';
+import TestimonialsLeft from '../../assets/images/home/landing/testimonials_left.png';
+import TestimonialsRight from '../../assets/images/home/landing/testimonials_right.png';
 
-// import Australia from '../../assets/images/home/country/australia.png';
-// import Belgium from '../../assets/images/home/country/belgium.png';
-// import Canada from '../../assets/images/home/country/canada.png';
-// import Denmark from '../../assets/images/home/country/denmark.png';
-// import France from '../../assets/images/home/country/france.png';
-// import Germany from '../../assets/images/home/country/germany.png';
-// import Greece from '../../assets/images/home/country/greece.png';
-// import Hungary from '../../assets/images/home/country/hungary.png';
-// import Iceland from '../../assets/images/home/country/iceland.png';
-// import Ireland from '../../assets/images/home/country/ireland.png';
-// import Italy from '../../assets/images/home/country/italy.png';
-// import Luxembourg from '../../assets/images/home/country/luxembourg.png';
+// import Australia from '../../assets/images/home/landing/country/australia.png';
+// import Belgium from '../../assets/images/home/landing/country/belgium.png';
+// import Canada from '../../assets/images/home/landing/country/canada.png';
+// import Denmark from '../../assets/images/home/landing/country/denmark.png';
+// import France from '../../assets/images/home/landing/country/france.png';
+// import Germany from '../../assets/images/home/landing/country/germany.png';
+// import Greece from '../../assets/images/home/landing/country/greece.png';
+// import Hungary from '../../assets/images/home/landing/country/hungary.png';
+// import Iceland from '../../assets/images/home/landing/country/iceland.png';
+// import Ireland from '../../assets/images/home/landing/country/ireland.png';
+// import Italy from '../../assets/images/home/landing/country/italy.png';
+// import Luxembourg from '../../assets/images/home/landing/country/luxembourg.png';
 
 // Custom-Hooks
-import ScrollToSection from '../../hooks/useScrollToSection';
+import useScrollToSection from '../../hooks/useScrollToSection';
 
 // Static-Data
-import { AgentData, ConsultancyTabsData, CountryChoiceData, CountryData, TestimonialsData } from '../../constants/data/LandingHome';
+import { AgentData, ConsultancyTabsData, CountryChoiceData, CountryData, TestimonialsData } from '../../constants/data/Data';
 
 // Ui-Package
 import OwlCarousel from 'react-owl-carousel';
@@ -113,7 +113,7 @@ const LandingHome = ({ handleRoleSelect }) => {
 
 
     // Scroll-To-Section
-    ScrollToSection();
+    useScrollToSection();
 
 
     return (
@@ -842,7 +842,7 @@ const LandingHome = ({ handleRoleSelect }) => {
                                 </div>
 
                                 <h1>
-                                    What Customers Saying About Waylink
+                                    What Customers Saying About <br className='d-none d-xl-block' /> Waylink
                                 </h1>
 
                                 <p>

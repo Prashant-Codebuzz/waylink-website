@@ -1,0 +1,204 @@
+/* ------ Footer Start ------ */
+footer {
+    background-color: var(--blue);
+    padding-block: 35px;
+
+    .top {
+        .left {
+            .info {
+                p {
+                    font-family: var(--dm-sans);
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: var(--white);
+                    margin-block: 20px 30px;
+                }
+
+                .social {
+                    .title {
+                        font-family: var(--dm-sans);
+                        font-weight: 600;
+                        font-size: 26px;
+                        color: var(--white);
+                    }
+
+                    .icon {
+                        gap: 15px;
+                    }
+                }
+            }
+        }
+
+        .right {
+            .title {
+                font-family: var(--dm-sans);
+                font-weight: 600;
+                font-size: 26px;
+                color: var(--white);
+                margin-bottom: 23px;
+            }
+
+            .menu {
+                .item {
+                    margin-bottom: 8px;
+
+                    .link {
+                        font-family: var(--dm-sans);
+                        font-weight: 500;
+                        font-size: 20px;
+                        color: var(--white);
+                        margin-inline: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    .second {
+        border-top: 1px solid #FFFFFF;
+        margin-top: 60px;
+        padding-top: 60px;
+
+        .left {
+            p {
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 20px;
+                color: var(--white);
+            }
+        }
+
+        .right {
+            .menu {
+
+                a,
+                span {
+                    font-family: var(--dm-sans);
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: var(--white);
+                    margin-inline: 5px;
+                }
+            }
+        }
+    }
+
+
+    @media (max-width: 1399px) {
+        padding-block: 30px;
+
+        .top {
+            .left {
+                .info {
+                    p {
+                        font-size: 18px;
+                        margin-block: 18px 26px;
+                    }
+
+                    .social {
+                        .title {
+                            font-size: 24px;
+                        }
+                    }
+                }
+            }
+
+            .right {
+                .title {
+                    font-size: 24px;
+                    margin-bottom: 20px;
+                }
+
+                .menu {
+                    .item {
+                        .link {
+                            font-size: 18px;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        .second {
+            margin-top: 50px;
+            padding-top: 50px;
+
+            .left {
+                p {
+                    font-size: 18px;
+                }
+            }
+
+            .right {
+                .menu {
+
+                    a,
+                    span {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1199px) {
+        padding-block: 28px;
+
+        .top {
+            .left {
+                .info {
+                    p {
+                        font-size: 17px;
+                        margin-block: 18px 24px;
+                    }
+
+                    .social {
+                        .title {
+                            font-size: 23px;
+                        }
+                    }
+                }
+            }
+
+            .right {
+                .title {
+                    font-size: 23px;
+                    margin-bottom: 18px;
+                }
+
+                .menu {
+                    .item {
+                        .link {
+                            font-size: 17px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .second {
+            margin-top: 50px;
+            padding-top: 50px;
+
+            .left {
+                p {
+                    font-size: 17px;
+                }
+            }
+
+            .right {
+                .menu {
+
+                    a,
+                    span {
+                        font-size: 17px;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+/* ------ Footer End ------ */
