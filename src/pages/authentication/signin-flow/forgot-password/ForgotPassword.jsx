@@ -7,6 +7,7 @@ import EmailInput from '../../../../assets/images/authentication/email-input.svg
 
 import { useDispatch } from 'react-redux';
 import { reqToUseForgetPass } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
+import { reqToAgentForgetPass } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
 
 const initialState = {
     email: ""
@@ -41,8 +42,12 @@ const ForgotPassword = ({ authStep, setAuthStep, setEmail, role }) => {
             }
         }
         else {
-            setAuthStep(3); // Redirect to OTP-Verification
-            setEmail(formData?.email)
+            const res = await dispatch(reqToAgentForgetPass(formData))
+
+            if (res?.payload?.data?.status) {
+                setAuthStep(3); // Redirect to OTP-Verification
+                setEmail(formData?.email)
+            }
         }
     }
 

@@ -13,7 +13,7 @@ const LandingHeader = ({ handleRoleSelect }) => {
                     <nav className="navbar navbar-expand-lg">
                         <div className="container-fluid p-0">
                             <div className='navbar-brand me-0'>
-                                <Link to="#">
+                                <Link to="/">
                                     <img src={Logo} alt="" className='img-fluid' />
                                 </Link>
                             </div>

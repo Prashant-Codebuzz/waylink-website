@@ -4,9 +4,12 @@ import { useState } from 'react';
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
 import { useDispatch } from 'react-redux';
 import { reqToCreateUserProfile } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
+import { reqToCreateAgentProfile } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/bootstrap.css';
+import parsePhoneNumberFromString from 'libphonenumber-js';
 
 const initialState = {
-    mobileNumber: "",
     name: "",
     gender: "",
     dateOfBirth: "",
@@ -22,6 +25,9 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
     const dispatch = useDispatch();
 
     const [formData, setFormData] = useState(initialState)
+    const [phone, setPhone] = useState('');
+    const [isValid, setIsValid] = useState(false);
+    const [isError, setError] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -45,33 +51,44 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
         }));
     }
 
+    const handlePhoneChange = (value) => {
+        const parsed = parsePhoneNumberFromString("+" + value);
+        if (parsed && parsed.isValid()) {
+            const formatted = parsed.formatInternational();
+            setPhone(formatted);
+            setIsValid(true);
+            setError(false)
+        } else {
+            setIsValid(false);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (IsRoleUser) {
-            try {
-                const res = await dispatch(reqToCreateUserProfile(formData))
-                if (res?.payload?.data?.status) {
-                    if (IsRoleUser) {
-                        setAuthStep(4); // Redirect to Congratulations
-                    }
-                    else {
-                        setAuthStep(5); // Redirect to Service-Detail
-                    }
-                }
-            } catch (error) {
-                throw error
-            }
+        if (!isValid) {
+            setError(true)
+            return;
         }
-        else {
+
+        const payload = { ...formData, mobileNumber: phone };
+
+        try {
+            let res;
             if (IsRoleUser) {
-                setAuthStep(4); // Redirect to Congratulations
+                res = await dispatch(reqToCreateUserProfile(payload));
+            } else {
+                res = await dispatch(reqToCreateAgentProfile(payload));
             }
-            else {
-                setAuthStep(5); // Redirect to Service-Detail
+
+            if (res?.payload?.data?.status) {
+                setAuthStep(IsRoleUser ? 4 : 5);
+                setPhone("")
             }
+        } catch (error) {
+            console.error("Error submitting form", error);
         }
-    }
+    };
 
     return (
         <>
@@ -93,16 +110,19 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
 
             <form onSubmit={handleSubmit}>
                 <div className='mb-4'>
-                    <input
-                        type="text"
-                        pattern='\d*'
-                        maxLength="16"
-                        id="mobileNumber"
-                        name="mobileNumber"
-                        className="form-control"
-                        placeholder="Enter mobile number"
-                        onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
-                        onChange={handleChange}
+                    <PhoneInput
+                        country={'in'}
+                        value={phone}
+                        onChange={handlePhoneChange}
+                        inputClass={`${isError ? 'error' : ''} form-control`}
+                        placeholder='Enter mobile number'
+                        containerClass="mb-2"
+                        dropdownClass='country-list'
+                        inputStyle={{
+                            borderRadius: '10px',
+                            width: '100%',
+                            paddingLeft: '58px'
+                        }}
                     />
                 </div>
 

@@ -12,6 +12,7 @@ import PasswordShowInput from '../../../../assets/images/authentication/password
 
 import { useDispatch } from 'react-redux';
 import { reqToRegisterUser } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
+import { reqToRegisterAgent } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
 
 const initialState = {
     email: "",
@@ -62,8 +63,12 @@ const SignUp = ({ authStep, setAuthStep, setEmail, role }) => {
             }
         }
         else {
-            setAuthStep(2); // Redirect to OTP-Verification
-            setEmail(formData.email)
+            const res = await dispatch(reqToRegisterAgent(formData))
+
+            if (res?.payload?.data?.status) {
+                setAuthStep(2); // Redirect to OTP-Verification
+                setEmail(formData.email)
+            }
         }
 
     }

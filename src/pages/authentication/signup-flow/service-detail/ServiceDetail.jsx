@@ -2,27 +2,44 @@ import React, { useState } from 'react'
 
 // Image
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
-
+import UploadIcon from '../../../../assets/images/upload-icon.svg'
+import { reqToAgentWorkProfile } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
+import { useDispatch } from 'react-redux';
 
 const initialState = {
-    service_type: "individual",
-    work: "",
+    type: "individual",
+    workTitle: "",
     experience: "",
-    birthdate: "",
-    country: "",
-    state: "",
-    city: "",
-    address: "",
+    service: "",
+    companyName: "",
+    totalAgent: ""
 }
 
 const ServiceDetail = ({ authStep, setAuthStep, role }) => {
 
     const IsRoleUser = role === "user";
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState(initialState);
+    const [file, setFile] = useState('');
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFile(file);
+        }
+    };
+
+    const handleRemove = () => {
+        setFile('');
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        if (name === "experience") {
+            if (!/^\d*$/.test(value)) return;
+        }
 
         setFormData((prev) => ({
             ...prev,
@@ -30,10 +47,24 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
         }));
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setAuthStep(4); // Redirect to Congratulations
+        const formPayload = new FormData();
+        formPayload.append("type", formData.type);
+        formPayload.append("workTitle", formData.workTitle);
+        formPayload.append("experience", formData.experience);
+        formPayload.append("service", formData.service);
+        formPayload.append("companyName", formData.companyName);
+        formPayload.append("totalAgent", formData.totalAgent);
+        if (file) {
+            formPayload.append("document", file);
+        }
+
+        const res = await dispatch(reqToAgentWorkProfile(formPayload))
+        if (res?.payload?.data?.status) {
+            setAuthStep(4); // Redirect to Congratulations
+        }
     }
 
     return (
@@ -60,14 +91,14 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                         <input
                             type="radio"
                             id="individual"
-                            name="service_type"
+                            name="type"
                             className="form-check-input"
                             value={"individual"}
-                            checked={formData.service_type === "individual"}
+                            checked={formData.type === "individual"}
                             onChange={handleChange}
                             required
                         />
-                        <label class="form-check-label" for="individual">
+                        <label className="form-check-label" htmlFor="individual">
                             Individual
                         </label>
                     </div>
@@ -75,95 +106,120 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                         <input
                             type="radio"
                             id="company"
-                            name="service_type"
+                            name="type"
                             className="form-check-input"
                             value={"company"}
-                            checked={formData.service_type === "company"}
+                            checked={formData.type === "company"}
                             onChange={handleChange}
                             required
                         />
-                        <label class="form-check-label" for="company">
+                        <label className="form-check-label" htmlFor="company">
                             Company
                         </label>
                     </div>
                 </div>
 
+                {formData.type === "company" && (
+                    <div className='mb-4'>
+                        <input
+                            type="text"
+                            id="companyName"
+                            name="companyName"
+                            className="form-control"
+                            placeholder="Enter your company name"
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                )}
+
                 <div className='mb-4'>
                     <input
                         type="text"
-                        id="work"
-                        name="work"
+                        id="workTitle"
+                        name="workTitle"
                         className="form-control"
                         placeholder="Enter your work"
+                        onChange={handleChange}
+                        required
                     />
                 </div>
 
                 <div className='mb-4'>
                     <input
                         type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
                         id="experience"
                         name="experience"
                         className="form-control"
                         placeholder="Enter your experience"
+                        onChange={handleChange}
+                        value={formData.experience || ""}
+                        required
                     />
                 </div>
 
+                {formData.type === "company" && (
+                    <div className='mb-4'>
+                        <input
+                            type="text"
+                            id="totalAgent"
+                            name="totalAgent"
+                            className="form-control"
+                            placeholder="How many agents you have"
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                )}
 
-                <div className='mb-4'>
-                    <input
-                        type="date"
-                        id="birthdate"
-                        name="birthdate"
-                        className="form-control"
-                        placeholder="Select birthdate"
-                    />
+                <div className="mb-4">
+                    <div className="dropdown mb-2">
+                        <button className="form-select text-start" type='button'>
+                            Upload a Document
+                        </button>
+                    </div>
+
+                    {file && (
+                        <div className="mb-2 text-start">
+                            <span className="badge bg-secondary me-2 d-inline-flex align-items-center">
+                                {file.name}
+                                <button
+                                    type="button"
+                                    className="btn-close btn-close-white btn-sm ms-2"
+                                    onClick={handleRemove}
+                                    aria-label="Close"
+                                ></button>
+                            </span>
+                        </div>
+                    )}
+
+                    <div className="upload">
+                        <label htmlFor="upload-input" className="fw-bold m-0">
+                            <img src={UploadIcon} alt="UploadIcon" /> Click to upload <span>Document</span>
+                        </label>
+                        <input
+                            id="upload-input"
+                            type="file"
+                            onChange={handleFileChange}
+                            className="d-none"
+                        />
+                    </div>
                 </div>
 
                 <div className='mb-4'>
                     <select
-                        id="country"
-                        name="country"
+                        id="service"
+                        name="service"
                         className="form-select"
+                        onChange={handleChange}
                     >
-                        <option value="">Select country</option>
-                        <option value="india">India</option>
-                        <option value="usa">Usa</option>
+                        <option value="">Select Your Service</option>
+                        <option value="frontend">Frontend developer</option>
+                        <option value="backend">Backend development</option>
+                        <option value="flutter">Flutter development</option>
                     </select>
-                </div>
-
-                <div className='mb-4'>
-                    <select
-                        id="state"
-                        name="state"
-                        className="form-select"
-                    >
-                        <option value="">Select state</option>
-                        <option value="gujarat">Gujarat</option>
-                        <option value="maharashtra">Maharashtra</option>
-                    </select>
-                </div>
-
-                <div className='mb-4'>
-                    <select
-                        id="city"
-                        name="city"
-                        className="form-select"
-                    >
-                        <option value="">Select city</option>
-                        <option value="surat">Surat</option>
-                        <option value="mumbai">Mumbai</option>
-                    </select>
-                </div>
-
-                <div className='mb-4'>
-                    <textarea
-                        type="text"
-                        id="address"
-                        name="address"
-                        className="form-control"
-                        placeholder="Enter address"
-                        rows={4}
-                    />
                 </div>
 
                 <div>

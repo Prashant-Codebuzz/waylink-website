@@ -26,27 +26,30 @@ const Congratulations = ({ authStep, setAuthStep, role }) => {
         <>
 
             {/* ------ Congratulations Start ------ */}
-            <div className="introducation mb-0">
-                <div className='logo_img'>
-                    <img src={CongratulationsLogo} alt="" className='img-fluid' />
+            <div className="introducation mb-0 h-100">
+                <div className='intro-cong'>
+                    <div className='logo_img'>
+                        <img src={CongratulationsLogo} alt="" className='img-fluid' />
+                    </div>
+
+                    <div className="info">
+                        <h1>Congratulations!</h1>
+                        <p className='mb-0'>
+                            Your account is ready to use. You will be <br />
+                            redirected to the home in a few seconds..
+                        </p>
+                    </div>
+
+                    <div className="congratulation_loader d-flex justify-content-center">
+                        {/* <img src={CongratulationsLoader} alt="" className='img-fluid' /> */}
+                        <Lottie
+                            animationData={CongratulationsAnimation}
+                            loop={true}
+                            className='lottie_loader'
+                        />
+                    </div>
                 </div>
 
-                <div className="info">
-                    <h1>Congratulations!</h1>
-                    <p className='mb-0'>
-                        Your account is ready to use. You will be <br />
-                        redirected to the home in a few seconds..
-                    </p>
-                </div>
-
-                <div className="congratulation_loader d-flex justify-content-center">
-                    {/* <img src={CongratulationsLoader} alt="" className='img-fluid' /> */}
-                    <Lottie
-                        animationData={CongratulationsAnimation}
-                        loop={true}
-                        className='lottie_loader'
-                    />
-                </div>
             </div>
             {/* ------ Congratulations End ------ */}
 

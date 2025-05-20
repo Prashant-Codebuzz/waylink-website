@@ -5,6 +5,7 @@ import OtpVerificationLogo from '../../../assets/images/authentication/otp-verif
 import { useDispatch } from 'react-redux';
 import { reqToOtpVerification, reqTouserReSendOtp } from '../../../reduxToolkit/services/user/auth/userAuthServices';
 import toast from 'react-hot-toast';
+import { reqToAgentOtpVerification } from '../../../reduxToolkit/services/agent/auth/agentAuthServices';
 
 
 const initialOtpState = ["", "", "", ""];
@@ -90,7 +91,7 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email, role }) => {
 
                 if (res.payload.data.status) {
                     localStorage.setItem("otp-verify-token", res?.payload.data?.authentication?.accessToken);
-                    
+
                     if (authType === "forgot-password") {
                         setAuthStep(4); // Redirect to OTP-Verification
                     }
@@ -101,12 +102,21 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email, role }) => {
                 }
             }
             else {
-                if (authType === "forgot-password") {
-                    setAuthStep(4); // Redirect to OTP-Verification
-                }
+                const res = await dispatch(reqToAgentOtpVerification({
+                    email: email,
+                    otp: enteredOtp
+                }))
 
-                if (authType === "sign-up") {
-                    setAuthStep(3); // Redirect to Create-Profile
+                if (res.payload.data.status) {
+                    localStorage.setItem("otp-verify-token", res?.payload.data?.authentication?.accessToken);
+
+                    if (authType === "forgot-password") {
+                        setAuthStep(4); // Redirect to OTP-Verification
+                    }
+
+                    if (authType === "sign-up") {
+                        setAuthStep(3); // Redirect to Create-Profile
+                    }
                 }
             }
         }

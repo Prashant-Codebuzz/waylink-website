@@ -94,6 +94,12 @@
 
     .right {
         .introducation {
+            .intro-cong {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                height: 100%;
+            }
 
             /* --- Congratulations Start --- */
             .congratulation_loader {
@@ -111,7 +117,7 @@
         form {
 
 
-            /* --- OTP-Verification Start --- */
+            /* --- Create-Profile Start --- */
             .form-select {
                 background-image: url("../../../assets/images/select-dropdown.svg");
                 background-position: right 25px center;
@@ -137,7 +143,7 @@
                 }
             }
 
-            /* --- OTP-Verification End --- */
+            /* --- Create-Profile End --- */
 
 
             /* --- Service-Detail Start --- */
@@ -180,9 +186,46 @@
                     margin-left: 5px;
                 }
 
-                .form-check-input:checked + .form-check-label {
+                .form-check-input:checked+.form-check-label {
                     color: var(--blue);
                 }
+            }
+
+            .upload {
+                label {
+                    color: var(--blue);
+                    cursor: pointer;
+                    width: 100%;
+                    border: 3px dashed #F1F1F1;
+                    padding-block: 10px;
+                    border-radius: 16px;
+
+                    span {
+                        color: #475467;
+                    }
+                }
+            }
+
+            .react-tel-input .selected-flag:focus:before,
+            .react-tel-input .selected-flag.open:before {
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+            .country-list {
+                background-color: white !important;
+            }
+
+            .react-tel-input .country-list .country {
+                background-color: transparent;
+            }
+
+            .react-tel-input .country-list .country:hover {
+                background-color: #f1f1f1;
+            }
+
+            .error {
+                border: 1px solid red !important;
             }
 
             /* --- Service-Detail End --- */

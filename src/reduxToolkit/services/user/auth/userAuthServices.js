@@ -77,7 +77,7 @@ export const reqToUserSignIn = createAsyncThunk("reqToUserSignIn", async (data) 
 //reqToUseForgetPass
 export const reqToUseForgetPass = createAsyncThunk("reqToUseForgetPass", async (data) => {
     try {
-        const response = await Axios.post(apiendpoints.useForgetPass, data)
+        const response = await Axios.post(apiendpoints.userForgetPass, data)
 
         if (response?.data?.status) {
             toast.success(response?.data?.message);

@@ -11,6 +11,7 @@ import PasswordShowInput from '../../../../assets/images/authentication/password
 
 import { useDispatch } from 'react-redux';
 import { reqToUserSignIn } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
+import { reqToAgentSignIn } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
 
 
 const initialState = {
@@ -48,11 +49,15 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
             const res = await dispatch(reqToUserSignIn(formData))
 
             if (res?.payload?.data?.status) {
-                navigate(IsRoleUser ? "/user/home2" : "/agent/home2");
+                navigate(IsRoleUser ? "/user/home" : "/agent/home");
             }
         }
         else {
-            navigate(IsRoleUser ? "/user/home2" : "/agent/home2");
+            const res = await dispatch(reqToAgentSignIn(formData))
+
+            if (res?.payload?.data?.status) {
+                navigate(IsRoleUser ? "/user/home" : "/agent/home");
+            }
         }
     }
 

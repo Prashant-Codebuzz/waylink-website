@@ -7,6 +7,7 @@ import { reqTouserChangePass } from '../../../../reduxToolkit/services/user/auth
 import PasswordInput from '../../../../assets/images/authentication/password-input.svg';
 import PasswordHideInput from '../../../../assets/images/authentication/password-hide-input.svg';
 import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
+import { reqToAgentChangePass } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
 
 const initialState = {
     password: "",
@@ -63,7 +64,12 @@ const CreatePassword = ({ authStep, setAuthStep, email, role }) => {
             }
         }
         else {
-            setAuthStep(1); // Redirect to Sign-In
+            const res = await dispatch(reqToAgentChangePass(payload))
+            console.log("sss2", res);
+
+            if (res?.payload?.data?.status) {
+                setAuthStep(1); // Redirect to Sign-In
+            }
         }
     }
 

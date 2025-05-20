@@ -11,6 +11,17 @@ export const authHeaders = () => {
     }
 }
 
+
+export const authImageHeaders = () => {
+    const token = localStorage.getItem("otp-verify-token");
+    return {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data"
+        }
+    }
+}
+
 export const Axios = axios.create({
-    baseURL: import.meta.env.VITE_APP_ADMIN_API,
+    baseURL: import.meta.env.VITE_APP_WEB_API,
 });

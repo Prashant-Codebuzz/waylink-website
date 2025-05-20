@@ -50,16 +50,28 @@ import { AgentData, ConsultancyTabsData, CountryChoiceData, CountryData, Testimo
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import { useDispatch } from 'react-redux';
+import { reqToTopAgent } from '../../reduxToolkit/services/landing-home/agent/agentServices';
 
 const LandingHome = ({ handleRoleSelect }) => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [activeTab, setActiveTab] = useState('apply-visa-online');
 
     // Country
     const [activeCountry, setActiveCountry] = useState('europe');
+    const [agentList, setAgentList] = useState([])
 
+    const handleGetTopAgentList = async () => {
+        const res = await dispatch(reqToTopAgent());
+        setAgentList(res?.payload?.data?.data);
+    }
+
+    useEffect(() => {
+        handleGetTopAgentList()
+    }, [])
 
     // Testimonials
     const carouselRef = useRef();
@@ -676,18 +688,18 @@ const LandingHome = ({ handleRoleSelect }) => {
                         <div className="row g-5">
 
                             {
-                                AgentData?.map((i, index) => {
+                                agentList?.slice(0, 4).map((i, index) => {
                                     return (
                                         <div className="col-lg-4 col-xl-3" key={index}>
                                             <div className="box text-center">
                                                 <div className="dot"></div>
                                                 <div className="agent_img">
-                                                    <img src={i.image} alt="" className='img-fluid object-fit-cover' />
+                                                    <img src={i.profile} alt="" className='img-fluid object-fit-cover' />
                                                 </div>
 
                                                 <div className="info">
                                                     <div className="name">{i.name}</div>
-                                                    <div className='expe'>Exp: {i.experience} Years</div>
+                                                    <div className='expe'>Exp: {i?.experience?.length} Years</div>
                                                 </div>
 
                                                 <button type='button' className='agent_btn'>
