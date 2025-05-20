@@ -53,17 +53,17 @@ const SignInFlow = ({ role }) => {
 
                             {/* --- Forgot-Password --- */}
                             {authStep === 2 && (
-                                <ForgotPassword authStep={authStep} setAuthStep={setAuthStep} setEmail={setEmail} role={role}/>
+                                <ForgotPassword authStep={authStep} setAuthStep={setAuthStep} setEmail={setEmail} role={role} />
                             )}
 
                             {/* --- OTP-Verification --- */}
                             {authStep === 3 && (
-                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="forgot-password" email={email} role={role}/>
+                                <OtpVerification authStep={authStep} setAuthStep={setAuthStep} authType="forgot-password" email={email} role={role} />
                             )}
 
                             {/* --- Create-Password --- */}
                             {authStep === 4 && (
-                                <CreatePassword authStep={authStep} setAuthStep={setAuthStep} email={email} role={role}/>
+                                <CreatePassword authStep={authStep} setAuthStep={setAuthStep} email={email} role={role} />
                             )}
 
                         </div>

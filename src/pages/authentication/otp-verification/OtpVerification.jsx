@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 
 // Image
 import OtpVerificationLogo from '../../../assets/images/authentication/otp-verification-logo.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reqToOtpVerification, reqTouserReSendOtp } from '../../../reduxToolkit/services/user/auth/userAuthServices';
 import toast from 'react-hot-toast';
 import { reqToAgentOtpVerification } from '../../../reduxToolkit/services/agent/auth/agentAuthServices';
+import { loaders } from '../../../components/loader/loaders/Loader';
 
 
 const initialOtpState = ["", "", "", ""];
@@ -19,6 +20,8 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email, role }) => {
 
     const IsRoleUser = role === "user";
     const dispatch = useDispatch();
+
+    const loader = useSelector((state) => state.userAuth.loader);
 
     const [otp, setOtp] = useState(initialOtpState);
     const [resend, setResend] = useState(initialResendState);
@@ -89,7 +92,7 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email, role }) => {
                     otp: enteredOtp
                 }))
 
-                if (res.payload.data.status) {
+                if (res?.payload?.data?.status) {
                     localStorage.setItem("otp-verify-token", res?.payload.data?.authentication?.accessToken);
 
                     if (authType === "forgot-password") {
@@ -107,7 +110,7 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email, role }) => {
                     otp: enteredOtp
                 }))
 
-                if (res.payload.data.status) {
+                if (res?.payload?.data?.status) {
                     localStorage.setItem("otp-verify-token", res?.payload.data?.authentication?.accessToken);
 
                     if (authType === "forgot-password") {
@@ -215,8 +218,13 @@ const OtpVerification = ({ authStep, setAuthStep, authType, email, role }) => {
                 </div>
 
                 <div>
-                    <button type='submit' className='auth_btn'>
-                        Submit
+                    <button type='submit' className={`auth_btn`} disabled={loader}>
+                        {
+                            loader ?
+                                loaders.button
+                                :
+                                "Submit"
+                        }
                     </button>
                 </div>
             </form>

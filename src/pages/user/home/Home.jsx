@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Css
@@ -22,14 +22,29 @@ import { AgentData, CountryData, LatestNewsData, TestimonialsData } from '../../
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+import { useDispatch } from 'react-redux';
+import { reqToTopAgent } from '../../../reduxToolkit/services/landing-home/agent/agentServices';
 
 
 const Home = () => {
 
-    const navigate= useNavigate();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // Testimonials
     const carouselRef = useRef();
+
+    const [agentList, setAgentList] = useState([])
+
+    const handleGetTopAgentList = async () => {
+        const res = await dispatch(reqToTopAgent());
+        setAgentList(res?.payload?.data?.data);
+    }
+
+    useEffect(() => {
+        handleGetTopAgentList()
+    }, [])
+
 
     const handlePrev = () => {
         if (carouselRef?.current) {
@@ -179,13 +194,13 @@ const Home = () => {
                         <div className="row g-5">
 
                             {
-                                [...AgentData, ...AgentData]?.map((i, index) => {
+                                agentList?.slice(0, 8).map((i, index) => {
                                     return (
                                         <div className="col-lg-4 col-xl-3" key={index}>
                                             <div className="box text-center">
                                                 <div className="dot"></div>
                                                 <div className="agent_img">
-                                                    <img src={i.image} alt="" className='img-fluid object-fit-cover' />
+                                                    <img src={i.profile} alt="" className='img-fluid object-fit-cover' />
                                                 </div>
 
                                                 <div className="info">

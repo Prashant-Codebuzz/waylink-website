@@ -19,5 +19,9 @@ export const apiendpoints = {
     agentWorkProfile: "/agent-api/auth/workProfile",
 
     // user-list
-    getTopAgentList: "/user-api/list/topAgents"
+    getTopAgentList: "/user-api/list/topAgents",
+    getAllAgentList: "/user-api/list/agentsList",
+
+    // contact-us 
+    getContactus: "/user-api/helpNsupport/add"
 }

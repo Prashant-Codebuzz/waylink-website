@@ -45,7 +45,12 @@ export const reqToOtpVerification = createAsyncThunk("reqToOtpVerification", asy
     } catch (error) {
         console.error(error);
 
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -62,7 +67,12 @@ export const reqToCreateUserProfile = createAsyncThunk("reqToCreateUserProfile",
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -79,7 +89,12 @@ export const reqToUserSignIn = createAsyncThunk("reqToUserSignIn", async (data) 
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -96,7 +111,12 @@ export const reqToUseForgetPass = createAsyncThunk("reqToUseForgetPass", async (
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -113,7 +133,12 @@ export const reqTouserReSendOtp = createAsyncThunk("reqTouserReSendOtp", async (
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -130,6 +155,11 @@ export const reqTouserChangePass = createAsyncThunk("reqTouserChangePass", async
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })

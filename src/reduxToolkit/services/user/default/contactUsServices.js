@@ -1,16 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Axios } from "../../../helper/axios";
-import toast from "react-hot-toast";
+import { authHeaders, Axios } from "../../../helper/axios";
 import { apiendpoints } from "../../../../constants/api-routes/apiroutes";
+import toast from "react-hot-toast";
 
 
-// reqToTopAgent
-export const reqToTopAgent = createAsyncThunk("reqToTopAgent", async () => {
+// reqToContactUs
+export const reqToContactUs = createAsyncThunk("reqToContactUs", async (data) => {
     try {
-        const response = await Axios.get(apiendpoints.getTopAgentList);
+        const response = await Axios.post(apiendpoints.getContactus, data, authHeaders());
 
         if (response?.data?.status) {
-            // toast.success(response?.data?.message);
+            toast.success(response?.data?.message);
             return response
         } else {
             toast.error(response?.data?.message);

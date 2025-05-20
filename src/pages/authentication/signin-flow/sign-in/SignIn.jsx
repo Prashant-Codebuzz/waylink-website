@@ -9,9 +9,10 @@ import PasswordInput from '../../../../assets/images/authentication/password-inp
 import PasswordHideInput from '../../../../assets/images/authentication/password-hide-input.svg';
 import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reqToUserSignIn } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 import { reqToAgentSignIn } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
+import { loaders } from '../../../../components/loader/loaders/Loader';
 
 
 const initialState = {
@@ -24,6 +25,8 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
     const IsRoleUser = role === "user";
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const loader = useSelector((state) => state.userAuth.loader);
 
     const [formData, setFormData] = useState(initialState);
 
@@ -55,7 +58,7 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
         }
         else {
             const res = await dispatch(reqToAgentSignIn(formData));
-            
+
             if (res?.payload?.data?.status) {
                 localStorage.setItem("agent-token", res?.payload?.data?.data?.authentication?.accessToken);
                 navigate(IsRoleUser ? "/user/home" : "/agent/home");
@@ -147,8 +150,13 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
                 </div>
 
                 <div>
-                    <button type='submit' className='auth_btn'>
-                        Sign in
+                    <button type='submit' className='auth_btn' disabled={loader}>
+                        {
+                            loader ?
+                                loaders.button
+                                :
+                                "Sign in"
+                        }
                     </button>
                 </div>
             </form >

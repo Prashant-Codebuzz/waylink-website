@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 
 // Image
 import CreatePasswordLogo from '../../../../assets/images/authentication/create-password-logo.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reqTouserChangePass } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 import PasswordInput from '../../../../assets/images/authentication/password-input.svg';
 import PasswordHideInput from '../../../../assets/images/authentication/password-hide-input.svg';
 import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
 import { reqToAgentChangePass } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
+import { loaders } from '../../../../components/loader/loaders/Loader';
 
 const initialState = {
     password: "",
@@ -26,6 +27,7 @@ const CreatePassword = ({ authStep, setAuthStep, email, role }) => {
 
     const dispatch = useDispatch();
 
+    const loader = useSelector((state) => state.userAuth.loader);
 
     const [formData, setFormData] = useState(initialState);
 
@@ -138,8 +140,13 @@ const CreatePassword = ({ authStep, setAuthStep, email, role }) => {
                 </div>
 
                 <div>
-                    <button type='submit' className='auth_btn'>
-                        Submit
+                    <button type='submit' className='auth_btn' disabled={loader}>
+                        {
+                            loader ?
+                                loaders.button
+                                :
+                                "Submit"
+                        }
                     </button>
                 </div>
             </form>

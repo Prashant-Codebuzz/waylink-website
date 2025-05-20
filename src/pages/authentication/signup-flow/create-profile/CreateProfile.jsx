@@ -2,12 +2,13 @@ import { useState } from 'react';
 
 // Image
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reqToCreateUserProfile } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 import { reqToCreateAgentProfile } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/bootstrap.css';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { loaders } from '../../../../components/loader/loaders/Loader';
 
 const initialState = {
     name: "",
@@ -23,6 +24,7 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
 
     const IsRoleUser = role === "user";
     const dispatch = useDispatch();
+    const loader = useSelector((state) => state.userAuth.loader);
 
     const [formData, setFormData] = useState(initialState)
     const [phone, setPhone] = useState('');
@@ -82,7 +84,9 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
             }
 
             if (res?.payload?.data?.status) {
-                localStorage.removeItem("otp-verify-token");
+                if (IsRoleUser) {
+                    localStorage.removeItem("otp-verify-token");
+                }
 
                 setAuthStep(IsRoleUser ? 4 : 5);
                 setPhone("")
@@ -215,8 +219,13 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
                 </div>
 
                 <div>
-                    <button type='submit' className='auth_btn'>
-                        Submit
+                    <button type='submit' className={`auth_btn`} disabled={loader}>
+                        {
+                            loader ?
+                                loaders.button
+                                :
+                                "Submit"
+                        }
                     </button>
                 </div>
             </form>

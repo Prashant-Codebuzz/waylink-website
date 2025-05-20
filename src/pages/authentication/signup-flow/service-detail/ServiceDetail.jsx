@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
 import UploadIcon from '../../../../assets/images/upload-icon.svg'
 import { reqToAgentWorkProfile } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loaders } from '../../../../components/loader/loaders/Loader';
 
 const initialState = {
     type: "individual",
@@ -19,7 +20,7 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
 
     const IsRoleUser = role === "user";
     const dispatch = useDispatch();
-
+    const loader = useSelector((state) => state.userAuth.loader);
     const [formData, setFormData] = useState(initialState);
     const [file, setFile] = useState('');
 
@@ -63,6 +64,7 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
 
         const res = await dispatch(reqToAgentWorkProfile(formPayload))
         if (res?.payload?.data?.status) {
+            localStorage.removeItem("otp-verify-token");
             setAuthStep(4); // Redirect to Congratulations
         }
     }
@@ -223,8 +225,13 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                 </div>
 
                 <div>
-                    <button type='submit' className='auth_btn'>
-                        Submit
+                    <button type='submit' className='auth_btn' disabled={loader}>
+                        {
+                            loader ?
+                                loaders.button
+                                :
+                                "Submit"
+                        }
                     </button>
                 </div>
             </form>

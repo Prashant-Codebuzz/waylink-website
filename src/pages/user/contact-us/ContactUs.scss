@@ -95,6 +95,24 @@
         .right {
             img {}
         }
+
+        .react-tel-input .selected-flag:focus:before,
+        .react-tel-input .selected-flag.open:before {
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .country-list {
+            background-color: white !important;
+        }
+
+        .react-tel-input .country-list .country {
+            background-color: transparent;
+        }
+
+        .react-tel-input .country-list .country:hover {
+            background-color: #f1f1f1;
+        }
     }
 }
 

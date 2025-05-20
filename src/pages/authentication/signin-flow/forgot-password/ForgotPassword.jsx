@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import ForgotPasswordLogo from '../../../../assets/images/authentication/forgot-password-logo.svg';
 import EmailInput from '../../../../assets/images/authentication/email-input.svg';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reqToUseForgetPass } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 import { reqToAgentForgetPass } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
+import { loaders } from '../../../../components/loader/loaders/Loader';
 
 const initialState = {
     email: ""
@@ -18,6 +19,8 @@ const ForgotPassword = ({ authStep, setAuthStep, setEmail, role }) => {
 
     const dispatch = useDispatch();
     const IsRoleUser = role === "user";
+
+    const loader = useSelector((state) => state.userAuth.loader);
 
     const [formData, setFormData] = useState(initialState);
 
@@ -90,8 +93,13 @@ const ForgotPassword = ({ authStep, setAuthStep, setEmail, role }) => {
                 </div>
 
                 <div>
-                    <button type='submit' className='auth_btn'>
-                        Submit
+                    <button type='submit' className='auth_btn' disabled={loader}>
+                        {
+                            loader ?
+                                loaders.button
+                                :
+                                "Submit"
+                        }
                     </button>
                 </div>
             </form >

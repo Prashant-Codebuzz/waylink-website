@@ -167,7 +167,7 @@ const SignUp = ({ authStep, setAuthStep, setEmail, role }) => {
                 <div>
                     <button
                         type='submit'
-                        className={`auth_btn ${loader ? 'btn_loading' : ''}`}
+                        className={`auth_btn`}
                         disabled={loader}
                     >
                         {

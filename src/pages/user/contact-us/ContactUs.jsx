@@ -1,12 +1,76 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Css
 import "./ContactUs.scss";
 
 // Image
 import ContactRight from '../../../assets/images/contact-us/contact_right.svg';
+import PhoneInput from 'react-phone-input-2';
+import parsePhoneNumberFromString from 'libphonenumber-js';
+import { useDispatch } from 'react-redux';
+import { reqToContactUs } from '../../../reduxToolkit/services/user/default/contactUsServices';
+
+const initialState = {
+    name: "",
+    country: "",
+    state: "",
+    city: "",
+    description: ""
+}
 
 const ContactUs = () => {
+    const dispatch = useDispatch();
+
+    const [formData, setFormData] = useState(initialState)
+    const [phone, setPhone] = useState('');
+    const [isValid, setIsValid] = useState(false);
+    const [isError, setError] = useState(false);
+
+    const handlePhoneChange = (value) => {
+        const parsed = parsePhoneNumberFromString("+" + value);
+        if (parsed && parsed.isValid()) {
+            const formatted = parsed.formatInternational();
+            setPhone(formatted);
+            setIsValid(true);
+            setError(false)
+        } else {
+            setIsValid(false);
+        }
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!isValid) {
+            setError(true)
+            return;
+        }
+
+        const payload = { ...formData, mobileNumber: phone };
+
+        try {
+            const res = await dispatch(reqToContactUs(payload))
+            if (res?.payload?.data?.status) {
+                setFormData(initialState);
+                setPhone('');
+                setIsValid(false);
+                setError(false);
+                setPhone('')
+            }
+        } catch (error) {
+            console.error("Error submitting form", error);
+        }
+    };
+
     return (
         <>
 
@@ -27,7 +91,7 @@ const ContactUs = () => {
                         <div className="row">
                             <div className="col-lg-6">
                                 <div className="left">
-                                    <form>
+                                    <form onSubmit={handleSubmit}>
                                         <div className='mb-4'>
                                             <input
                                                 type="text"
@@ -35,19 +99,26 @@ const ContactUs = () => {
                                                 name="name"
                                                 className="form-control"
                                                 placeholder="Enter name"
+                                                onChange={handleChange}
+                                                value={formData.name}
+                                                required
                                             />
                                         </div>
 
                                         <div className='mb-4'>
-                                            <input
-                                                type="text"
-                                                pattern='\d*'
-                                                maxLength="16"
-                                                id="mobile"
-                                                name="mobile"
-                                                className="form-control"
-                                                placeholder="Enter mobile number"
-                                                onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+                                            <PhoneInput
+                                                country={'in'}
+                                                value={phone}
+                                                onChange={handlePhoneChange}
+                                                inputClass={`${isError ? 'error' : ''} form-control`}
+                                                placeholder='Enter mobile number'
+                                                containerClass="mb-2"
+                                                dropdownClass='country-list'
+                                                inputStyle={{
+                                                    borderRadius: '10px',
+                                                    width: '100%',
+                                                    paddingLeft: '58px'
+                                                }}
                                             />
                                         </div>
 
@@ -56,6 +127,9 @@ const ContactUs = () => {
                                                 id="country"
                                                 name="country"
                                                 className="form-select"
+                                                onChange={handleChange}
+                                                value={formData.country}
+                                                required
                                             >
                                                 <option value="">Select country</option>
                                                 <option value="india">India</option>
@@ -68,6 +142,9 @@ const ContactUs = () => {
                                                 id="state"
                                                 name="state"
                                                 className="form-select"
+                                                onChange={handleChange}
+                                                value={formData.state}
+                                                required
                                             >
                                                 <option value="">Select state</option>
                                                 <option value="gujarat">Gujarat</option>
@@ -80,6 +157,9 @@ const ContactUs = () => {
                                                 id="city"
                                                 name="city"
                                                 className="form-select"
+                                                onChange={handleChange}
+                                                value={formData.city}
+                                                required
                                             >
                                                 <option value="">Select city</option>
                                                 <option value="surat">Surat</option>
@@ -90,10 +170,13 @@ const ContactUs = () => {
                                         <div className='mb-4'>
                                             <textarea
                                                 type="text"
-                                                id="address"
-                                                name="address"
+                                                id="description"
+                                                name="description"
                                                 className="form-control"
                                                 placeholder="Enter message"
+                                                onChange={handleChange}
+                                                value={formData.description}
+                                                required
                                                 rows={4}
                                             />
                                         </div>

@@ -22,6 +22,16 @@ export const authImageHeaders = () => {
     }
 }
 
+
+export const authURLHeaders = () => {
+    return {
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+    }
+}
+
+
 export const Axios = axios.create({
     baseURL: import.meta.env.VITE_APP_WEB_API,
 });

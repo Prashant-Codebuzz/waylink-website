@@ -19,7 +19,12 @@ export const reqToRegisterAgent = createAsyncThunk("reqToRegisterAgent", async (
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error;
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -36,7 +41,12 @@ export const reqToAgentOtpVerification = createAsyncThunk("reqToAgentOtpVerifica
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -53,7 +63,12 @@ export const reqToCreateAgentProfile = createAsyncThunk("reqToCreateAgentProfile
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -70,7 +85,12 @@ export const reqToAgentSignIn = createAsyncThunk("reqToAgentSignIn", async (data
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -87,7 +107,12 @@ export const reqToAgentForgetPass = createAsyncThunk("reqToAgentForgetPass", asy
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -104,7 +129,12 @@ export const reqToAgentReSendOtp = createAsyncThunk("reqToAgentReSendOtp", async
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -121,7 +151,12 @@ export const reqToAgentChangePass = createAsyncThunk("reqToAgentChangePass", asy
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -138,6 +173,11 @@ export const reqToAgentWorkProfile = createAsyncThunk("reqToAgentWorkProfile", a
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })

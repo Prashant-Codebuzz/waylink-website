@@ -2,6 +2,7 @@ import persistStore from "redux-persist/es/persistStore";
 import persistReducer from "redux-persist/es/persistReducer";
 import localStorage from "redux-persist/es/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import allAgentReducer from "../reduxToolkit/slice/user/default/agentListSlice"
 
 // User-Slice
 import userAuthReducer from "./slice/user/auth/userAuthSlice";
@@ -21,7 +22,7 @@ const getConfig = (key, whitelist) => {
 const reducer = combineReducers({
     // User
     userAuth: persistReducer(getConfig("userAuth", ["userAuth"]), userAuthReducer),
-
+    allAgent: allAgentReducer
     // Agent
 
 })
