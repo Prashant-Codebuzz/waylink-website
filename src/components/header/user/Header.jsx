@@ -1,13 +1,17 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import "./Header.scss";
 import Logo from '../../../assets/images/header/logo.png';
 
 const UserHeader = () => {
 
+    const navigate= useNavigate();
+
     const handleLogout = () => {
         localStorage.removeItem("user-token");
         localStorage.removeItem("role");
+
+        navigate("/");
     }
 
     return (
