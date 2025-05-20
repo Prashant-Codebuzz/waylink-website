@@ -46,16 +46,18 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
         e.preventDefault();
 
         if (IsRoleUser) {
-            const res = await dispatch(reqToUserSignIn(formData))
+            const res = await dispatch(reqToUserSignIn(formData));
 
             if (res?.payload?.data?.status) {
+                localStorage.setItem("user-token", res?.payload?.data?.data?.authentication?.accessToken);
                 navigate(IsRoleUser ? "/user/home" : "/agent/home");
             }
         }
         else {
-            const res = await dispatch(reqToAgentSignIn(formData))
-
+            const res = await dispatch(reqToAgentSignIn(formData));
+            
             if (res?.payload?.data?.status) {
+                localStorage.setItem("agent-token", res?.payload?.data?.data?.authentication?.accessToken);
                 navigate(IsRoleUser ? "/user/home" : "/agent/home");
             }
         }

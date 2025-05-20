@@ -19,7 +19,14 @@ export const reqToRegisterUser = createAsyncThunk("reqToRegisterUser", async (da
             toast.error(response?.data?.message);
         }
     } catch (error) {
-        throw error;
+        console.error(error);
+
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
     }
 })
 
@@ -36,6 +43,8 @@ export const reqToOtpVerification = createAsyncThunk("reqToOtpVerification", asy
             toast.error(response?.data?.message);
         }
     } catch (error) {
+        console.error(error);
+
         throw error
     }
 })

@@ -10,7 +10,10 @@ import PasswordInput from '../../../../assets/images/authentication/password-inp
 import PasswordHideInput from '../../../../assets/images/authentication/password-hide-input.svg';
 import PasswordShowInput from '../../../../assets/images/authentication/password-hide-input.svg';
 
-import { useDispatch } from 'react-redux';
+// Loader
+import { loaders } from '../../../../components/loader/loaders/Loader';
+
+import { useDispatch, useSelector } from 'react-redux';
 import { reqToRegisterUser } from '../../../../reduxToolkit/services/user/auth/userAuthServices';
 import { reqToRegisterAgent } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
 
@@ -30,6 +33,9 @@ const SignUp = ({ authStep, setAuthStep, setEmail, role }) => {
     const IsRoleUser = role === "user";
 
     const dispatch = useDispatch();
+
+    const loader = useSelector((state) => state.userAuth.loader);
+
 
     const [formData, setFormData] = useState(initialState);
 
@@ -159,8 +165,17 @@ const SignUp = ({ authStep, setAuthStep, setEmail, role }) => {
                 </div>
 
                 <div>
-                    <button type='submit' className='auth_btn'>
-                        Sign up
+                    <button
+                        type='submit'
+                        className={`auth_btn ${loader ? 'btn_loading' : ''}`}
+                        disabled={loader}
+                    >
+                        {
+                            loader ?
+                                loaders.button
+                                :
+                                "Sign up"
+                        }
                     </button>
                 </div>
             </form >

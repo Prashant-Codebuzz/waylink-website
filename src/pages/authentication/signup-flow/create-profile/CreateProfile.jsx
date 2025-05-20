@@ -82,6 +82,8 @@ const CreateProfile = ({ authStep, setAuthStep, role }) => {
             }
 
             if (res?.payload?.data?.status) {
+                localStorage.removeItem("otp-verify-token");
+
                 setAuthStep(IsRoleUser ? 4 : 5);
                 setPhone("")
             }

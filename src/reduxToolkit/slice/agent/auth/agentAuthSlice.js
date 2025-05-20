@@ -59,7 +59,8 @@ const agentAuthSlice = createSlice({
         });
         builder.addCase(reqToAgentSignIn.fulfilled, (state, action) => {
             state.loader = false;
-            state.reqToAgentSignIn = action.payload;
+            state.user = action.payload.data.data;
+            state.token = action.payload.data.data.authentication?.accessToken;
         });
         builder.addCase(reqToAgentSignIn.rejected, (state, action) => {
             state.loader = false;

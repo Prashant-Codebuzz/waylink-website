@@ -10,7 +10,7 @@ const initialState = {
 }
 
 const userAuthSlice = createSlice({
-    name: "authentication",
+    name: "userAuth",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -20,7 +20,7 @@ const userAuthSlice = createSlice({
         });
         builder.addCase(reqToRegisterUser.fulfilled, (state, action) => {
             state.loader = false;
-            state.reqToRegisterUser = action.payload;
+            // state.reqToRegisterUser = action.payload;
         });
         builder.addCase(reqToRegisterUser.rejected, (state, action) => {
             state.loader = false;
@@ -33,7 +33,7 @@ const userAuthSlice = createSlice({
         });
         builder.addCase(reqToOtpVerification.fulfilled, (state, action) => {
             state.loader = false;
-            state.reqToOtpVerification = action.payload;
+            // state.reqToOtpVerification = action.payload;
         });
         builder.addCase(reqToOtpVerification.rejected, (state, action) => {
             state.loader = false;
@@ -46,7 +46,7 @@ const userAuthSlice = createSlice({
         });
         builder.addCase(reqToCreateUserProfile.fulfilled, (state, action) => {
             state.loader = false;
-            state.reqToCreateUserProfile = action.payload;
+            // state.reqToCreateUserProfile = action.payload;
         });
         builder.addCase(reqToCreateUserProfile.rejected, (state, action) => {
             state.loader = false;
@@ -59,7 +59,8 @@ const userAuthSlice = createSlice({
         });
         builder.addCase(reqToUserSignIn.fulfilled, (state, action) => {
             state.loader = false;
-            state.reqToUserSignIn = action.payload;
+            state.user = action.payload.data.data;
+            state.token = action.payload.data.data.authentication?.accessToken;
         });
         builder.addCase(reqToUserSignIn.rejected, (state, action) => {
             state.loader = false;
@@ -72,7 +73,7 @@ const userAuthSlice = createSlice({
         });
         builder.addCase(reqToUseForgetPass.fulfilled, (state, action) => {
             state.loader = false;
-            state.reqToUseForgetPass = action.payload;
+            // state.reqToUseForgetPass = action.payload;
         });
         builder.addCase(reqToUseForgetPass.rejected, (state, action) => {
             state.loader = false;
@@ -85,7 +86,7 @@ const userAuthSlice = createSlice({
         });
         builder.addCase(reqTouserReSendOtp.fulfilled, (state, action) => {
             state.loader = false;
-            state.reqTouserReSendOtp = action.payload;
+            // state.reqTouserReSendOtp = action.payload;
         });
         builder.addCase(reqTouserReSendOtp.rejected, (state, action) => {
             state.loader = false;
@@ -98,7 +99,7 @@ const userAuthSlice = createSlice({
         });
         builder.addCase(reqTouserChangePass.fulfilled, (state, action) => {
             state.loader = false;
-            state.reqTouserChangePass = action.payload;
+            // state.reqTouserChangePass = action.payload;
         });
         builder.addCase(reqTouserChangePass.rejected, (state, action) => {
             state.loader = false;

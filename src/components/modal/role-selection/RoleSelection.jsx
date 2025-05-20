@@ -11,8 +11,8 @@ const RoleSelection = ({ show, handleClose }) => {
     const navigate = useNavigate();
 
     const handleRoleSelect = (role) => {
+        localStorage.setItem("role", role === "user" ? "user" : "agent");
         navigate(role === "user" ? "/user/sign-in" : "/agent/sign-in");
-        
         handleClose();
     }
 

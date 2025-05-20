@@ -8,7 +8,10 @@ import ScrollToTop from './components/scroll-to-top/ScrollToTop'
 
 
 // LayOut
-import { LandingLayOut, UserLayOut } from './components/layout/Layout'
+// Auth
+import { AgentAuthLayout, UserAuthLayout } from './components/layout/auth-layout/AuthLayout'
+// Default
+import { AgentDefaultLayOut, LandingLayOut, UserDefaultLayOut } from './components/layout/default-layout/DefaultLayOut'
 
 // Landing-Home
 import LandingHome from './pages/landing-home/LandingHome'
@@ -51,7 +54,11 @@ function App() {
     }
 
 
+    // const user = useSelector((state) => state.userAuth);
+    // console.log(user);
+
     return (
+
         <>
 
             {/* Scroll-To-Top */}
@@ -59,6 +66,7 @@ function App() {
 
             <Routes>
                 {/* ---- Landing ---- */}
+
                 {/* -- LayOut -- */}
                 <Route element={<LandingLayOut handleRoleSelect={handleRoleSelect} />}>
                     {/* Home */}
@@ -66,19 +74,23 @@ function App() {
                 </Route>
 
 
+                {/* ------------------------------------------------------------------------- */}
+
 
                 {/* ---- User ---- */}
+
                 {/* -- Authentication -- */}
+                <Route element={<UserAuthLayout />}>
+                    {/* Sign-In-Flow */}
+                    <Route path='/user/sign-in' element={<SignInFlow role="user" />} />
 
-                {/* Sign-In-Flow */}
-                <Route path='/user/sign-in' element={<SignInFlow role="user" />} />
-
-                {/* Sign-Up-Flow */}
-                <Route path='/user/sign-up' element={<SignUpFlow role="user" />} />
+                    {/* Sign-Up-Flow */}
+                    <Route path='/user/sign-up' element={<SignUpFlow role="user" />} />
+                </Route>
 
 
                 {/* -- LayOut -- */}
-                <Route element={<UserLayOut />}>
+                <Route element={<UserDefaultLayOut />}>
                     {/* Home */}
                     <Route path='/user/home' element={<UserHome />} />
                     {/* Agent */}
@@ -94,15 +106,24 @@ function App() {
                 </Route>
 
 
+                {/* ------------------------------------------------------------------------- */}
+
 
                 {/* ---- Agent ---- */}
+
                 {/* -- Authentication -- */}
+                <Route element={<AgentAuthLayout />}>
+                    {/* Sign-In-Flow */}
+                    <Route path='/agent/sign-in' element={<SignInFlow role="agent" />} />
 
-                {/* Sign-In-Flow */}
-                <Route path='/agent/sign-in' element={<SignInFlow role="agent" />} />
+                    {/* Sign-Up-Flow */}
+                    <Route path='/agent/sign-up' element={<SignUpFlow role="agent" />} />
+                </Route>
 
-                {/* Sign-Up-Flow */}
-                <Route path='/agent/sign-up' element={<SignUpFlow role="agent" />} />
+                <Route element={<AgentDefaultLayOut />}>
+                    {/* Home */}
+                    <Route path='/agent/home' />
+                </Route>
             </Routes>
 
 
