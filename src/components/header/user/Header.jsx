@@ -4,6 +4,12 @@ import "./Header.scss";
 import Logo from '../../../assets/images/header/logo.png';
 
 const UserHeader = () => {
+
+    const handleLogout = () => {
+        localStorage.removeItem("user-token");
+        localStorage.removeItem("role");
+    }
+
     return (
         <>
 
@@ -54,9 +60,27 @@ const UserHeader = () => {
                                         <Link
                                             // to="/user/sign-in"
                                             className='main_btn login_btn'
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
                                         >
                                             Account
                                         </Link>
+
+                                        <ul className="dropdown-menu">
+                                            <li><a className="dropdown-item">Edit Profile</a></li>
+                                            <li><a className="dropdown-item">Chat History</a></li>
+                                            <li><a className="dropdown-item">My Reviews</a></li>
+                                            <li><a className="dropdown-item">My Bookmarks</a></li>
+                                            <li>
+                                                <button
+                                                    type='button'
+                                                    className='logout_btn'
+                                                    onClick={handleLogout}
+                                                >
+                                                    Logout
+                                                </button>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

@@ -18,6 +18,11 @@ import TestimonialsStar from '../../assets/images/home/landing/testimonials_star
 // ------------ User-Home ------------  
 import NewsImage from '../../assets/images/home/user/news_img.svg';
 
+// ------------ User-Agent-Detail ------------  
+import AgentReview from '../../assets/images/agent-detail/agent_review.svg';
+import AgentStar from '../../assets/images/agent-detail/agent_star.svg';
+
+
 
 
 // ------------ Landing-Home ------------  
@@ -169,4 +174,32 @@ export const LatestNewsData = [
     { image: NewsImage, name: "Your Comprehensive Guide to Successfully Pursuing", description: "The Law Society of British Columbia has announced a new campaign providing mental wellness resources...", date: "22 December 2023" },
     { image: NewsImage, name: "Your Comprehensive Guide to Successfully Pursuing", description: "The Law Society of British Columbia has announced a new campaign providing mental wellness resources...", date: "22 December 2023" },
     { image: NewsImage, name: "Your Comprehensive Guide to Successfully Pursuing", description: "The Law Society of British Columbia has announced a new campaign providing mental wellness resources...", date: "22 December 2023" }
+]
+
+
+
+// ------------ User-Agent-Detail ------------  
+// ------ Reviews ------  
+export const AgentReviewsData = [
+    {
+        review: AgentStar,
+        description: "Impressive functionality and excellent support!",
+        image: AgentReview,
+        name: "James Wilson",
+        role: "Software Developer"
+    },
+    {
+        review: AgentStar,
+        description: "Impressive functionality and excellent support!",
+        image: AgentReview,
+        name: "James Wilson",
+        role: "Software Developer"
+    },
+    {
+        review: AgentStar,
+        description: "Impressive functionality and excellent support!",
+        image: AgentReview,
+        name: "James Wilson",
+        role: "Software Developer"
+    }
 ]

@@ -17,6 +17,28 @@
             color: var(--blue);
         }
 
+        .dropdown-menu {
+            border-radius: 12px;
+            border: 2px solid #0402731A;
+
+            li {
+                .dropdown-item {
+                    font-family: var(--dm-sans);
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: var(--blue);
+                    cursor: pointer;
+                    padding: 6px 18px;
+
+                    &:hover,
+                    &:focus {
+                        background-color: var(--blue);
+                        color: var(--white);
+                    }
+                }
+            }
+        }
+
         .input-group {
             max-width: 75%;
 
@@ -52,4 +74,5 @@
         }
     }
 }
+
 /* ------ Agents End ------ */

@@ -55,7 +55,8 @@ header nav .navbar-nav .nav-item a.active {
     color: var(--blue);
 }
 
-header nav .group-btn .main_btn.signup_btn {
+header nav .group-btn .main_btn.login_btn {
+    border-right: 2px solid var(--blue);
     // background-color: var(--white);
     // color: var(--blue);
     

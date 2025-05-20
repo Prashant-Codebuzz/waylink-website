@@ -27,7 +27,7 @@ export const LandingLayOut = ({ handleRoleSelect }) => {
         <>
 
             <LandingHeader handleRoleSelect={handleRoleSelect} />
-            <Outlet />
+                <Outlet />
             <LandingFooter />
 
         </>
@@ -53,7 +53,7 @@ export const UserDefaultLayOut = () => {
         <>
 
             <UserHeader />
-            <Outlet />
+                <Outlet />
             <UserFooter />
 
         </>

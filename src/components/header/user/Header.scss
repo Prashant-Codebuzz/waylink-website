@@ -56,14 +56,75 @@ header.user nav .navbar-nav .nav-item a.active {
     color: var(--blue);
 }
 
-header nav .group-btn .main_btn.signup_btn {
+header nav .group-btn .main_btn.login_btn {
+    border-right: 2px solid var(--blue);
     // background-color: var(--white);
     // color: var(--blue);
-
 
     &:hover {
         // color: var(--blue);
         // border: 2px solid var(--blue);
+    }
+}
+
+header.user nav {
+    .group-btn {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        border-radius: 12px;
+        border: 2px solid #0402731A;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: -19px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 12px 18px 12px;
+            border-style: solid;
+            border-color: transparent transparent var(--white) transparent;
+        }
+
+        li {
+            .dropdown-item {
+                font-family: var(--dm-sans);
+                font-weight: 600;
+                font-size: 16px;
+                color: var(--blue);
+                cursor: pointer;
+                padding: 7px 24px;
+
+                &:hover,
+                &:focus {
+                    background-color: var(--blue);
+                    color: var(--white);
+                }
+            }
+
+            .logout_btn {
+                background-color: transparent;
+                border-radius: 10px;
+                padding: 8px 26px;
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 18px;
+                color: var(--blue);
+                border: 1px solid var(--blue);
+                margin: 7px 24px 12px;
+
+
+                &:hover,
+                &:focus {
+                    background-color: var(--blue);
+                    color: var(--white);
+                }
+            }
+        }
     }
 }
 

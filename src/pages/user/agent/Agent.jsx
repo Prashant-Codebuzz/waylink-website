@@ -69,10 +69,24 @@ const Agent = () => {
                             </div>
                             <div className="col-lg-6 d-flex align-items-center justify-content-between">
                                 {/* <div className=''> */}
-                                <button type='button' className="filter_btn">
-                                    <img src={FilterIcon} alt="" className='img-fluid me-3' />
-                                    Filter
-                                </button>
+                                <div>
+                                    <button
+                                        type='button'
+                                        className="filter_btn"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        <img src={FilterIcon} alt="" className='img-fluid me-3' />
+                                        Filter
+                                    </button>
+
+                                    <ul className="dropdown-menu">
+                                        <li><a className="dropdown-item">Experience ZtoA</a></li>
+                                        <li><a className="dropdown-item">Experience AtoZ</a></li>
+                                        <li><a className="dropdown-item">Rate AtoZ</a></li>
+                                        <li><a className="dropdown-item">Rate AtoZ</a></li>
+                                    </ul>
+                                </div>
 
                                 <div className="input-group">
                                     <span className='icon'>

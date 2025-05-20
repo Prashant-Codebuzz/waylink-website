@@ -1,0 +1,184 @@
+/* ------ Reviews Start ------ */
+.agent_detail {
+    padding-block: 60px;
+
+    .left {
+        h1 {
+            font-family: var(--dm-sans);
+            font-weight: 600;
+            font-size: 48px;
+            color: var(--blue);
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-family: var(--dm-sans);
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 28px;
+            color: #696969;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .right {
+        border: 2px solid #0402731A;
+        border-radius: 20px;
+        padding: 40px;
+
+        .info {
+            .agent_img {
+                max-width: 100%;
+                height: 100%;
+
+                img {
+                    width: 160px;
+                    height: 160px;
+                }
+
+            }
+
+            .detail {
+                margin-left: 20px;
+
+                h4 {
+                    font-family: var(--dm-sans);
+                    font-weight: 600;
+                    font-size: 32px;
+                    color: var(--blue);
+                    margin-bottom: 0;
+                }
+
+                .expe,
+                .location {
+                    font-family: var(--dm-sans);
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #696969;
+                }
+
+                .location {
+                    margin-top: 10px;
+                }
+            }
+        }
+
+        .review {
+            margin-block: 22px 20px;
+
+            font-family: var(--dm-sans);
+            font-weight: 500;
+            font-size: 20px;
+            color: #5E5E5E;
+        }
+
+        .chat_btn {
+            padding: 14px 30px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 18px;
+            background: var(--blue);
+            color: var(--white);
+            border: 1px solid var(--blue);
+        }
+    }
+}
+
+/* ------ Reviews End ------ */
+
+
+
+/* ------ Reviews Start ------ */
+.reviews {
+    padding-block: 0 60px;
+
+    .top {
+        margin-bottom: 25px;
+
+        h1 {
+            font-family: var(--dm-sans);
+            font-weight: 600;
+            font-size: 40px;
+            // line-height: 60px;
+            color: var(--blue);
+        }
+    }
+
+    .second {
+        .owl-carousel .owl-item img {
+            width: auto;
+        }
+
+        .box {
+            border: 2px solid #0402731A;
+            border-radius: 16px;
+            padding: 30px 28px;
+
+            .review {}
+
+            p {
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 28px;
+                color: #696969;
+                margin-bottom: 0;
+                padding-block: 10px 20px;
+            }
+
+            .info {
+                .agent_img {
+                    // width: 100%;
+                    // height: 100%;
+
+                    img {
+                        width: 70px;
+                        height: 70px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .content {
+                    margin-left: 15px;
+
+                    .name {
+                        font-family: var(--dm-sans);
+                        font-weight: 600;
+                        font-size: 22px;
+                        color: var(--blue)
+                    }
+
+                    .role {
+                        font-family: var(--dm-sans);
+                        font-weight: 500;
+                        font-size: 20px;
+                        color: #696969;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ------ Reviews End ------ */
+
+
+
+/* ------ Related-Agent Start ------ */
+.agent.top_agent.related_agent {
+    padding-top: 0;
+
+    .top {
+        margin-bottom: 25px;
+
+        h1 {
+            font-weight: 600;
+            font-size: 40px;
+        }
+    }
+}
+
+/* ------ Related-Agent End ------ */

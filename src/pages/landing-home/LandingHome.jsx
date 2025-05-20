@@ -73,7 +73,7 @@ const LandingHome = ({ handleRoleSelect }) => {
         handleGetTopAgentList()
     }, [])
 
-    // Testimonials
+    // Testimonialsc
     const carouselRef = useRef();
 
     const handlePrev = () => {
