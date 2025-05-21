@@ -5,7 +5,7 @@ import Logo from '../../../assets/images/header/logo.png';
 
 const UserHeader = () => {
 
-    const navigate= useNavigate();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem("user-token");
@@ -71,10 +71,10 @@ const UserHeader = () => {
                                         </Link>
 
                                         <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item">Edit Profile</a></li>
-                                            <li><a className="dropdown-item">Chat History</a></li>
-                                            <li><a className="dropdown-item">My Reviews</a></li>
-                                            <li><a className="dropdown-item">My Bookmarks</a></li>
+                                            <li><Link to="/user/edit-profile" className="dropdown-item">Edit Profile</Link></li>
+                                            <li><Link className="dropdown-item">Chat History</Link></li>
+                                            <li><Link to="/user/my-reviews" className="dropdown-item">My Reviews</Link></li>
+                                            <li><Link to="/user/my-bookmarks" className="dropdown-item">My Bookmarks</Link></li>
                                             <li>
                                                 <button
                                                     type='button'

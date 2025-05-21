@@ -1,0 +1,74 @@
+/* ------ Terms-Conditions Start ------ */
+.terms_conditions {
+    padding-block: 60px;
+
+    .top {
+        margin-bottom: 40px;
+
+        h1 {
+            font-family: var(--dm-sans);
+            font-weight: 700;
+            font-size: 50px;
+            // line-height: 60px;
+            color: var(--blue);
+        }
+    }
+
+    .second {
+        .content {
+            margin-bottom: 40px;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            h5 {
+                font-family: var(--dm-sans);
+                font-weight: 600;
+                font-size: 30px;
+                color: var(--blue);
+            }
+
+            p {
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 20px;
+                // line-height: 30px;
+                color: #696969;
+            }
+
+            .sub {
+                margin-bottom: 20px;
+
+                &{:last-of-type{
+                    margin-bottom: 0;
+                }}
+
+                h6 {
+                    font-family: var(--dm-sans);
+                    font-weight: 700;
+                    font-size: 24px;
+                    // line-height: 30px;
+                    color: #696969;
+                }
+
+                p {
+                    margin-bottom: 0;
+                }
+
+                ul {
+                    padding-left: 20px;
+
+                    li {
+                        list-style: disc;
+
+                        &::marker {
+                            color: #696969;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/* ------ Terms-Conditions End ------ */

@@ -361,12 +361,19 @@
             }
         }
 
-
         .second {
             .box {
-
                 .info {
                     padding: 20px;
+
+                     .name {
+                        font-size: 18px;
+                        line-height: 26px;
+                    }
+
+                    p {
+                        font-size: 15px;
+                    }
                 }
             }
         }

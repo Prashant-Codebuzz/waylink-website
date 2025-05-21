@@ -26,18 +26,32 @@ import SignInFlow from './pages/authentication/signin-flow/SignInFlow'
 import SignUpFlow from './pages/authentication/signup-flow/SignUpFlow'
 
 // ---- User ----
+// Edit-Profile
+import EditProfile from './pages/account/edit-profile/EditProfile'
+// My-Reviews
+import MyReviews from './pages/account/my-reviews/MyReviews'
+// My-Bookmarks
+import MyBookmarks from './pages/account/my-bookmarks/MyBookmarks'
+
 // Home
 import UserHome from './pages/user/home/Home'
 // Agent
 import Agent from './pages/user/agent/Agent'
 // Agent-Detail
 import AgentDetail from './pages/user/agent-detail/AgentDetail'
+// Review
+import Review from './pages/user/review/Review'
 // News
 import News from './pages/user/news/News'
 // News-Detail
 import NewsDetail from './pages/user/news-detail/NewsDetail'
 // Contact-Us
 import ContactUs from './pages/user/contact-us/ContactUs'
+
+// Privacy-Policy
+import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy'
+// Terms-Conditions
+import TermsConditions from './pages/terms-conditions/TermsConditions'
 
 
 function App() {
@@ -91,18 +105,32 @@ function App() {
 
                 {/* -- LayOut -- */}
                 <Route element={<UserDefaultLayOut />}>
+                    {/* Edit-Profile */}
+                    <Route path='/user/edit-profile' element={<EditProfile />} />
+                    {/* My-Reviews */}
+                    <Route path='/user/my-reviews' element={<MyReviews />} />
+                    {/* My-Bookmarks */}
+                    <Route path='/user/my-bookmarks' element={<MyBookmarks />} />
+
                     {/* Home */}
                     <Route path='/user/home' element={<UserHome />} />
                     {/* Agent */}
                     <Route path='/user/agent' element={<Agent />} />
                     {/* Agent-Detail */}
                     <Route path='/user/agent-detail/:id' element={<AgentDetail />} />
+                    {/* Review */}
+                    <Route path='/user/agent/review' element={<Review />} />
                     {/* News */}
                     <Route path='/user/news' element={<News />} />
                     {/* News-Detail */}
                     <Route path='/user/news-detail/:id' element={<NewsDetail />} />
                     {/* Contact-Us */}
                     <Route path='/user/contact-us' element={<ContactUs />} />
+
+                    {/* Privacy-Policy */}
+                    <Route path='/user/privacy-policy' element={<PrivacyPolicy />} />
+                    {/* Terms-Conditions */}
+                    <Route path='/user/terms-conditions' element={<TermsConditions />} />
                 </Route>
 
 

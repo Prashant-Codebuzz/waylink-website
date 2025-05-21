@@ -1,0 +1,197 @@
+/* ------ Reviews Start ------ */
+.review {
+    padding-block: 60px;
+
+    .top {
+        margin-bottom: 40px;
+
+        h1 {
+            font-family: var(--dm-sans);
+            font-weight: 700;
+            font-size: 50px;
+            color: var(--blue);
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-family: var(--dm-sans);
+            font-weight: 500;
+            font-size: 22px;
+            color: #696969;
+        }
+    }
+
+    .second {
+        .left {
+            border: 2px solid #0402731A;
+            border-radius: 20px;
+            padding: 50px 55px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+
+            .info {
+                margin-bottom: 40px;
+
+                .reviewuser_img {
+                    max-width: 100%;
+
+                    img {
+                        width: 140px;
+                        height: 140px;
+                    }
+                }
+
+                .name {
+                    font-family: var(--dm-sans);
+                    font-weight: 600;
+                    font-size: 26px;
+                    color: var(--blue);
+                    margin-block: 5px 0px;
+                }
+
+                p {
+                    font-family: var(--dm-sans);
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: #696969;
+                    margin-bottom: 0 !important;
+
+                    span {
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            form {
+                .form-control {
+                    background: var(--fc-bg);
+                    padding: 20px 25px;
+                    border: 0;
+                    border-radius: 16px;
+
+                    font-family: var(--dm-sans);
+                    font-weight: 500;
+                    font-size: 18px;
+                    color: var(--fc-color);
+
+                    &::placeholder {
+                        color: var(--placeholder);
+                    }
+                }
+
+                .review_btn {
+                    background-color: var(--blue);
+                    border-radius: 16px;
+                    border: 1px solid var(--blue);
+                    width: 100%;
+
+                    font-family: var(--dm-sans);
+                    font-weight: 700;
+                    font-size: 22px;
+                    color: var(--white);
+                    padding-block: 20px;
+                }
+            }
+        }
+
+        .right {
+            height: 100%;
+
+            img {}
+        }
+    }
+
+    @media (max-width: 1399px) {
+        padding-block: 55px;
+
+        .top {
+            margin-bottom: 35px;
+
+            h1 {
+                font-size: 45px;
+            }
+
+            p {
+                font-size: 20px;
+            }
+        }
+
+        .second {
+            .left {
+                padding: 50px 50px;
+
+                .info {
+                    margin-bottom: 35px;
+
+                    .reviewuser_img {
+                        img {
+                            width: 130px;
+                            height: 130px;
+                        }
+                    }
+
+                    .name {
+                        font-size: 24px;
+                    }
+
+                    p {
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1199px) {
+        padding-block: 50px;
+
+        .top {
+            margin-bottom: 35px;
+
+            h1 {
+                font-size: 40px;
+            }
+
+            p {
+                font-size: 18px;
+            }
+        }
+
+        .second {
+            .left {
+                padding: 45px 45px;
+
+                .info {
+                    margin-bottom: 35px;
+
+                    .reviewuser_img {
+                        img {
+                            width: 130px;
+                            height: 130px;
+                        }
+                    }
+
+                    .name {
+                        font-size: 22px;
+                    }
+
+                    p {
+                        font-size: 17px;
+                    }
+                }
+
+                form {
+                    .review_btn {
+                        font-size: 20px;
+                        padding-block: 18px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ------ Reviews End ------ */

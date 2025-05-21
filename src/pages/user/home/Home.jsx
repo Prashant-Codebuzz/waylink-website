@@ -348,7 +348,7 @@ const Home = () => {
                                                         <div className="org">{i?.workTitle}</div>
                                                     </div>
 
-                                                    <div className="review d-flex gap-1">
+                                                    <div className="review-img d-flex gap-1">
                                                         {[...Array(i.rating)]?.map((_, imgIndex) => (
                                                             <img key={imgIndex} src={TestimonialsStar} alt="" className="img-fluid" />
                                                         ))}

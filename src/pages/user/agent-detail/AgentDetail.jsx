@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 // Css
 import "./AgentDetail.scss";
@@ -17,7 +18,7 @@ import { AgentData, AgentReviewsData } from '../../../constants/data/Data';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import { Link, useParams } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { reqToGetAgentDetail } from '../../../reduxToolkit/services/user/default/agentListServices';
 

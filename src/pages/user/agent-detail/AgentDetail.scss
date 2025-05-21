@@ -30,13 +30,16 @@
         padding: 40px;
 
         .info {
+            max-width: 100%;
+            
             .agent_img {
-                max-width: 100%;
+                max-width: 40%;
                 height: 100%;
 
                 img {
                     width: 160px;
                     height: 160px;
+                    border-radius: 50%;
                 }
 
             }

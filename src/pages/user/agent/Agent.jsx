@@ -14,6 +14,7 @@ import { AgentData, CountryData, LatestNewsData, TestimonialsData } from '../../
 
 // Component-Pagination
 import Pagination from '../../../components/pagination/Pagination';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { reqToGetAllAgent } from '../../../reduxToolkit/services/user/default/agentListServices';
 import Skeleton from 'react-loading-skeleton';
@@ -124,7 +125,6 @@ const Agent = () => {
                                     </div>
                                 ))
                             ) : agentList?.length > 0 ? (
-                                // Show real data after loading
                                 agentList.map((i, index) => (
                                     <div className="col-lg-4 col-xl-3" key={index}>
                                         <div className="box text-center">
@@ -147,10 +147,10 @@ const Agent = () => {
                                     </div>
                                 ))
                             ) : (
-                                // Show "no data" message
-                                <div className="text-center">No agents found.</div>
+                                <div className="no_data">
+                                    Agents Not Found
+                                </div>
                             )}
-
 
                         </div>
                     </div>

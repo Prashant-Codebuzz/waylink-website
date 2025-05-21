@@ -73,6 +73,18 @@
             }
         }
     }
+
+    .second {
+        .no_data {
+            font-family: var(--dm-sans);
+            font-weight: 700;
+            font-size: 30px;
+            color: var(--blue);
+            text-align: center;
+            // padding-top: 40px;
+            padding-block: 50px;
+        }
+    }
 }
 
 /* ------ Agents End ------ */

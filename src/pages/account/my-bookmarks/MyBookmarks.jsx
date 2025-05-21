@@ -1,11 +1,9 @@
-import React, { useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react'
 
 // Css
-import "./News.scss";
+import "./MyBookmarks.scss";
 
 // Image
-import FilterIcon from '../../../assets/images/filter_icon.svg';
 import SearchInput from '../../../assets/images/search-input.svg';
 import Date from '../../../assets/images/date.svg';
 
@@ -15,22 +13,18 @@ import { LatestNewsData } from '../../../constants/data/Data';
 // Component-Pagination
 import Pagination from '../../../components/pagination/Pagination';
 
-const News = () => {
-
-    const navigate = useNavigate();
-
-
+const MyBookmarks = () => {
     return (
         <>
 
-            {/* ------ News Start ------ */}
-            <section className='latest_news news'>
+            {/* ------ My-Bookmarks Start ------ */}
+            <div className="my_bookmarks">
                 <div className="container">
                     <div className="top">
                         <div className="row justify-content-between align-items-center">
                             <div className="col-lg-6">
                                 <h1>
-                                    Latest News
+                                    My Bookmarks
                                 </h1>
                             </div>
                             <div className="col-lg-6 d-flex align-items-center justify-content-end">
@@ -55,7 +49,7 @@ const News = () => {
                         <div className="row g-4 g-xl-5">
 
                             {
-                                [...LatestNewsData, ...LatestNewsData, ...LatestNewsData]?.slice(0, 15)?.map((i, index) => {
+                                LatestNewsData?.map((i, index) => {
                                     return (
                                         <div className="col-lg-4" key={index}>
                                             <div className="box">
@@ -95,11 +89,11 @@ const News = () => {
                     <Pagination />
 
                 </div>
-            </section>
-            {/* ------ News End ------ */}
+            </div>
+            {/* ------ My-Bookmarks End ------ */}
 
         </>
     )
 }
 
-export default News;
+export default MyBookmarks;

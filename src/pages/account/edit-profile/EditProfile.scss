@@ -1,0 +1,194 @@
+/* ------ Edit-Profile Start ------ */
+.edit_profile {
+    padding-block: 60px;
+
+    .top {
+        margin-bottom: 40px;
+
+        h1 {
+            font-family: var(--dm-sans);
+            font-weight: 700;
+            font-size: 50px;
+            // line-height: 60px;
+            color: var(--blue);
+        }
+    }
+
+    .second {
+        form {
+            border: 2px solid #0402731A;
+            border-radius: 20px;
+            padding: 50px 40px;
+
+            .profile_container {
+                position: relative;
+
+                .profile_img {
+                    width: 180px;
+                    height: 180px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                .camera_icon {
+                    background-color: var(--white);
+                    padding: 8px;
+
+                    position: absolute;
+                    bottom: 0;
+                    left: 53%;
+                    border-radius: 50%;
+                    cursor: pointer;
+
+                    img {
+                        max-width: 45px;
+                    }
+                }
+            }
+
+            .form-control {
+                background: var(--fc-bg);
+                padding: 20px 30px;
+                border: 0;
+                border-radius: 16px;
+
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 18px;
+                color: var(--fc-color);
+
+                &::placeholder {
+                    color: var(--placeholder);
+                }
+            }
+
+            .form-select {
+                background-image: url("../../../assets/images/select-dropdown.svg");
+                background-position: right 25px center;
+                background-size: 16px;
+                background-color: var(--fc-bg);
+                padding: 20px 30px;
+                border: 0;
+                border-radius: 16px;
+
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 18px;
+                color: var(--fc-color);
+
+                &::placeholder {
+                    color: var(--placeholder);
+                }
+
+                option {
+                    &:first-of-type {
+                        color: var(--placeholder);
+                    }
+                }
+            }
+
+            .profile_btn {
+                background-color: var(--blue);
+                border-radius: 16px;
+                border: 1px solid var(--blue);
+                width: 100%;
+
+                font-family: var(--dm-sans);
+                font-weight: 700;
+                font-size: 22px;
+                color: var(--white);
+                padding-block: 20px;
+            }
+        }
+    }
+
+
+    @media (max-width: 1399px) {
+        padding-block: 55px;
+
+        .top {
+            margin-bottom: 35px;
+
+            h1 {
+                font-size: 45px;
+            }
+        }
+
+        .second {
+            form {
+                padding: 45px 40px;
+
+                .profile_container {
+                    .profile_img {
+                        width: 175px;
+                        height: 175px;
+                    }
+
+                    .camera_icon {
+                        left: 53%;
+
+                        img {
+                            max-width: 43px;
+                        }
+                    }
+                }
+
+                .form-control {
+                    padding: 20px 25px;
+                }
+
+                .form-select {
+                    padding: 20px 25px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1199px) {
+        padding-block: 50px;
+
+        .top {
+            margin-bottom: 35px;
+
+            h1 {
+                font-size: 40px;
+            }
+        }
+
+        .second {
+            form {
+                padding: 45px 40px;
+
+                .profile_container {
+                    .profile_img {
+                        width: 170px;
+                        height: 170px;
+                    }
+
+                    .camera_icon {
+                        left: 54%;
+
+                        img {
+                            max-width: 40px;
+                        }
+                    }
+                }
+
+                .form-control {
+                    padding: 20px 25px;
+                }
+
+                .form-select {
+                    padding: 20px 25px;
+                }
+
+                .profile_btn {
+                    font-size: 20px;
+                    padding-block: 18px;
+                }
+            }
+        }
+    }
+}
+
+/* ------ Edit-Profile End ------ */
