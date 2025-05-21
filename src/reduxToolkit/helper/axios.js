@@ -24,13 +24,24 @@ export const authImageHeaders = () => {
 
 
 export const authURLHeaders = () => {
+    const token = localStorage.getItem("user-token");
     return {
         headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/x-www-form-urlencoded"
         }
     }
 }
 
+export const userHeaders = () => {
+    const token = localStorage.getItem("user-token");
+    return {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    }
+}
 
 export const Axios = axios.create({
     baseURL: import.meta.env.VITE_APP_WEB_API,

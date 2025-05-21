@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 // Image
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
+import close_img from '../../../../assets/images/authentication/close_img.svg';
 import UploadIcon from '../../../../assets/images/upload-icon.svg'
 import { reqToAgentWorkProfile } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
 import { useDispatch, useSelector } from 'react-redux';
@@ -177,29 +178,9 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                 )}
 
                 <div className="mb-4">
-                    <div className="dropdown mb-2">
-                        <button className="form-select text-start" type='button'>
-                            Upload a Document
-                        </button>
-                    </div>
-
-                    {file && (
-                        <div className="mb-2 text-start">
-                            <span className="badge bg-secondary me-2 d-inline-flex align-items-center">
-                                {file.name}
-                                <button
-                                    type="button"
-                                    className="btn-close btn-close-white btn-sm ms-2"
-                                    onClick={handleRemove}
-                                    aria-label="Close"
-                                ></button>
-                            </span>
-                        </div>
-                    )}
-
-                    <div className="upload">
-                        <label htmlFor="upload-input" className="fw-bold m-0">
-                            <img src={UploadIcon} alt="UploadIcon" /> Click to upload <span>Document</span>
+                    <div className="form-control">
+                        <label htmlFor="upload-input" className="m-0 w-100 d-flex justify-content-between" style={{ color: '#9E9E9E', fontWeight: '500', cursor: 'pointer' }}>
+                            Upload document <img src={UploadIcon} alt="UploadIcon" />
                         </label>
                         <input
                             id="upload-input"
@@ -208,6 +189,23 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                             className="d-none"
                         />
                     </div>
+                    {file && (
+                        <div className="mt-2 text-start">
+                            <span className="position-relative d-inline-flex align-items-center">
+                                <img src={URL.createObjectURL(file)} alt={file.name} style={{ width: '140px', height: '140px', objectFit: 'contain', objectPosition: 'center' }} />
+                                <button
+                                    type="button"
+                                    className="border-0 position-absolute"
+                                    style={{
+                                        background: "transparent",
+                                        right: "8px",
+                                        top: '5px'
+                                    }}
+                                    onClick={handleRemove}
+                                ><img src={close_img} alt="close_img" /></button>
+                            </span>
+                        </div>
+                    )}
                 </div>
 
                 <div className='mb-4'>

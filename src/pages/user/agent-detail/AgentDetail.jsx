@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Css
 import "./AgentDetail.scss";
@@ -17,10 +17,24 @@ import { AgentData, AgentReviewsData } from '../../../constants/data/Data';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { reqToGetAgentDetail } from '../../../reduxToolkit/services/user/default/agentListServices';
 
 const AgentDetail = () => {
+    const { id } = useParams()
+    const dispatch = useDispatch()
 
+    const [agentDetail, setAgentDetail] = useState([])
+
+    const handleGetAgentDetail = async () => {
+        const res = await dispatch(reqToGetAgentDetail(id));
+        setAgentDetail(res?.payload?.data?.data || []);
+    };
+
+    useEffect(() => {
+        handleGetAgentDetail()
+    }, [])
 
     // Reviews
     const options = {
@@ -58,7 +72,7 @@ const AgentDetail = () => {
                     <div className="row">
                         <div className="col-lg-7">
                             <div className="left">
-                                <h1>Sendra Lily Overview</h1>
+                                <h1>{agentDetail?.name} Overview</h1>
 
                                 <p>
                                     Reduce high taxes with Paraguay's Tax Residency with 0% tax on foreign income legally using the territorial tax system. Our flat fee service covers all core services, with no hidden costs. Visadb’s specialist, Natalia, has 8 years of experience obtaining over 1400 successful residencies. Read some of the happy customer reviews below. You are in reliable, and seasoned hands every step of the way.
@@ -73,15 +87,15 @@ const AgentDetail = () => {
                             <div className="right">
                                 <div className="info d-flex align-items-center">
                                     <div className="agent_img">
-                                        <img src={Agent} alt="Agent" className='img-fluid object-fit-cover' />
+                                        <img src={agentDetail?.profile} alt="Agent" className='img-fluid object-fit-cover' />
                                     </div>
 
                                     <div className='detail'>
-                                        <h4>Sendra Lily</h4>
-                                        <div className='expe'>Exp: 5 Years</div>
+                                        <h4>{agentDetail?.name}</h4>
+                                        <div className='expe'>Exp: {agentDetail?.experience} Years</div>
                                         <div className="location d-flex align-items-center">
                                             <img src={Location} alt="" className='img-fluid me-2' />
-                                            Surat, Gujarat, India
+                                            {agentDetail?.city}, {agentDetail?.state}, {agentDetail?.country}
                                         </div>
                                     </div>
                                 </div>

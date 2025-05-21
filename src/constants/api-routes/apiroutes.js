@@ -21,6 +21,8 @@ export const apiendpoints = {
     // user-list
     getTopAgentList: "/user-api/list/topAgents",
     getAllAgentList: "/user-api/list/agentsList",
+    getAgentDetail: "/user-api/list/agentDetail/:id",
+    getTopReview: "/user-api/list/topReviews",
 
     // contact-us 
     getContactus: "/user-api/helpNsupport/add"
