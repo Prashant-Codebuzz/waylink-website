@@ -45,14 +45,14 @@ const RoleSelection = ({ show, handleClose }) => {
                 </p>
 
                 <div className='select_profile'>
-                    <button type='button' className='profile_btn' onClick={() => handleRoleSelect("user")}>
+                    <button type='button' className='profile_btn' onClick={() => handleRoleSelect("agent")}>
                         <div className="profile_img">
                             <img src={AgentImage} alt="" className='img-fluid' />
                         </div>
 
                         <span>Agent</span>
                     </button>
-                    <button type='button' className='profile_btn' onClick={() => handleRoleSelect("agent")}>
+                    <button type='button' className='profile_btn' onClick={() => handleRoleSelect("user")}>
                         <div className="profile_img">
                             <img src={UserImage} alt="" className='img-fluid' />
                         </div>

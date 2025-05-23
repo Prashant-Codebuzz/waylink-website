@@ -27,7 +27,7 @@ export const LandingLayOut = ({ handleRoleSelect }) => {
 
     useEffect(() => {
         if (token) {
-            // navigate(role === "user" ? "/user/home" : "/agent/home");
+            navigate(role === "user" ? "/user/home" : "/agent/home");
         }
     }, [role, token]);
 
@@ -53,7 +53,7 @@ export const UserDefaultLayOut = () => {
     useEffect(() => {
         if (!userToken) {
             // navigate("/user/sign-in");
-            // navigate("/");
+            navigate("/");
         }
     }, [userToken]);
 
@@ -110,7 +110,7 @@ export const AgentDefaultLayOut = () => {
     useEffect(() => {
         if (!agentToken) {
             // navigate("/agent/sign-in");
-            // navigate("/");
+            navigate("/");
         }
     }, [agentToken]);
 

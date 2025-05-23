@@ -30,6 +30,10 @@ const Visa = () => {
     const [country, setCountry] = useState(initialState);
     const [activeVisa, setActiveVisa] = useState('all');
 
+    const [pagination, setPagination] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
+
+
 
     const handleSelectCountry = (e) => {
         const { name, value } = e.target;
@@ -349,7 +353,8 @@ const Visa = () => {
                         </div>
                     </div>
 
-                    <Pagination />
+                    <Pagination pagination={pagination} onPageChange={setCurrentPage} />
+
 
                 </div>
             </div>

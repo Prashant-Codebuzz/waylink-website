@@ -106,7 +106,7 @@ const AgentDetail = () => {
                                     </div>
                                 </div>
 
-                                <div className="review-img d-flex align-items-center">
+                                <div className="reviews_data d-flex align-items-center">
                                     <div className="d-flex gap-1 me-2">
                                         {[...Array(Math.round(agentDetail?.averageRating || 0))].map((_, imgIndex) => (
                                             <img key={imgIndex} src={ReviewStar} alt="" className="img-fluid" />
@@ -147,7 +147,7 @@ const AgentDetail = () => {
                                 agentReview?.map((i, index) => {
                                     return (
                                         <div className="box" key={index}>
-                                            <div className="review d-flex gap-2">
+                                            <div className="review_img d-flex gap-2">
                                                 {[...Array(i?.rating)]?.map((_, imgIndex) => (
                                                     <img key={imgIndex} src={AgentStar} alt="" className="img-fluid" />
                                                 ))}
@@ -192,7 +192,7 @@ const AgentDetail = () => {
                         <div className="row g-5">
 
                             {
-                                [...AgentData]?.map((i, index) => {
+                                [...AgentData]?.slice(0, 4)?.map((i, index) => {
                                     return (
                                         <div className="col-lg-4 col-xl-3" key={index}>
                                             <div className="box text-center">
