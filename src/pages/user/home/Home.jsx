@@ -38,7 +38,6 @@ const Home = () => {
 
     const [agentList, setAgentList] = useState([])
     const [reviewList, setReviewList] = useState([])
-    console.log(reviewList, '-=-=-');
 
     const handleGetTopAgentList = async () => {
         const res = await dispatch(reqToTopAgent());
@@ -333,7 +332,7 @@ const Home = () => {
                         </div>
                         <div className="col-lg-7">
                             <div className="right d-flex gap-5">
-                                <OwlCarousel key={reviewList.length} ref={carouselRef} className="owl-theme" {...options} >
+                                <OwlCarousel key={reviewList?.length} ref={carouselRef} className="owl-theme" {...options} >
 
                                     {
                                         reviewList?.map((i, index) => {
@@ -345,7 +344,7 @@ const Home = () => {
 
                                                     <div className="info">
                                                         <div className="name">{i?.name}</div>
-                                                        <div className="org">{i?.workTitle}</div>
+                                                        {/* <div className="org">{i?.workTitle}</div> */}
                                                     </div>
 
                                                     <div className="review-img d-flex gap-1">

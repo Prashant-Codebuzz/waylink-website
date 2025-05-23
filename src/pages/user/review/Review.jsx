@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Css
 import "./Review.scss";
@@ -7,9 +7,15 @@ import "./Review.scss";
 import ReviewUser from '../../../assets/images/review/review_user.svg';
 import ReviewStar from '../../../assets/images/agent-detail/agent_star.svg';
 import ReviewRight from '../../../assets/images/review/review_right.svg';
+import StarRating from '../../../components/rating/StarRating';
 
+const initialState = {
+    comment: ""
+}
 
 const Review = () => {
+    const [rating, setRating] = useState(0);
+    const [formData, setFormData] = useState(initialState);
     return (
         <>
 
@@ -42,9 +48,10 @@ const Review = () => {
                                     <form>
                                         <div className="mb-4">
                                             <div className="reviews-star d-flex justify-content-center gap-2">
-                                                {[...Array(5)]?.map((_, imgIndex) => (
+                                                {/* {[...Array(5)]?.map((_, imgIndex) => (
                                                     <img key={imgIndex} src={ReviewStar} alt="" className="img-fluid" />
-                                                ))}
+                                                ))} */}
+                                                <StarRating rating={rating} onRatingChange={setRating} editable={true} />
                                             </div>
                                         </div>
                                         <div className="mb-4">

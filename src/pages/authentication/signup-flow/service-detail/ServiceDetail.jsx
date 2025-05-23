@@ -23,17 +23,18 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
     const dispatch = useDispatch();
     const loader = useSelector((state) => state.userAuth.loader);
     const [formData, setFormData] = useState(initialState);
-    const [file, setFile] = useState('');
+    const [files, setFiles] = useState([]);
 
     const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setFile(file);
-        }
+        const selectedFiles = Array.from(e.target.files);
+        setFiles(prevFiles => {
+            const combined = [...prevFiles, ...selectedFiles];
+            return combined.slice(0, 10);
+        });
     };
 
-    const handleRemove = () => {
-        setFile('');
+    const handleRemove = (indexToRemove) => {
+        setFiles(prevFiles => prevFiles.filter((_, index) => index !== indexToRemove));
     };
 
     const handleChange = (e) => {
@@ -59,8 +60,10 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
         formPayload.append("service", formData.service);
         formPayload.append("companyName", formData.companyName);
         formPayload.append("totalAgent", formData.totalAgent);
-        if (file) {
-            formPayload.append("document", file);
+        if (files && files.length > 0) {
+            files.forEach(file => {
+                formPayload.append("document", file);
+            });
         }
 
         const res = await dispatch(reqToAgentWorkProfile(formPayload))
@@ -187,25 +190,41 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                             type="file"
                             onChange={handleFileChange}
                             className="d-none"
+                            multiple
+                            max={'10'}
                         />
                     </div>
-                    {file && (
-                        <div className="mt-2 text-start">
-                            <span className="position-relative d-inline-flex align-items-center">
-                                <img src={URL.createObjectURL(file)} alt={file.name} style={{ width: '140px', height: '140px', objectFit: 'contain', objectPosition: 'center' }} />
-                                <button
-                                    type="button"
-                                    className="border-0 position-absolute"
-                                    style={{
-                                        background: "transparent",
-                                        right: "8px",
-                                        top: '5px'
-                                    }}
-                                    onClick={handleRemove}
-                                ><img src={close_img} alt="close_img" /></button>
-                            </span>
+                    {files.length > 0 && (
+                        <div className="mt-2 text-start d-flex flex-wrap gap-3">
+                            {files.map((file, index) => (
+                                <span key={index} className="position-relative d-inline-flex align-items-center">
+                                    <img
+                                        src={URL.createObjectURL(file)}
+                                        alt={file.name}
+                                        style={{
+                                            width: '140px',
+                                            height: '140px',
+                                            objectFit: 'contain',
+                                            objectPosition: 'center'
+                                        }}
+                                    />
+                                    <button
+                                        type="button"
+                                        className="border-0 position-absolute"
+                                        style={{
+                                            background: "transparent",
+                                            right: "8px",
+                                            top: '5px'
+                                        }}
+                                        onClick={() => handleRemove(index)}
+                                    >
+                                        <img src={close_img} alt="close_img" />
+                                    </button>
+                                </span>
+                            ))}
                         </div>
                     )}
+
                 </div>
 
                 <div className='mb-4'>

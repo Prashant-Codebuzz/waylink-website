@@ -7,29 +7,75 @@ import "./EditProfile.scss";
 import ProfileDummyUser1 from '../../../assets/images/account/profile_dummy_user.svg';
 import ProfileDummyUser from '../../../assets/images/account/profile_dummy_user.jpg';
 import Camera from '../../../assets/images/account/camera.svg';
+import PhoneInput from 'react-phone-input-2';
+import parsePhoneNumberFromString from 'libphonenumber-js';
+import { useDispatch } from 'react-redux';
+import { reqToUserEditProfile } from '../../../reduxToolkit/services/user/account/accountServices';
 
 const initialState = {
-    profile: "",
+    profile: null,
+    name: "",
+    gender: "",
+    dateOfBirth: "",
+    country: "",
+    state: "",
+    city: "",
+    address: ""
 }
 
 const EditProfile = () => {
-
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState(initialState);
+    const [phone, setPhone] = useState('');
+    const [isValid, setIsValid] = useState(false);
+    const [isError, setError] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
+        let formattedValue = value;
+
+        if (name === "mobileNumber") {
+            if (!value.startsWith("+91")) {
+                const digits = value.replace(/\D/g, "");
+                formattedValue = `+91 ${digits}`;
+            }
+        }
 
         setFormData((prev) => ({
             ...prev,
-            [name]: files ? files[0] : value,
+            [name]: files ? files[0] : formattedValue,
         }));
-    }
+    };
 
-    const handleSubmit = (e) => {
+    const handlePhoneChange = (value) => {
+        const parsed = parsePhoneNumberFromString("+" + value);
+        if (parsed && parsed.isValid()) {
+            const formatted = parsed.formatInternational();
+            setPhone(formatted);
+            setIsValid(true);
+            setError(false)
+        } else {
+            setIsValid(false);
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-    }
+        if (!isValid) {
+            setError(true)
+            return;
+        }
+        const payload = { ...formData, mobileNumber: phone }
+        const res = await dispatch(reqToUserEditProfile(payload))
 
+        if (res?.payload?.data?.status) {
+            setFormData(initialState)
+            setPhone("")
+            setIsValid(false);
+            setError(false);
+        }
+    }
 
     return (
         <>
@@ -68,20 +114,27 @@ const EditProfile = () => {
                                     type="text"
                                     id="name"
                                     name="name"
+                                    value={formData.name}
                                     className="form-control"
+                                    onChange={handleChange}
+                                    required
                                     placeholder="Enter Full Name"
                                 />
                             </div>
-                            <div className="col-lg-6 mb-4">
-                                <input
-                                    type="text"
-                                    pattern='\d*'
-                                    maxLength={16}
-                                    id="name"
-                                    name="name"
-                                    className="form-control"
-                                    placeholder="Enter Mobile Number"
-                                    onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
+                            <div className='col-lg-6 mb-4'>
+                                <PhoneInput
+                                    country={'in'}
+                                    value={phone}
+                                    onChange={handlePhoneChange}
+                                    inputClass={`${isError ? 'error' : ''} form-control`}
+                                    placeholder='Enter mobile number'
+                                    containerClass="mb-2"
+                                    dropdownClass='country-list'
+                                    inputStyle={{
+                                        borderRadius: '10px',
+                                        width: '100%',
+                                        paddingLeft: '58px'
+                                    }}
                                 />
                             </div>
                             <div className="col-lg-6 mb-4">
@@ -89,6 +142,9 @@ const EditProfile = () => {
                                     id="gender"
                                     name="gender"
                                     className="form-select"
+                                    onChange={handleChange}
+                                    value={formData.gender}
+                                    required
                                 >
                                     <option value="">Select gender</option>
                                     <option value="male">Male</option>
@@ -98,8 +154,11 @@ const EditProfile = () => {
                             <div className="col-lg-6 mb-4">
                                 <input
                                     type="date"
-                                    id="birthdate"
-                                    name="birthdate"
+                                    id="dateOfBirth"
+                                    name="dateOfBirth"
+                                    value={formData.dateOfBirth}
+                                    onChange={handleChange}
+                                    required
                                     className="form-control"
                                     placeholder="Select BirthDate"
                                     min={new Date().toISOString().split("T")[0]}
@@ -109,6 +168,9 @@ const EditProfile = () => {
                                 <select
                                     id="country"
                                     name="country"
+                                    value={formData.country}
+                                    onChange={handleChange}
+                                    required
                                     className="form-select"
                                 >
                                     <option value="">Select country</option>
@@ -119,7 +181,10 @@ const EditProfile = () => {
                             <div className="col-lg-6 mb-4">
                                 <select
                                     id="state"
+                                    onChange={handleChange}
                                     name="state"
+                                    value={formData.state}
+                                    required
                                     className="form-select"
                                 >
                                     <option value="">Select state</option>
@@ -131,6 +196,9 @@ const EditProfile = () => {
                                 <select
                                     id="city"
                                     name="city"
+                                    value={formData.city}
+                                    onChange={handleChange}
+                                    required
                                     className="form-select"
                                 >
                                     <option value="">Select city</option>
@@ -142,6 +210,9 @@ const EditProfile = () => {
                                 <textarea
                                     type="text"
                                     id="address"
+                                    value={formData.address}
+                                    required
+                                    onChange={handleChange}
                                     name="address"
                                     className="form-control"
                                     placeholder="Enter address"

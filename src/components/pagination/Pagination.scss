@@ -14,6 +14,7 @@
             .page-link {
                 border: 1px solid #BCBCBC;
                 border-radius: 6px;
+                cursor: pointer;
 
                 width: 45px;
                 height: 45px;
@@ -41,9 +42,19 @@
 
             &:first-of-type,
             &:last-of-type {
+                &.disabled {
+                    cursor: no-drop;
+
+                    .page-link {
+                        color: #BCBCBC !important;
+                    }
+                }
+
                 .page-link {
                     border: 0;
                     color: var(--blue);
+                    box-shadow: none;
+                    background-color: transparent;
 
                     &:hover,
                     &.active {

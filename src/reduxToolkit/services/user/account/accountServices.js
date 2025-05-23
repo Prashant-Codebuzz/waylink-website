@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Axios } from "../../../helper/axios";
-import toast from "react-hot-toast";
+import { authURLHeaders, Axios, userHeaders } from "../../../helper/axios";
 import { apiendpoints } from "../../../../constants/api-routes/apiroutes";
+import toast from "react-hot-toast";
 
 
-// reqToLandingAgent
-export const reqToLandingAgent = createAsyncThunk("reqToLandingAgent", async () => {
+// reqToGetMyReviews
+export const reqToGetMyReviews = createAsyncThunk("reqToGetMyReviews", async (data) => {
     try {
-        const response = await Axios.get(apiendpoints.getTopLandingAgent);
+        const response = await Axios.post(apiendpoints.getMyReview, data, authURLHeaders());
 
         if (response?.data?.status) {
             // toast.success(response?.data?.message);
@@ -25,13 +25,13 @@ export const reqToLandingAgent = createAsyncThunk("reqToLandingAgent", async () 
     }
 })
 
-// reqToTopLandingReview
-export const reqToTopLandingReview = createAsyncThunk("reqToTopLandingReview", async () => {
+// reqToUserEditProfile
+export const reqToUserEditProfile = createAsyncThunk("reqToUserEditProfile", async (data) => {
     try {
-        const response = await Axios.get(apiendpoints.getTopLandingReview);
+        const response = await Axios.post(apiendpoints.userEditProfile, data, userHeaders("multipart/form-data"));
 
         if (response?.data?.status) {
-            // toast.success(response?.data?.message);
+            toast.success(response?.data?.message);
             return response
         } else {
             toast.error(response?.data?.message);

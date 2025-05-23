@@ -10,6 +10,7 @@ import Location from '../../../assets/images/agent-detail/location.svg';
 import ReviewStar from '../../../assets/images/agent-detail/review_star.svg';
 import Chat from '../../../assets/images/agent-detail/chat.svg';
 import AgentButton from '../../../assets/images/home/landing/agent_btn.png';
+import AgentStar from '../../../assets/images/agent-detail/agent_star.svg';
 
 // Static-Data
 import { AgentData, AgentReviewsData } from '../../../constants/data/Data';
@@ -20,26 +21,33 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { reqToGetAgentDetail } from '../../../reduxToolkit/services/user/default/agentListServices';
+import { reqToAgentReview, reqToGetAgentDetail } from '../../../reduxToolkit/services/user/default/agentListServices';
 
 const AgentDetail = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
 
     const [agentDetail, setAgentDetail] = useState([])
+    const [agentReview, setAgentReview] = useState([])
 
     const handleGetAgentDetail = async () => {
         const res = await dispatch(reqToGetAgentDetail(id));
         setAgentDetail(res?.payload?.data?.data || []);
     };
 
+    const handleGetAgentReview = async () => {
+        const res = await dispatch(reqToAgentReview(id))
+        setAgentReview(res?.payload?.data?.data || []);
+    }
+
     useEffect(() => {
         handleGetAgentDetail()
+        handleGetAgentReview()
     }, [])
 
     // Reviews
     const options = {
-        loop: true,
+        loop: false,
         margin: 30,
         nav: false,
         dots: false,
@@ -76,11 +84,7 @@ const AgentDetail = () => {
                                 <h1>{agentDetail?.name} Overview</h1>
 
                                 <p>
-                                    Reduce high taxes with Paraguay's Tax Residency with 0% tax on foreign income legally using the territorial tax system. Our flat fee service covers all core services, with no hidden costs. Visadb’s specialist, Natalia, has 8 years of experience obtaining over 1400 successful residencies. Read some of the happy customer reviews below. You are in reliable, and seasoned hands every step of the way.
-                                </p>
-
-                                <p>
-                                    Reduce high taxes with Paraguay's Tax Residency with 0% tax on foreign income legally using the territorial tax system. Our flat fee service covers all core services, with no hidden costs. Visadb’s specialist, Natalia, has 8 years of experience obtaining over 1400 successful residencies. Read some of the happy customer reviews below. You are in reliable, and seasoned hands every step of the way.
+                                    {agentDetail?.description}
                                 </p>
                             </div>
                         </div>
@@ -103,7 +107,7 @@ const AgentDetail = () => {
 
                                 <div className="review d-flex align-items-center">
                                     <div className="d-flex gap-1 me-2">
-                                        {[...Array(5)]?.map((_, imgIndex) => (
+                                        {[...Array(Math.round(agentDetail?.averageRating || 0))].map((_, imgIndex) => (
                                             <img key={imgIndex} src={ReviewStar} alt="" className="img-fluid" />
                                         ))}
                                     </div>
@@ -137,14 +141,14 @@ const AgentDetail = () => {
                     </div>
 
                     <div className="second">
-                        <OwlCarousel className="owl-theme" {...options} >
+                        <OwlCarousel key={agentReview?.length} className="owl-theme" {...options} >
                             {
-                                AgentReviewsData?.map((i, index) => {
+                                agentReview?.map((i, index) => {
                                     return (
                                         <div className="box" key={index}>
                                             <div className="review d-flex gap-2">
-                                                {[...Array(5)]?.map((_, imgIndex) => (
-                                                    <img key={imgIndex} src={i?.review} alt="" className="img-fluid" />
+                                                {[...Array(i?.rating)]?.map((_, imgIndex) => (
+                                                    <img key={imgIndex} src={AgentStar} alt="" className="img-fluid" />
                                                 ))}
                                             </div>
 
@@ -154,12 +158,12 @@ const AgentDetail = () => {
 
                                             <div className="info d-flex align-items-center">
                                                 <div className="agent_img">
-                                                    <img src={i?.image} alt="" className='img-fluid' />
+                                                    <img src={i?.profile} alt="" className='img-fluid' />
                                                 </div>
 
                                                 <div className="content">
                                                     <div className="name">{i?.name}</div>
-                                                    <div className="role">{i?.role}</div>
+                                                    <div className="role">{i?.workTitle}</div>
                                                 </div>
                                             </div>
                                         </div>

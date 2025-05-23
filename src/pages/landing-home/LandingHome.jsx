@@ -26,6 +26,7 @@ import DownloadAppAndroid from '../../assets/images/home/landing/download_app_an
 import DownloadAppRight from '../../assets/images/home/landing/download_app_right.png';
 import TestimonialsLeft from '../../assets/images/home/landing/testimonials_left.png';
 import TestimonialsRight from '../../assets/images/home/landing/testimonials_right.png';
+import TestimonialsStar from '../../assets/images/home/landing/testimonials_star.png';
 
 // import Australia from '../../assets/images/home/landing/country/australia.png';
 // import Belgium from '../../assets/images/home/landing/country/belgium.png';
@@ -44,14 +45,14 @@ import TestimonialsRight from '../../assets/images/home/landing/testimonials_rig
 import useScrollToSection from '../../hooks/useScrollToSection';
 
 // Static-Data
-import { AgentData, ConsultancyTabsData, CountryChoiceData, CountryData, TestimonialsData } from '../../constants/data/Data';
+import { ConsultancyTabsData, CountryChoiceData, CountryData } from '../../constants/data/Data';
 
 // Ui-Package
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { useDispatch } from 'react-redux';
-import { reqToTopAgent } from '../../reduxToolkit/services/landing-home/agent/agentServices';
+import { reqToLandingAgent, reqToTopLandingReview } from '../../reduxToolkit/services/landing-home/agent/agentServices';
 
 const LandingHome = ({ handleRoleSelect }) => {
 
@@ -63,14 +64,21 @@ const LandingHome = ({ handleRoleSelect }) => {
     // Country
     const [activeCountry, setActiveCountry] = useState('europe');
     const [agentList, setAgentList] = useState([])
+    const [agentReview, setAgentReview] = useState([])
 
     const handleGetTopAgentList = async () => {
-        const res = await dispatch(reqToTopAgent());
+        const res = await dispatch(reqToLandingAgent());
         setAgentList(res?.payload?.data?.data);
+    }
+
+    const handleGetTopReview = async () => {
+        const res = await dispatch(reqToTopLandingReview());
+        setAgentReview(res?.payload?.data?.data);
     }
 
     useEffect(() => {
         handleGetTopAgentList()
+        handleGetTopReview()
     }, [])
 
     // Testimonialsc
@@ -861,7 +869,7 @@ const LandingHome = ({ handleRoleSelect }) => {
                         </div>
                         <div className="col-lg-7">
                             <div className="right d-flex gap-5">
-                                <OwlCarousel ref={carouselRef} className="owl-theme" {...options} >
+                                <OwlCarousel key={agentReview?.length} ref={carouselRef} className="owl-theme" {...options} >
                                     {/* <div className="box">
                                         <div className="client-img">
                                             <img src={TestimonialsClient} alt="" className='img-fluid' />
@@ -884,21 +892,21 @@ const LandingHome = ({ handleRoleSelect }) => {
                                     </div> */}
 
                                     {
-                                        TestimonialsData?.map((i, index) => {
+                                        agentReview?.map((i, index) => {
                                             return (
                                                 <div className="box" key={index}>
                                                     <div className="client-img">
-                                                        <img src={i?.image} alt="" className='img-fluid' />
+                                                        <img src={i?.profile} alt="" className='img-fluid' />
                                                     </div>
 
                                                     <div className="info">
                                                         <div className="name">{i?.name}</div>
-                                                        <div className="org">{i?.organization}</div>
+                                                        {/* <div className="org">{i?.workTitle}</div> */}
                                                     </div>
 
-                                                    <div className="review d-flex gap-1">
-                                                        {[...Array(5)]?.map((_, imgIndex) => (
-                                                            <img key={imgIndex} src={i?.review} alt="" className="img-fluid" />
+                                                    <div className="review-img d-flex gap-1">
+                                                        {[...Array(i.rating)]?.map((_, imgIndex) => (
+                                                            <img key={imgIndex} src={TestimonialsStar} alt="" className="img-fluid" />
                                                         ))}
                                                     </div>
 

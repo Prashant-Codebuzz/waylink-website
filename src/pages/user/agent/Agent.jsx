@@ -29,16 +29,22 @@ const Agent = () => {
     const [agentList, setAgentList] = useState([])
     const [search, setSearch] = useState("")
     const [debounceTimer, setDebounceTimer] = useState(null);
+    const [pagination, setPagination] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
 
     const loader = useSelector((state) => state.allAgent.loader);
 
-    const handleGetAllAgentList = async () => {
+    const handleGetAllAgentList = async (page) => {
         const payload = {
             search: search,
-            filter: ""
+            filter: "",
+            page,
+            limit: 6
         };
         const res = await dispatch(reqToGetAllAgent(payload));
         setAgentList(res?.payload?.data?.data || []);
+        setPagination(res?.payload?.data?.pagination || {})
+        setCurrentPage(page)
     };
 
     useEffect(() => {
@@ -47,13 +53,13 @@ const Agent = () => {
         }
 
         const timer = setTimeout(() => {
-            handleGetAllAgentList();
+            handleGetAllAgentList(currentPage);
         }, 500);
 
         setDebounceTimer(timer);
 
         return () => clearTimeout(timer);
-    }, [search]);
+    }, [search, currentPage]);
 
     return (
         <>
@@ -155,7 +161,7 @@ const Agent = () => {
                         </div>
                     </div>
 
-                    <Pagination />
+                    <Pagination pagination={pagination} onPageChange={handleGetAllAgentList} />
 
                 </div>
             </section>

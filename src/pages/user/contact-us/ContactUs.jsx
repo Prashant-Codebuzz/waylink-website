@@ -66,7 +66,6 @@ const ContactUs = () => {
                 setPhone('');
                 setIsValid(false);
                 setError(false);
-                setPhone('')
             }
         } catch (error) {
             console.error("Error submitting form", error);

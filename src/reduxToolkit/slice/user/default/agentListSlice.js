@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { reqToGetAgentDetail, reqToGetAllAgent, reqToTopReview } from "../../../services/user/default/agentListServices";
+import { reqToAgentReview, reqToGetAgentDetail, reqToGetAllAgent, reqToTopReview } from "../../../services/user/default/agentListServices";
 
 const initialState = {
     loader: false,
@@ -47,6 +47,19 @@ const allAgent = createSlice({
             state.data = action.payload?.data?.data || [];
         })
         builder.addCase(reqToTopReview.rejected, (state, action) => {
+            state.loader = false;
+            state.error = action.error.message
+        })
+
+        // reqToAgentReview
+        builder.addCase(reqToAgentReview.pending, (state) => {
+            state.loader = true;
+        })
+        builder.addCase(reqToAgentReview.fulfilled, (state, action) => {
+            state.loader = false;
+            state.data = action.payload?.data?.data || [];
+        })
+        builder.addCase(reqToAgentReview.rejected, (state, action) => {
             state.loader = false;
             state.error = action.error.message
         })

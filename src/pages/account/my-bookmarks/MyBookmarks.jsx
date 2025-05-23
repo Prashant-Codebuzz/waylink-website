@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Css
 import "./MyBookmarks.scss";
@@ -14,6 +14,9 @@ import { LatestNewsData } from '../../../constants/data/Data';
 import Pagination from '../../../components/pagination/Pagination';
 
 const MyBookmarks = () => {
+    const [pagination, setPagination] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
+
     return (
         <>
 
@@ -86,7 +89,7 @@ const MyBookmarks = () => {
                         </div>
                     </div>
 
-                    <Pagination />
+                    <Pagination pagination={pagination} onPageChange={setCurrentPage} />
 
                 </div>
             </div>

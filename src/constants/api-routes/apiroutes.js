@@ -1,4 +1,9 @@
 export const apiendpoints = {
+
+    // landing-page
+    getTopLandingAgent: "/user-api/landingPage/topAgents",
+    getTopLandingReview: "/user-api/landingPage/topReviews",
+
     // User-auth
     userRegister: "/user-api/auth/register",
     userOtpVerification: "/user-api/auth/otpVerification",
@@ -23,7 +28,12 @@ export const apiendpoints = {
     getAllAgentList: "/user-api/list/agentsList",
     getAgentDetail: "/user-api/list/agentDetail/:id",
     getTopReview: "/user-api/list/topReviews",
+    getAgentReview: "/user-api/list/agentReview/:id",
+
+    // account
+    getMyReview: '/user-api/list/reviewList',
 
     // contact-us 
-    getContactus: "/user-api/helpNsupport/add"
+    getContactus: "/user-api/helpNsupport/add",
+    userEditProfile: "/user-api/auth/editProfile"
 }

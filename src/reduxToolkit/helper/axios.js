@@ -33,12 +33,12 @@ export const authURLHeaders = () => {
     }
 }
 
-export const userHeaders = () => {
+export const userHeaders = (type) => {
     const token = localStorage.getItem("user-token");
     return {
         headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
+            "Content-Type": type
         }
     }
 }
