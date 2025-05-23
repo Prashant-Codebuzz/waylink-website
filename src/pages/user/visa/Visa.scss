@@ -1,0 +1,404 @@
+/* ------ Visa-Banner Start ------ */
+.user_home_banner.visa_banner {
+    border-bottom: 1px solid #0402731A;
+}
+
+/* ------ Visa-Banner End ------ */
+
+
+
+/* ------ Visa Start ------ */
+.visa {
+    padding-block: 60px;
+
+    .top {
+        margin-bottom: 30px;
+
+        h1 {
+            font-family: var(--dm-sans);
+            font-weight: 700;
+            font-size: 50px;
+            color: var(--blue);
+        }
+
+        .filter_btn {
+            display: flex;
+            align-items: center;
+
+            background-color: #0402731A;
+            border: 0;
+            border-radius: 16px;
+            padding: 18px 22px;
+
+
+            font-family: var(--dm-sans);
+            font-weight: 500;
+            font-size: 18px;
+            color: var(--blue);
+        }
+
+        .dropdown-menu {
+            border-radius: 12px;
+            border: 2px solid #0402731A;
+
+            li {
+                .dropdown-item {
+                    font-family: var(--dm-sans);
+                    font-weight: 600;
+                    font-size: 16px;
+                    color: var(--blue);
+                    cursor: pointer;
+                    padding: 6px 18px;
+
+                    &:hover,
+                    &:focus {
+                        background-color: var(--blue);
+                        color: var(--white);
+                    }
+                }
+            }
+        }
+
+        .input-group {
+            max-width: 75%;
+
+            .form-control {
+                background-color: var(--white);
+                border: 2px solid #0402731A;
+                padding: 18px 20px 18px 55px;
+                border-radius: 18px;
+
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 18px;
+                color: #696969;
+
+                &::placeholder {
+                    color: var(--placeholder);
+                }
+
+                border-top-left-radius: 16px !important;
+                border-bottom-left-radius: 16px !important;
+            }
+
+            .icon {
+                position: absolute;
+                top: 50%;
+                left: 20px;
+                transform: translateY(-50%);
+                z-index: 10;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    .second {
+        .total {
+            font-family: var(--dm-sans);
+            font-weight: 600;
+            font-size: 32px;
+            color: #696969;
+        }
+
+        .group_btn {
+            margin-block: 20px 30px;
+            gap: 10px;
+
+            .visa_btn {
+                background-color: transparent;
+                border: 1.13px solid #D1D5DB;
+                border-radius: 100px;
+                font-family: var(--dm-sans);
+                font-weight: 400;
+                font-size: 18px;
+                padding: 10px 22px;
+
+                &.active {
+                    background-color: var(--blue);
+                    color: var(--white);
+                }
+            }
+        }
+
+        .visas {
+            .box {
+                border: 2px solid #0402731A;
+                box-shadow: 0px 4px 4px 0px #6969690D;
+                border-radius: 16px;
+                padding: 26px;
+            }
+
+            .countrys {
+                .country_img {
+                    max-width: 100%;
+
+                    img {
+                        width: 71px;
+                        height: 47px;
+                    }
+                }
+
+                .info {
+                    padding-left: 16px;
+
+                    .name {
+                        font-family: var(--dm-sans);
+                        font-weight: 600;
+                        font-size: 20px;
+                        color: var(--black);
+                        margin-bottom: 4px;
+                    }
+
+                    .date {
+                        font-family: var(--dm-sans);
+                        font-weight: 400;
+                        font-size: 16px;
+                        color: #00000099;
+                    }
+                }
+            }
+
+            .type {
+                font-family: var(--dm-sans);
+                font-weight: 600;
+                font-size: 20px;
+                color: var(--black);
+                margin-block: 18px;
+            }
+
+            .city {
+                margin-bottom: 18px;
+                position: relative;
+
+                .from,
+                .to {
+                    font-family: var(--dm-sans);
+                    font-weight: 500;
+                    font-size: 15.39px;
+                    color: var(--black);
+                    padding-left: 35px;
+                }
+
+                .from {
+                    margin-bottom: 30px;
+                }
+
+                .timeline {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .dot {
+                        width: 16px;
+                        height: 16px;
+                        background: var(--blue);
+                        border: 2.7px solid #D6E4DE;
+                        border-radius: 50%;
+
+                        &:first-of-type {
+                            margin-bottom: 2px;
+                        }
+
+                        &:last-of-type {
+                            margin-top: 2px;
+                        }
+                    }
+
+                    .line {
+                        flex: 1;
+                        border-left: 2px dashed #30795B66;
+                    }
+                }
+            }
+
+            .info {
+                gap: 22px;
+
+                .title {
+                    font-family: var(--dm-sans);
+                    font-weight: 600;
+                    font-size: 12px;
+                    color: #A7A7A7;
+                }
+
+                .value {
+                    font-family: var(--dm-sans);
+                    font-weight: 500;
+                    font-size: 15px;
+                    color: #322F2FE1;
+                }
+            }
+        }
+    }
+
+
+    @media (max-width: 1399px) {
+        padding-block: 55px;
+
+        .top {
+            margin-bottom: 25px;
+
+            h1 {
+                font-size: 45px;
+            }
+
+            .filter_btn {
+                padding: 16px 20px;
+                font-size: 17px;
+            }
+
+            .input-group {
+                .form-control {
+                    padding: 16px 18px 16px 52px;
+                    font-size: 17px;
+                }
+            }
+        }
+
+        .second {
+            .total {
+                font-size: 30px;
+            }
+
+            .group_btn {
+                gap: 8px;
+
+                .visa_btn {
+                    font-size: 17px;
+                    padding: 10px 20px;
+                }
+            }
+
+            .visas {
+                .box {
+                    padding: 24px;
+                }
+
+                .countrys {
+                    .country_img {
+                        img {
+                            width: 70px;
+                            height: 46px;
+                        }
+                    }
+
+                    .info {
+                        padding-left: 14px;
+
+                        .name {
+                            font-size: 20px;
+                            margin-bottom: 2px;
+                        }
+                    }
+                }
+
+                .type {
+                    font-size: 20px;
+                    margin-block: 16px;
+                }
+
+                .city {
+                    margin-bottom: 16px;
+
+                    .from,
+                    .to {
+                        font-size: 15px;
+                        padding-left: 35px;
+                    }
+
+                    .from {
+                        margin-bottom: 28px;
+                    }
+                }
+
+                .info {
+                    gap: 22px;
+
+                    .title {
+                        font-size: 12px;
+                    }
+
+                    .value {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1199px) {
+        padding-block: 50px;
+
+        .top {
+            margin-bottom: 25px;
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .filter_btn {
+                font-size: 16px;
+            }
+
+            .input-group {
+                .form-control {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .second {
+            .total {
+                font-size: 28px;
+            }
+
+            .visas {
+                .box {
+                    padding: 24px;
+                }
+
+                .countrys {
+                    .country_img {
+                        img {
+                            width: 68px;
+                            height: 44px;
+                        }
+                    }
+
+                    .info {
+                        padding-left: 12px;
+
+                        .name {
+                            font-size: 19px;
+                        }
+                    }
+                }
+
+                .type {
+                    font-size: 19px;
+                    margin-block: 15px;
+                }
+
+                .city {
+                    margin-bottom: 15px;
+
+                    .from {
+                        margin-bottom: 26px;
+                    }
+                }
+
+                .info {
+                    gap: 20px;
+                }
+            }
+        }
+    }
+}
+
+/* ------ Visa End ------ */

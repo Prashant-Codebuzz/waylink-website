@@ -70,5 +70,73 @@
             }
         }
     }
+
+     @media (max-width: 1399px) {
+        padding-block: 55px;
+
+        .top {
+            margin-bottom: 35px;
+
+            h1 {
+                font-size: 45px;
+            }
+        }
+
+        .second {
+            .content {
+                margin-bottom: 35px;
+
+                h5 {
+                    font-size: 28px;
+                }
+
+                p {
+                    font-size: 18px;
+                }
+
+                .sub {
+                    margin-bottom: 20px;
+
+                    h6 {
+                        font-size: 22px;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1199px) {
+        padding-block: 50px;
+
+        .top {
+            margin-bottom: 35px;
+
+            h1 {
+                font-size: 40px;
+            }
+        }
+
+        .second {
+            .content {
+                margin-bottom: 30px;
+
+                h5 {
+                    font-size: 26px;
+                }
+
+                p {
+                    font-size: 17px;
+                }
+
+                .sub {
+                    margin-bottom: 18px;
+
+                    h6 {
+                        font-size: 21px;
+                    }
+                }
+            }
+        }
+    }
 }
 /* ------ Terms-Conditions End ------ */

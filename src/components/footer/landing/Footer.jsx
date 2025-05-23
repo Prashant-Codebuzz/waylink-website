@@ -20,9 +20,9 @@ const LandingFooter = () => {
                         <div className="col-lg-6 d-flex justify-content-lg-end">
                             <div className="right">
                                 <div className="menu d-flex align-items-center">
-                                    <Link to="/">Privacy Policy</Link>
+                                    <Link to="/privacy-policy">Privacy Policy</Link>
                                     <span>|</span>
-                                    <Link to="/">Terms & Conditions</Link>
+                                    <Link to="/terms-conditions">Terms & Conditions</Link>
                                 </div>
                             </div>
                         </div>

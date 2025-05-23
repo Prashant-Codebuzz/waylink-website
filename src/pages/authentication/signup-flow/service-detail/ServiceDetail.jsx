@@ -14,14 +14,18 @@ const initialState = {
     experience: "",
     service: "",
     companyName: "",
-    totalAgent: ""
+    totalAgent: "",
+    document: "",
 }
 
 const ServiceDetail = ({ authStep, setAuthStep, role }) => {
 
     const IsRoleUser = role === "user";
+
     const dispatch = useDispatch();
+
     const loader = useSelector((state) => state.userAuth.loader);
+
     const [formData, setFormData] = useState(initialState);
     const [files, setFiles] = useState([]);
 
@@ -35,10 +39,10 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
 
     const handleRemove = (indexToRemove) => {
         setFiles(prevFiles => prevFiles.filter((_, index) => index !== indexToRemove));
-    };
+    }
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, files } = e.target;
 
         if (name === "experience") {
             if (!/^\d*$/.test(value)) return;
@@ -46,14 +50,17 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
 
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: files ? files[0] : value,
         }));
     }
+
+    console.log(formData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formPayload = new FormData();
+
         formPayload.append("type", formData.type);
         formPayload.append("workTitle", formData.workTitle);
         formPayload.append("experience", formData.experience);
@@ -67,11 +74,13 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
         }
 
         const res = await dispatch(reqToAgentWorkProfile(formPayload))
+
         if (res?.payload?.data?.status) {
             localStorage.removeItem("otp-verify-token");
             setAuthStep(4); // Redirect to Congratulations
         }
     }
+
 
     return (
         <>
@@ -174,6 +183,7 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                             name="totalAgent"
                             className="form-control"
                             placeholder="How many agents you have"
+                            value={formData.totalAgent || ""}
                             onChange={handleChange}
                             required
                         />
@@ -181,51 +191,55 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                 )}
 
                 <div className="mb-4">
-                    <div className="form-control">
-                        <label htmlFor="upload-input" className="m-0 w-100 d-flex justify-content-between" style={{ color: '#9E9E9E', fontWeight: '500', cursor: 'pointer' }}>
-                            Upload document <img src={UploadIcon} alt="UploadIcon" />
+                    <div className="form-control mb-2">
+                        <label htmlFor="document" className="m-0 w-100 d-flex justify-content-between" style={{ color: '#9E9E9E', fontWeight: '500', cursor: 'pointer' }}>
+                            Upload document
+                            <img src={UploadIcon} alt="UploadIcon" className='img-fluid' />
                         </label>
                         <input
-                            id="upload-input"
+                            id="document"
+                            name='document'
                             type="file"
-                            onChange={handleFileChange}
+                            onChange={handleChange}
                             className="d-none"
                             multiple
                             max={'10'}
                         />
                     </div>
-                    {files.length > 0 && (
-                        <div className="mt-2 text-start d-flex flex-wrap gap-3">
-                            {files.map((file, index) => (
-                                <span key={index} className="position-relative d-inline-flex align-items-center">
-                                    <img
-                                        src={URL.createObjectURL(file)}
-                                        alt={file.name}
-                                        style={{
-                                            width: '140px',
-                                            height: '140px',
-                                            objectFit: 'contain',
-                                            objectPosition: 'center'
-                                        }}
-                                    />
-                                    <button
-                                        type="button"
-                                        className="border-0 position-absolute"
-                                        style={{
-                                            background: "transparent",
-                                            right: "8px",
-                                            top: '5px'
-                                        }}
-                                        onClick={() => handleRemove(index)}
-                                    >
-                                        <img src={close_img} alt="close_img" />
-                                    </button>
-                                </span>
-                            ))}
-                        </div>
-                    )}
 
+                    {
+                        files.length > 0 && (
+                            <div className="mt-2 text-start d-flex flex-wrap gap-3">
+                                {files.map((file, index) => (
+                                    <span key={index} className="position-relative d-inline-flex align-items-center">
+                                        <img
+                                            src={URL.createObjectURL(file)}
+                                            alt={file.name}
+                                            style={{
+                                                width: '140px',
+                                                height: '140px',
+                                                objectFit: 'contain',
+                                                objectPosition: 'center'
+                                            }}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="border-0 position-absolute"
+                                            style={{
+                                                background: "transparent",
+                                                right: "8px",
+                                                top: '5px'
+                                            }}
+                                            onClick={() => handleRemove(index)}
+                                        >
+                                            <img src={close_img} alt="close_img" />
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
+                        )}
                 </div>
+
 
                 <div className='mb-4'>
                     <select
@@ -251,7 +265,7 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                         }
                     </button>
                 </div>
-            </form>
+            </form >
             {/* ------ Service-Detail End ------ */}
 
         </>

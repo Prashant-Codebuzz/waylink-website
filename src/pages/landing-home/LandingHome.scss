@@ -737,21 +737,30 @@
             // border-top: 0.9px solid #EDF3F5;
             border: 2px solid #0402731A;
             border-radius: 16px;
-            padding-block: 70px 40px;
+            padding: 70px 10px 40px;
 
             position: relative;
             overflow: hidden;
 
             .dot {
                 position: absolute;
-                bottom: 188px;
-                left: 10px;
-                width: 100%;
-                height: 225px;
+                // bottom: 188px;
+                // left: 10px;
+                // width: 100%;
+                // height: 225px;
+                // background: rgba(4, 2, 115, 0.1019607843);
+                // z-index: 0;
+                // overflow: hidden;
+                // clip-path: polygon(31% 41%, 38% 32%, 65% 0, 100% 0, 100% 35%, 67% 80%, 30% 77%);
+
                 background: rgba(4, 2, 115, 0.1019607843);
-                z-index: 0;
-                overflow: hidden;
-                clip-path: polygon(31% 41%, 38% 32%, 65% 0, 100% 0, 100% 35%, 67% 80%, 30% 77%);
+                border-radius: 100px;
+                width: 140px;
+                height: 275px;
+                top: -45px;
+                right: 24px;
+                bottom: 0px;
+                transform: rotate(45deg);
             }
 
             .agent_img {
@@ -775,7 +784,9 @@
                     font-family: var(--dm-sans);
                     font-weight: 600;
                     font-size: 26px;
+                    line-height: 28px;
                     color: var(--blue);
+                    margin-bottom: 5px;
                 }
 
                 .expe {
@@ -810,10 +821,13 @@
 
         .second {
             .box {
-                padding-block: 65px 35px;
+                padding: 65px 10px 35px;
 
                 .dot {
-                    clip-path: polygon(34% 41%, 41% 32%, 65% 0, 100% 0, 100% 35%, 67% 80%, 30% 77%);
+                    width: 140px;
+                    height: 275px;
+                    top: -52px;
+                    right: 1px;
                 }
 
                 .info {
@@ -846,9 +860,14 @@
 
         .second {
             .box {
-                padding-block: 60px 30px;
+                padding: 60px 10px 30px;
 
-                .dot {}
+                .dot {
+                    width: 140px;
+                    height: 275px;
+                    top: -57px;
+                    right: 20px
+                }
 
                 .info {
                     padding-block: 18px;
@@ -866,6 +885,7 @@
     }
 
 }
+
 /* ------ Agent End ------ */
 
 
@@ -1088,8 +1108,8 @@
             border-radius: 16px;
             padding: 40px;
 
-            .client-img{
-                img{
+            .client-img {
+                img {
                     max-width: 90px;
                     height: 90px;
                     object-fit: cover;

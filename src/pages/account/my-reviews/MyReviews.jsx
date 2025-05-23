@@ -13,7 +13,10 @@ import { useDispatch } from 'react-redux';
 import { reqToGetMyReviews } from '../../../reduxToolkit/services/user/account/accountServices';
 import AgentStar from '../../../assets/images/agent-detail/agent_star.svg';
 
-const MyReviews = () => {
+const MyReviews = ({ role }) => {
+
+    const IsRoleUser = role === "user";
+
     const dispatch = useDispatch();
     const [myReviews, setMyReviews] = useState([])
     const [pagination, setPagination] = useState({});
@@ -31,6 +34,8 @@ const MyReviews = () => {
     useEffect(() => {
         handleGetMyReview(currentPage);
     }, [currentPage]);
+
+
 
     return (
         <>

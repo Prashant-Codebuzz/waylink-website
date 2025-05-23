@@ -15,6 +15,7 @@ import { LatestNewsData } from '../../../constants/data/Data';
 // Component-Pagination
 import Pagination from '../../../components/pagination/Pagination';
 
+
 const News = () => {
 
     const navigate = useNavigate();

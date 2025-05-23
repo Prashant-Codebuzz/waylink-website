@@ -13,7 +13,11 @@ import { LatestNewsData } from '../../../constants/data/Data';
 // Component-Pagination
 import Pagination from '../../../components/pagination/Pagination';
 
-const MyBookmarks = () => {
+
+const MyBookmarks = ({ role }) => {
+
+    const IsRoleUser = role === "user";
+
     const [pagination, setPagination] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
 

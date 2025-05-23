@@ -22,6 +22,14 @@ import NewsImage from '../../assets/images/home/user/news_img.svg';
 import AgentReview from '../../assets/images/agent-detail/agent_review.svg';
 import AgentStar from '../../assets/images/agent-detail/agent_star.svg';
 
+// ------------ User-Visa ------------
+import Austria from '../../assets/images/visa/austria.svg';
+import Aruba from '../../assets/images/visa/aruba.svg';
+
+// ------------ Agent-Home ------------
+import RunningProfile from '../../assets/images/home/agent/running_profile.svg';
+import PendingProfile from '../../assets/images/home/agent/pending_profile.svg';
+import CompletedProfile from '../../assets/images/home/agent/completed_profile.svg';
 
 
 
@@ -135,6 +143,7 @@ export const AgentData = [
     { image: Agent, name: "Sendra Lily", experience: 5 },
     { image: Agent, name: "Sendra Lily", experience: 5 },
     { image: Agent, name: "Sendra Lily", experience: 5 },
+    { image: Agent, name: "Gretchen Cunningham", experience: 5 },
 ]
 
 
@@ -203,3 +212,209 @@ export const AgentReviewsData = [
         role: "Software Developer"
     }
 ]
+
+
+
+// ------------ User-Visa ------------  
+// ------ Visas ------  
+export const VisaData = [
+    {
+        key: "requirements",
+        title: "Requirements",
+        visa: [
+            {
+                country: Austria,
+                name: "Austria",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            },
+            {
+                country: Aruba,
+                name: "Aruba",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            }
+        ]
+    },
+    {
+        key: "cost-of-living",
+        title: "Cost of Living",
+        visa: [
+            {
+                country: Austria,
+                name: "Austria",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            },
+            {
+                country: Aruba,
+                name: "Aruba",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            }
+        ]
+    },
+    {
+        key: "expats",
+        title: "Expats",
+        visa: [
+            {
+                country: Austria,
+                name: "Austria",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            },
+            {
+                country: Aruba,
+                name: "Aruba",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            }
+        ]
+    },
+    {
+        key: "talent-immigration",
+        title: "Talent Immigration",
+        visa: [
+            {
+                country: Austria,
+                name: "Austria",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            },
+            {
+                country: Aruba,
+                name: "Aruba",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            }
+        ]
+    },
+    {
+        key: "investor-visas",
+        title: "Investor Visas",
+        visa: [
+            {
+                country: Austria,
+                name: "Austria",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            },
+            {
+                country: Aruba,
+                name: "Aruba",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            }
+        ]
+    },
+    {
+        key: "retirement-visas",
+        title: "Retirement Visas",
+        visa: [
+            {
+                country: Austria,
+                name: "Austria",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            }
+        ]
+    },
+    {
+        key: "student-visas",
+        title: "Student Visas",
+        visa: [
+            {
+                country: Aruba,
+                name: "Aruba",
+                date: "Mar 12, 2024",
+                type: "Schengen Visa type C",
+                from: "Permanent Residence",
+                to: "Citizenship",
+                duration: "3 months",
+                cost: "80",
+                complexity: "Low"
+            }
+        ]
+    },
+]
+
+
+
+// ------------ Agent-Home ------------  
+// ------ Profile ------  
+export const ProfileData = [
+    {
+        image: RunningProfile,
+        name: "Running Profiles",
+        count: 15,
+        apiCount: "running-profiles"
+    },
+    {
+        image: PendingProfile,
+        name: "Pending Profiles",
+        count: 45,
+        apiCount: "pending-profiles"
+    },
+    {
+        image: CompletedProfile,
+        name: "Completed Profiles",
+        count: 15,
+        apiCount: "completed-profiles"
+    }
+];  

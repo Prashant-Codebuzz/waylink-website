@@ -9,13 +9,18 @@ import ReviewStar from '../../../assets/images/agent-detail/agent_star.svg';
 import ReviewRight from '../../../assets/images/review/review_right.svg';
 import StarRating from '../../../components/rating/StarRating';
 
+// Ui-Package
+import { Rating } from 'react-simple-star-rating';
+
 const initialState = {
     comment: ""
 }
 
 const Review = () => {
+    
     const [rating, setRating] = useState(0);
     const [formData, setFormData] = useState(initialState);
+
     return (
         <>
 
@@ -52,6 +57,15 @@ const Review = () => {
                                                     <img key={imgIndex} src={ReviewStar} alt="" className="img-fluid" />
                                                 ))} */}
                                                 <StarRating rating={rating} onRatingChange={setRating} editable={true} />
+
+                                                {/* <Rating
+                                                    initialValue={4}
+                                                    readonly
+                                                    size={26}
+                                                    fillColor="#FFC403"
+                                                    emptyColor="#D9D9D9"
+                                                    className="star-spacing"
+                                                /> */}
                                             </div>
                                         </div>
                                         <div className="mb-4">

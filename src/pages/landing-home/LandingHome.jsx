@@ -906,7 +906,7 @@ const LandingHome = ({ handleRoleSelect }) => {
 
                                                     <div className="review-img d-flex gap-1">
                                                         {[...Array(i.rating)]?.map((_, imgIndex) => (
-                                                            <img key={imgIndex} src={TestimonialsStar} alt="" className="img-fluid" />
+                                                            <img key={imgIndex} src={i?.review} alt="" className="img-fluid" />
                                                         ))}
                                                     </div>
 

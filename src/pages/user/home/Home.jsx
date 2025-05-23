@@ -10,6 +10,7 @@ import BannerInput from '../../../assets/images/home/user/banner-input.svg';
 import BannerRight from '../../../assets/images/home/user/banner_right.svg';
 import CountryTrack from '../../../assets/images/home/landing/country_track.png';
 import RightArrow from '../../../assets/images/right_arrow.svg';
+import AgentReviewStar from '../../../assets/images/home/agent/agent_review_star.svg';
 import AgentButton from '../../../assets/images/home/landing/agent_btn.png';
 import Date from '../../../assets/images/date.svg';
 import TestimonialsLeft from '../../../assets/images/home/landing/testimonials_left.png';
@@ -24,14 +25,41 @@ import { AgentData, CountryData, LatestNewsData, TestimonialsData } from '../../
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+
 import { useDispatch } from 'react-redux';
 import { reqToTopAgent, reqToTopReview } from '../../../reduxToolkit/services/user/default/agentListServices';
 
+const initialState = {
+    from: "india",
+    to: ""
+}
 
 const Home = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const [country, setCountry] = useState(initialState);
+
+    const handleSelectCountry = (e) => {
+        const { name, value } = e.target;
+
+        // setCountry((prev) => ({
+        //     ...prev,
+        //     [name]: value,
+        // }));
+
+        const updatedCountry = {
+            ...country,
+            [name]: value,
+        };
+
+        setCountry(updatedCountry);
+
+        if (updatedCountry.from && updatedCountry.to) {
+            navigate(`/user/visa?from=${updatedCountry.from}&to=${updatedCountry.to}`);
+        }
+    }
 
     // Testimonials
     const carouselRef = useRef();
@@ -120,13 +148,27 @@ const Home = () => {
                                             <img src={BannerInput} alt="" className='img-fluid' />
                                         </span>
 
-                                        <input
+                                        {/* <input
                                             type="text"
-                                            id="country"
-                                            name="country"
+                                            id="from"
+                                            name="from"
                                             className="form-control"
                                             placeholder="Canada"
-                                        />
+                                        /> */}
+
+                                        <select
+                                            id="from"
+                                            name="from"
+                                            className={`form-select ${country.from === "" ? "default" : ""}`}
+                                            value={country.from}
+                                            onChange={handleSelectCountry}
+                                        >
+                                            <option value="" disabled>Select Country</option>
+                                            <option value="canada">Canada</option>
+                                            <option value="india">India</option>
+                                            <option value="australia">Australia</option>
+                                            <option value="usa">USA</option>
+                                        </select>
                                     </div>
 
                                     <div className="timeline">
@@ -140,13 +182,27 @@ const Home = () => {
                                             <img src={BannerInput} alt="" className='img-fluid' />
                                         </span>
 
-                                        <input
+                                        {/* <input
                                             type='text'
-                                            id="location"
-                                            name="location"
+                                            id="to"
+                                            name="to"
                                             className="form-control"
                                             placeholder="I want to travel to"
-                                        />
+                                        /> */}
+
+                                        <select
+                                            id="to"
+                                            name="to"
+                                            className={`form-select ${country.to === "" ? "default" : ""}`}
+                                            value={country.to}
+                                            onChange={handleSelectCountry}
+                                        >
+                                            <option value="">I want to travel to</option>
+                                            <option value="canada">Canada</option>
+                                            <option value="india">India</option>
+                                            <option value="australia">Australia</option>
+                                            <option value="usa">USA</option>
+                                        </select>
                                     </div>
                                 </form>
                             </div>
@@ -214,7 +270,12 @@ const Home = () => {
 
                                                 <div className="info">
                                                     <div className="name">{i.name}</div>
-                                                    <div className='expe'>Exp: {i.experience} Years</div>
+                                                    <div className='expe d-flex align-items-center justify-content-center'>
+                                                        <img src={AgentReviewStar} alt="" className='img-fluid me-1' />
+                                                        4.5
+                                                        <span className='mx-2'> | </span>
+                                                        Exp: {i.experience} Years
+                                                    </div>
                                                 </div>
 
                                                 <button type='button' className='agent_btn' onClick={() => navigate("/user/agent-detail/1")}>

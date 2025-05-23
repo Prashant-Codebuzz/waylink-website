@@ -143,6 +143,28 @@
                 }
             }
 
+            .react-tel-input .selected-flag:focus:before,
+            .react-tel-input .selected-flag.open:before {
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+            .country-list {
+                background-color: white !important;
+            }
+
+            .react-tel-input .country-list .country {
+                background-color: transparent;
+            }
+
+            .react-tel-input .country-list .country:hover {
+                background-color: #f1f1f1;
+            }
+
+            .error {
+                border: 1px solid red !important;
+            }
+
             /* --- Create-Profile End --- */
 
 
@@ -206,31 +228,22 @@
                 }
             }
 
-            .react-tel-input .selected-flag:focus:before,
-            .react-tel-input .selected-flag.open:before {
-                border: none !important;
-                box-shadow: none !important;
-            }
+            .document_view {
+                text-align: left;
+                display: inline-flex;
+                position: relative;
+                align-items: center;
 
-            .country-list {
-                background-color: white !important;
-            }
-
-            .react-tel-input .country-list .country {
-                background-color: transparent;
-                text-align: start;
-            }
-
-            .react-tel-input .country-list .country:hover {
-                background-color: #f1f1f1;
-            }
-
-            .error {
-                border: 1px solid red !important;
+                .close_btn {
+                    background-color: transparent;
+                    border: 0;
+                    position: absolute;
+                    right: 8px;
+                    top: 5px;
+                }
             }
 
             /* --- Service-Detail End --- */
-
         }
     }
 }

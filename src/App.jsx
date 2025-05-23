@@ -25,7 +25,8 @@ import SignInFlow from './pages/authentication/signin-flow/SignInFlow'
 // Sign-Up-Flow
 import SignUpFlow from './pages/authentication/signup-flow/SignUpFlow'
 
-// ---- User ----
+
+// ---- Account ----
 // Edit-Profile
 import EditProfile from './pages/account/edit-profile/EditProfile'
 // My-Reviews
@@ -33,8 +34,19 @@ import MyReviews from './pages/account/my-reviews/MyReviews'
 // My-Bookmarks
 import MyBookmarks from './pages/account/my-bookmarks/MyBookmarks'
 
+// Edit-Service
+import EditService from './pages/account/edit-service/EditService'
+
+// Privacy-Policy
+import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy'
+// Terms-Conditions
+import TermsConditions from './pages/terms-conditions/TermsConditions'
+
+// ---- User ----
 // Home
 import UserHome from './pages/user/home/Home'
+// Visa
+import UserVisa from './pages/user/visa/Visa'
 // Agent
 import Agent from './pages/user/agent/Agent'
 // Agent-Detail
@@ -42,16 +54,25 @@ import AgentDetail from './pages/user/agent-detail/AgentDetail'
 // Review
 import Review from './pages/user/review/Review'
 // News
-import News from './pages/user/news/News'
+import UserNews from './pages/user/news/News'
 // News-Detail
-import NewsDetail from './pages/user/news-detail/NewsDetail'
+import UserNewsDetail from './pages/user/news-detail/NewsDetail'
 // Contact-Us
-import ContactUs from './pages/user/contact-us/ContactUs'
+import UserContactUs from './pages/user/contact-us/ContactUs'
 
-// Privacy-Policy
-import PrivacyPolicy from './pages/privacy-policy/PrivacyPolicy'
-// Terms-Conditions
-import TermsConditions from './pages/terms-conditions/TermsConditions'
+
+// ---- Agent ----
+// Home
+import AgentHome from './pages/agent/home/Home'
+// Visa
+import AgentVisa from './pages/agent/visa/Visa'
+// News
+import AgentNews from './pages/agent/news/News'
+// News-Detail
+import AgentNewsDetail from './pages/agent/news-detail/NewsDetail'
+// Contact-Us
+import AgentContactUs from './pages/agent/contact-us/ContactUs'
+
 
 
 function App() {
@@ -85,6 +106,11 @@ function App() {
                 <Route element={<LandingLayOut handleRoleSelect={handleRoleSelect} />}>
                     {/* Home */}
                     <Route path='/' element={<LandingHome handleRoleSelect={handleRoleSelect} />} />
+
+                    {/* Privacy-Policy */}
+                    <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+                    {/* Terms-Conditions */}
+                    <Route path='/terms-conditions' element={<TermsConditions />} />
                 </Route>
 
 
@@ -106,14 +132,16 @@ function App() {
                 {/* -- LayOut -- */}
                 <Route element={<UserDefaultLayOut />}>
                     {/* Edit-Profile */}
-                    <Route path='/user/edit-profile' element={<EditProfile />} />
+                    <Route path='/user/edit-profile' element={<EditProfile role="user" />} />
                     {/* My-Reviews */}
-                    <Route path='/user/my-reviews' element={<MyReviews />} />
+                    <Route path='/user/my-reviews' element={<MyReviews role="user" />} />
                     {/* My-Bookmarks */}
-                    <Route path='/user/my-bookmarks' element={<MyBookmarks />} />
+                    <Route path='/user/my-bookmarks' element={<MyBookmarks role="user" />} />
 
                     {/* Home */}
                     <Route path='/user/home' element={<UserHome />} />
+                    {/* Visa */}
+                    <Route path='/user/visa' element={<UserVisa />} />
                     {/* Agent */}
                     <Route path='/user/agent' element={<Agent />} />
                     {/* Agent-Detail */}
@@ -121,11 +149,11 @@ function App() {
                     {/* Review */}
                     <Route path='/user/agent/review' element={<Review />} />
                     {/* News */}
-                    <Route path='/user/news' element={<News />} />
+                    <Route path='/user/news' element={<UserNews />} />
                     {/* News-Detail */}
-                    <Route path='/user/news-detail/:id' element={<NewsDetail />} />
+                    <Route path='/user/news-detail/:id' element={<UserNewsDetail />} />
                     {/* Contact-Us */}
-                    <Route path='/user/contact-us' element={<ContactUs />} />
+                    <Route path='/user/contact-us' element={<UserContactUs />} />
 
                     {/* Privacy-Policy */}
                     <Route path='/user/privacy-policy' element={<PrivacyPolicy />} />
@@ -148,9 +176,33 @@ function App() {
                     <Route path='/agent/sign-up' element={<SignUpFlow role="agent" />} />
                 </Route>
 
+
+                {/* -- LayOut -- */}
                 <Route element={<AgentDefaultLayOut />}>
+                    {/* Edit-Profile */}
+                    <Route path='/agent/edit-profile' element={<EditProfile role="agent" />} />
+                    {/* Edit-Service */}
+                    <Route path='/agent/edit-service' element={<EditService />} />
+                    {/* My-Reviews */}
+                    <Route path='/agent/my-reviews' element={<MyReviews role="agent" />} />
+                    {/* My-Bookmarks */}
+                    <Route path='/agent/my-bookmarks' element={<MyBookmarks role="agent" />} />
+
                     {/* Home */}
-                    <Route path='/agent/home' />
+                    <Route path='/agent/home' element={<AgentHome />} />
+                    {/* Visa */}
+                    <Route path='/agent/visa' element={<AgentVisa />} />
+                    {/* News */}
+                    <Route path='/agent/news' element={<AgentNews />} />
+                    {/* News-Detail */}
+                    <Route path='/agent/news-detail/:id' element={<AgentNewsDetail />} />
+                    {/* Contact-Us */}
+                    <Route path='/agent/contact-us' element={<AgentContactUs />} />
+
+                    {/* Privacy-Policy */}
+                    <Route path='/agent/privacy-policy' element={<PrivacyPolicy />} />
+                    {/* Terms-Conditions */}
+                    <Route path='/agent/terms-conditions' element={<TermsConditions />} />
                 </Route>
             </Routes>
 

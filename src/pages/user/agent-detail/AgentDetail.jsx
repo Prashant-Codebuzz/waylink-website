@@ -9,6 +9,7 @@ import Agent from '../../../assets/images/agent-detail/agent.svg';
 import Location from '../../../assets/images/agent-detail/location.svg';
 import ReviewStar from '../../../assets/images/agent-detail/review_star.svg';
 import Chat from '../../../assets/images/agent-detail/chat.svg';
+import AgentReviewStar from '../../../assets/images/home/agent/agent_review_star.svg';
 import AgentButton from '../../../assets/images/home/landing/agent_btn.png';
 import AgentStar from '../../../assets/images/agent-detail/agent_star.svg';
 
@@ -105,7 +106,7 @@ const AgentDetail = () => {
                                     </div>
                                 </div>
 
-                                <div className="review d-flex align-items-center">
+                                <div className="review-img d-flex align-items-center">
                                     <div className="d-flex gap-1 me-2">
                                         {[...Array(Math.round(agentDetail?.averageRating || 0))].map((_, imgIndex) => (
                                             <img key={imgIndex} src={ReviewStar} alt="" className="img-fluid" />
@@ -163,7 +164,7 @@ const AgentDetail = () => {
 
                                                 <div className="content">
                                                     <div className="name">{i?.name}</div>
-                                                    <div className="role">{i?.workTitle}</div>
+                                                    {/* <div className="role">{i?.workTitle}</div> */}
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +203,12 @@ const AgentDetail = () => {
 
                                                 <div className="info">
                                                     <div className="name">{i.name}</div>
-                                                    <div className='expe'>Exp: {i.experience} Years</div>
+                                                    <div className='expe d-flex align-items-center justify-content-center'>
+                                                        <img src={AgentReviewStar} alt="" className='img-fluid me-1' />
+                                                        4.5
+                                                        <span className='mx-2'> | </span>
+                                                        Exp: {i.experience} Years
+                                                    </div>
                                                 </div>
 
                                                 <button type='button' className='agent_btn' onClick={() => navigate("/user/agent-detail/1")}>

@@ -7,6 +7,7 @@ import "./Agent.scss";
 // Image
 import FilterIcon from '../../../assets/images/filter_icon.svg';
 import SearchInput from '../../../assets/images/search-input.svg';
+import AgentReviewStar from '../../../assets/images/home/agent/agent_review_star.svg';
 import AgentButton from '../../../assets/images/home/landing/agent_btn.png';
 
 // Static-Data
@@ -75,7 +76,6 @@ const Agent = () => {
                                 </h1>
                             </div>
                             <div className="col-lg-6 d-flex align-items-center justify-content-between">
-                                {/* <div className=''> */}
                                 <div>
                                     <button
                                         type='button'
@@ -110,13 +110,41 @@ const Agent = () => {
                                         onChange={(e) => setSearch(e.target.value)}
                                     />
                                 </div>
-                                {/* </div> */}
                             </div>
                         </div>
                     </div>
 
                     <div className="second">
                         <div className="row g-5">
+
+                            {/* {
+                                AgentData.map((i, index) => (
+                                    <div className="col-lg-4 col-xl-3" key={index}>
+                                        <div className="box text-center">
+                                            <div className="dot"></div>
+                                            <div className="agent_img">
+                                                <img src={i.image} alt="" className='img-fluid object-fit-cover' />
+                                            </div>
+                                            <div className="info">
+                                                <div className="name">{i.name}</div>
+                                                <div className='expe d-flex align-items-center justify-content-center'>
+                                                    <img src={AgentReviewStar} alt="" className='img-fluid me-1' />
+                                                    4.5
+                                                    <span className='mx-2'> | </span>
+                                                    Exp: {i.experience} Years
+                                                </div>
+                                            </div>
+                                            <button
+                                                type='button'
+                                                className='agent_btn'
+                                                onClick={() => navigate(`/user/agent-detail/${i.id}`)}
+                                            >
+                                                <img src={AgentButton} alt="" className='img-fluid' />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))
+                            } */}
 
                             {loader ? (
                                 // Show skeleton while loading
@@ -140,7 +168,12 @@ const Agent = () => {
                                             </div>
                                             <div className="info">
                                                 <div className="name">{i.name}</div>
-                                                <div className='expe'>Exp: {i.experience} Years</div>
+                                                <div className='expe d-flex align-items-center justify-content-center'>
+                                                    <img src={AgentReviewStar} alt="" className='img-fluid me-1' />
+                                                    4.5
+                                                    <span className='mx-2'> | </span>
+                                                    Exp: {i.experience} Years
+                                                </div>
                                             </div>
                                             <button
                                                 type='button'

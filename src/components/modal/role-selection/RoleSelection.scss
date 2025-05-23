@@ -1,38 +1,77 @@
 .modal {
-    background-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
+    // background-color: rgba(255, 255, 255, 0.4);
+    // backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.5);
+
+    .modal-dialog {
+        max-width: 600px;
+    }
 
     .modal-content {
-        // padding: 40px 50px;
-        background: linear-gradient(180deg, #4442A7 0%, #020140 100%);
-        border-radius: 12px;
-
-        .modal-header {
-            .modal-title {
-                font-family: var(--dm-sans);
-                font-weight: 500;
-                font-size: 30px;
-                color: var(--white);
-                margin: auto;
-            }
-        }
+        padding: 35px 50px;
+        background: var(--white);
+        border-radius: 20px;
 
         .modal-body {
-            padding-block: 35px;
+            padding: 0;
 
-            .group_btn {
+            .close_modal {
+                background: none;
+                border: 0;
+                width: 45px;
+                height: 45px;
+                position: absolute;
+                top: -12px;
+                right: -22px;
+            }
+
+            .modal-title {
+                font-family: var(--dm-sans);
+                font-weight: 700;
+                font-size: 50px;
+                color: var(--blue);
+                text-align: center;
+            }
+
+            p {
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 22px;
+                line-height: 28px;
+                color: #696969;
+                text-align: center;
+                margin-block: 5px 25px;
+            }
+
+            .select_profile {
                 display: flex;
                 justify-content: center;
-                flex-direction: column;
+                gap: 30px;
 
-                .role_btn {
-                    width: 70%;
+                .profile_btn {
+                    background-color: #0402731A;
+                    border-radius: 20px;
+                    padding: 30px 50px;
+
+                    // width: 70%;
                     border: 1px solid var(--white);
-                    font-family: var(--dm-sans);
-                    font-weight: 400;
-                    font-size: 22px;
-                    color: var(--white);
-                    margin: auto;
+
+                    .profile_img {
+                        max-width: 100%;
+                        margin-bottom: 10px;
+
+                        img {
+                            width: 120px;
+                            height: 120px;
+                        }
+                    }
+
+                    span {
+                        font-family: var(--dm-sans);
+                        font-weight: 700;
+                        font-size: 34px;
+                        color: var(--blue);
+                    }
                 }
             }
         }

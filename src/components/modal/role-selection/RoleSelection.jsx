@@ -1,10 +1,15 @@
 import React from 'react';
-// import { Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 
 // Css
 import "./RoleSelection.scss";
-import { useNavigate } from 'react-router-dom';
+
+// Image
+import ModalCloseBtn from '../../../assets/images/authentication/modal_close_btn.svg';
+import AgentImage from '../../../assets/images/authentication/agent_img.svg';
+import UserImage from '../../../assets/images/authentication/user_img.svg';
+
 
 const RoleSelection = ({ show, handleClose }) => {
 
@@ -24,13 +29,36 @@ const RoleSelection = ({ show, handleClose }) => {
             backdrop="static"
             keyboard={false}
         >
-            <Modal.Header>
+            {/* <Modal.Header>
                 <Modal.Title>Select Entry Role</Modal.Title>
-            </Modal.Header>
+            </Modal.Header> */}
             <Modal.Body>
-                <div className='group_btn'>
-                    <button type='button' className='btn role_btn mb-3' onClick={() => handleRoleSelect("user")}>User</button>
-                    <button type='button' className='btn role_btn' onClick={() => handleRoleSelect("agent")}>Agent</button>
+                <button type="button" className="close_modal" onClick={handleClose}>
+                    <img src={ModalCloseBtn} alt="" className='img-fluid' />
+                </button>
+
+                <Modal.Title>Select Profile</Modal.Title>
+
+                <p>
+                    Please select profile to <br />
+                    login your account
+                </p>
+
+                <div className='select_profile'>
+                    <button type='button' className='profile_btn' onClick={() => handleRoleSelect("user")}>
+                        <div className="profile_img">
+                            <img src={AgentImage} alt="" className='img-fluid' />
+                        </div>
+
+                        <span>Agent</span>
+                    </button>
+                    <button type='button' className='profile_btn' onClick={() => handleRoleSelect("agent")}>
+                        <div className="profile_img">
+                            <img src={UserImage} alt="" className='img-fluid' />
+                        </div>
+
+                        <span>User</span>
+                    </button>
                 </div>
 
             </Modal.Body>

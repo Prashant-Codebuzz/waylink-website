@@ -1,18 +1,22 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+
+// Css
 import "./Header.scss";
+
+// Image
 import Logo from '../../../assets/images/header/logo.png';
 
-const UserHeader = () => {
+const UserHeader = ({ handleLogout }) => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.removeItem("user-token");
-        localStorage.removeItem("role");
+    // const handleLogout = () => {
+    //     localStorage.removeItem("user-token");
+    //     localStorage.removeItem("role");
 
-        navigate("/");
-    }
+    //     navigate("/");
+    // }
 
     return (
         <>
@@ -35,7 +39,7 @@ const UserHeader = () => {
                             <div className="offcanvas offcanvas-start" data-bs-scroll="true" tabIndex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                                 <div className="offcanvas-header">
                                     <div className='navbar-brand'>
-                                        <Link to="/">
+                                        <Link to="/user/home">
                                             <img src={Logo} alt="" className='img-fluid' />
                                         </Link>
                                     </div>

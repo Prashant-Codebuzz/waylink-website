@@ -10,6 +10,7 @@ import NewsDate from '../../../assets/images/news-detail/news_date.svg';
 import NewsSave from '../../../assets/images/news-detail/news_save.svg';
 import NewsSent from '../../../assets/images/news-detail/news_sent.svg';
 
+
 const NewsDetail = () => {
     return (
         <>

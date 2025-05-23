@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 import "./EditProfile.scss";
 
 // Image
-import ProfileDummyUser1 from '../../../assets/images/account/profile_dummy_user.svg';
-import ProfileDummyUser from '../../../assets/images/account/profile_dummy_user.jpg';
+import ProfileDummyUser1 from '../../../assets/images/account/profile_dummy_user1.svg';
+import ProfileDummyUser from '../../../assets/images/account/profile_dummy_user.svg';
 import Camera from '../../../assets/images/account/camera.svg';
 import PhoneInput from 'react-phone-input-2';
 import parsePhoneNumberFromString from 'libphonenumber-js';
@@ -23,8 +23,12 @@ const initialState = {
     address: ""
 }
 
-const EditProfile = () => {
+const EditProfile = ({ role }) => {
+    
     const dispatch = useDispatch();
+
+    const IsRoleUser = role === "user";
+
     const [formData, setFormData] = useState(initialState);
     const [phone, setPhone] = useState('');
     const [isValid, setIsValid] = useState(false);

@@ -53,6 +53,35 @@
                     border-bottom-left-radius: 16px !important;
                 }
 
+                .form-select {
+                    background-image: none;
+                    background-color: var(--white);
+                    border: 2px solid var(--blue);
+                    padding: 20px 50px 20px 60px;
+                    border-radius: 16px;
+                    border-top-left-radius: 16px !important;
+                    border-bottom-left-radius: 16px !important;
+
+                    font-family: var(--dm-sans);
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: var(--blue);
+
+                    &.default {
+                        color: #04027381;
+                    }
+
+                    option {
+                        font-size: 18px;
+                        font-weight: 500;
+                        color: var(--blue);
+
+                        &:first-of-type {
+                            color: #04027381;
+                        }
+                    }
+                }
+
                 .icon {
                     position: absolute;
                     top: 50%;
@@ -101,7 +130,7 @@
     }
 
     @media (max-width: 1399px) {
-        padding-top: 80px;
+        padding-block: 70px;
 
         .left {
             .title {}
@@ -131,7 +160,7 @@
     }
 
     @media (max-width: 1199px) {
-        padding-top: 75px;
+        padding-block: 70px;
 
         .left {
             .title {}
@@ -366,7 +395,7 @@
                 .info {
                     padding: 20px;
 
-                     .name {
+                    .name {
                         font-size: 18px;
                         line-height: 26px;
                     }

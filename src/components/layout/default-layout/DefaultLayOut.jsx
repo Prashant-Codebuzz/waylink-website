@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 
 // Landing
@@ -8,6 +8,14 @@ import LandingFooter from '../../footer/landing/Footer';
 // User
 import UserHeader from '../../header/user/Header';
 import UserFooter from '../../footer/user/Footer';
+
+// Agent
+import AgentHeader from '../../header/agent/Header';
+import AgentFooter from '../../footer/agent/Footer';
+
+// Modal -- Logout
+import Logout from '../../modal/logout/Logout';
+
 
 export const LandingLayOut = ({ handleRoleSelect }) => {
 
@@ -19,7 +27,7 @@ export const LandingLayOut = ({ handleRoleSelect }) => {
 
     useEffect(() => {
         if (token) {
-            navigate(role === "user" ? "/user/home" : "/agent/home");
+            // navigate(role === "user" ? "/user/home" : "/agent/home");
         }
     }, [role, token]);
 
@@ -27,7 +35,7 @@ export const LandingLayOut = ({ handleRoleSelect }) => {
         <>
 
             <LandingHeader handleRoleSelect={handleRoleSelect} />
-                <Outlet />
+            <Outlet />
             <LandingFooter />
 
         </>
@@ -45,16 +53,47 @@ export const UserDefaultLayOut = () => {
     useEffect(() => {
         if (!userToken) {
             // navigate("/user/sign-in");
-            navigate("/");
+            // navigate("/");
         }
     }, [userToken]);
+
+
+    // Modal -- Logout
+    const [userLogout, setUserLogout] = useState({
+        modal: false,
+        loader: false,
+    });
+
+    const handleLogout = () => {
+        setUserLogout((prev) => ({ ...prev, modal: true }));
+    }
+
+    const handleClose = () => {
+        setUserLogout((prev) => ({ ...prev, modal: false }));
+    }
+
+    const confirmLogout = () => {
+        setUserLogout((prev) => ({ ...prev, loader: true }));
+
+        setTimeout(() => {
+            localStorage.removeItem("user-token");
+            localStorage.removeItem("role");
+
+            navigate("/");
+
+            setUserLogout((prev) => ({ ...prev, loader: false }));
+        }, 500);
+    }
 
     return (
         <>
 
-            <UserHeader />
+            <UserHeader handleLogout={handleLogout} />
                 <Outlet />
             <UserFooter />
+
+            {/* Modal -- Logout */}
+            <Logout show={userLogout.modal} handleClose={handleClose} isLoading={userLogout.loader} handleLogout={confirmLogout} />
 
         </>
     )
@@ -71,16 +110,16 @@ export const AgentDefaultLayOut = () => {
     useEffect(() => {
         if (!agentToken) {
             // navigate("/agent/sign-in");
-            navigate("/");
+            // navigate("/");
         }
     }, [agentToken]);
 
     return (
         <>
 
-            {/* <UserHeader /> */}
-            <Outlet />
-            {/* <UserFooter /> */}
+            <AgentHeader />
+                <Outlet />
+            <AgentFooter />
 
         </>
     )
