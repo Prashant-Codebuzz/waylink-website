@@ -72,6 +72,7 @@ import AgentNews from './pages/agent/news/News'
 import AgentNewsDetail from './pages/agent/news-detail/NewsDetail'
 // Contact-Us
 import AgentContactUs from './pages/agent/contact-us/ContactUs'
+import ChatBot from './pages/ChatBot/ChatBot'
 
 
 
@@ -205,8 +206,7 @@ function App() {
                     <Route path='/agent/terms-conditions' element={<TermsConditions />} />
                 </Route>
             </Routes>
-
-
+            <ChatBot />
             {/* Modal -- Role-Selection */}
             <RoleSelection show={showRoleSelection} handleClose={handleClose} />
 

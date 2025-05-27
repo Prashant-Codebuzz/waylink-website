@@ -11,6 +11,7 @@ import PhoneInput from 'react-phone-input-2';
 import parsePhoneNumberFromString from 'libphonenumber-js';
 import { useDispatch } from 'react-redux';
 import { reqToUserEditProfile } from '../../../reduxToolkit/services/user/account/accountServices';
+import { reqToAgentEditProfile } from '../../../reduxToolkit/services/agent/account/accountServices';
 
 const initialState = {
     profile: null,
@@ -24,7 +25,7 @@ const initialState = {
 }
 
 const EditProfile = ({ role }) => {
-    
+
     const dispatch = useDispatch();
 
     const IsRoleUser = role === "user";
@@ -71,13 +72,25 @@ const EditProfile = ({ role }) => {
             return;
         }
         const payload = { ...formData, mobileNumber: phone }
-        const res = await dispatch(reqToUserEditProfile(payload))
+        if (IsRoleUser) {
+            const res = await dispatch(reqToUserEditProfile(payload))
 
-        if (res?.payload?.data?.status) {
-            setFormData(initialState)
-            setPhone("")
-            setIsValid(false);
-            setError(false);
+            if (res?.payload?.data?.status) {
+                setFormData(initialState)
+                setPhone("")
+                setIsValid(false);
+                setError(false);
+            }
+        } else {
+            const res = await dispatch(reqToAgentEditProfile(payload))
+
+            if (res?.payload?.data?.status) {
+                setFormData(initialState)
+                setPhone("")
+                setIsValid(false);
+                setError(false);
+            }
+
         }
     }
 

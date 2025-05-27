@@ -108,3 +108,24 @@ export const reqToAgentReview = createAsyncThunk("reqToAgentReview", async (id) 
         }
     }
 })
+
+// reqToRelatedAgent
+export const reqToRelatedAgent = createAsyncThunk("reqToRelatedAgent", async (country) => {
+    try {
+        const response = await Axios.get(apiendpoints.getRelatedAgent.replace(":country", country), userHeaders("application/json"));
+
+        if (response?.data?.status) {
+            // toast.success(response?.data?.message);
+            return response
+        } else {
+            toast.error(response?.data?.message);
+        }
+    } catch (error) {
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
+    }
+})

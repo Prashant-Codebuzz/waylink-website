@@ -24,7 +24,13 @@ export const authImageHeaders = () => {
 
 
 export const authURLHeaders = () => {
-    const token = localStorage.getItem("user-token");
+    const role = localStorage.getItem("role")
+    let token;
+    if (role === "user") {
+        token = localStorage.getItem("user-token");
+    } else {
+        token = localStorage.getItem("agent-token")
+    }
     return {
         headers: {
             Authorization: `Bearer ${token}`,
@@ -34,7 +40,13 @@ export const authURLHeaders = () => {
 }
 
 export const userHeaders = (type) => {
-    const token = localStorage.getItem("user-token");
+    const role = localStorage.getItem("role")
+    let token;
+    if (role === "user") {
+        token = localStorage.getItem("user-token");
+    } else {
+        token = localStorage.getItem("agent-token")
+    }
     return {
         headers: {
             Authorization: `Bearer ${token}`,

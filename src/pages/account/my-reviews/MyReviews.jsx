@@ -12,6 +12,7 @@ import Pagination from '../../../components/pagination/Pagination';
 import { useDispatch } from 'react-redux';
 import { reqToGetMyReviews } from '../../../reduxToolkit/services/user/account/accountServices';
 import AgentStar from '../../../assets/images/agent-detail/agent_star.svg';
+import { reqToGetMyAgentReviews } from '../../../reduxToolkit/services/agent/account/accountServices';
 
 const MyReviews = ({ role }) => {
 
@@ -23,12 +24,21 @@ const MyReviews = ({ role }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const handleGetMyReview = async (page = 1) => {
-        const res = await dispatch(reqToGetMyReviews({
-            page,
-            limit: 6
-        }));
-        setMyReviews(res?.payload?.data?.data || []);
-        setPagination(res?.payload?.data?.pagination || {});
+        if (IsRoleUser) {
+            const res = await dispatch(reqToGetMyReviews({
+                page,
+                limit: 6
+            }));
+            setMyReviews(res?.payload?.data?.data || []);
+            setPagination(res?.payload?.data?.pagination || {});
+        } else {
+            const res = await dispatch(reqToGetMyAgentReviews({
+                page,
+                limit: 6
+            }));
+            setMyReviews(res?.payload?.data?.data || []);
+            setPagination(res?.payload?.data?.pagination || {});
+        }
     };
 
     useEffect(() => {

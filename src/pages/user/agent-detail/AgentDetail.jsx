@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 // Css
 import "./AgentDetail.scss";
@@ -22,18 +22,24 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { reqToAgentReview, reqToGetAgentDetail } from '../../../reduxToolkit/services/user/default/agentListServices';
+import { reqToAgentReview, reqToGetAgentDetail, reqToRelatedAgent } from '../../../reduxToolkit/services/user/default/agentListServices';
 
 const AgentDetail = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [agentDetail, setAgentDetail] = useState([])
     const [agentReview, setAgentReview] = useState([])
+    const [relatedAgent, setRelatedAgent] = useState([])
 
     const handleGetAgentDetail = async () => {
         const res = await dispatch(reqToGetAgentDetail(id));
-        setAgentDetail(res?.payload?.data?.data || []);
+        const detail = res?.payload?.data?.data;
+        setAgentDetail(detail || []);
+        if (detail?.country) {
+            handleGetRelatedAgent(detail.country);
+        }
     };
 
     const handleGetAgentReview = async () => {
@@ -41,10 +47,15 @@ const AgentDetail = () => {
         setAgentReview(res?.payload?.data?.data || []);
     }
 
+    const handleGetRelatedAgent = async (country) => {
+        const res = await dispatch(reqToRelatedAgent(country))
+        setRelatedAgent(res?.payload?.data?.data || []);
+    }
+
     useEffect(() => {
         handleGetAgentDetail()
         handleGetAgentReview()
-    }, [])
+    }, [id])
 
     // Reviews
     const options = {
@@ -192,6 +203,34 @@ const AgentDetail = () => {
                         <div className="row g-5">
 
                             {
+                                relatedAgent?.slice(0, 4)?.map((i, index) => {
+                                    return (
+                                        <div className="col-lg-4 col-xl-3" key={index}>
+                                            <div className="box text-center">
+                                                <div className="dot"></div>
+                                                <div className="agent_img">
+                                                    <img src={i.profile} alt="" className='img-fluid object-fit-cover' />
+                                                </div>
+
+                                                <div className="info">
+                                                    <div className="name">{i.name || "-"}</div>
+                                                    <div className='expe d-flex align-items-center justify-content-center'>
+                                                        <img src={AgentReviewStar} alt="" className='img-fluid me-1' />
+                                                        {parseInt(i?.averageRating)?.toFixed(1)}
+                                                        <span className='mx-2'> | </span>
+                                                        Exp: {i.experience || "-"} Years
+                                                    </div>
+                                                </div>
+
+                                                <button type='button' className='agent_btn' onClick={() => navigate(`/user/agent-detail/${i.id}`)}>
+                                                    <img src={AgentButton} alt="" className='img-fluid' />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                            {/* {
                                 [...AgentData]?.slice(0, 4)?.map((i, index) => {
                                     return (
                                         <div className="col-lg-4 col-xl-3" key={index}>
@@ -218,7 +257,7 @@ const AgentDetail = () => {
                                         </div>
                                     )
                                 })
-                            }
+                            } */}
 
                         </div>
                     </div>

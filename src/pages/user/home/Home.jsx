@@ -415,7 +415,7 @@ const Home = () => {
                                                     </div>
 
                                                     <p>
-                                                        {i?.description}
+                                                        {i?.review}
                                                     </p>
                                                 </div>
                                             )

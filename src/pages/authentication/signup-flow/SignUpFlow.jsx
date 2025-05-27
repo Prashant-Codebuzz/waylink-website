@@ -19,7 +19,7 @@ const SignUpFlow = ({ role }) => {
     console.log(role);
     // const IsRoleUser = role === "user";
 
-    const [authStep, setAuthStep] = useState(5);
+    const [authStep, setAuthStep] = useState(1);
     const [email, setEmail] = useState("");
 
     return (
