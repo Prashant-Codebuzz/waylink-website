@@ -18,7 +18,7 @@
             .modal-title {
                 font-family: var(--dm-sans);
                 font-weight: 700;
-                font-size: 50px;
+                font-size: 40px;
                 color: var(--blue);
                 text-align: center;
             }
@@ -26,8 +26,8 @@
             p {
                 font-family: var(--dm-sans);
                 font-weight: 500;
-                font-size: 22px;
-                line-height: 28px;
+                font-size: 20px;
+                line-height: 25px;
                 color: #696969;
                 text-align: center;
                 margin-block: 5px 20px;
@@ -56,6 +56,11 @@
                     border: 2px solid var(--blue);
                     background: var(--blue);
                     color: var(--white);
+
+                    &:disabled   {
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                    }
                 }
             }
         }
@@ -67,13 +72,11 @@
             padding: 35px 40px;
 
             .modal-body {
-                .modal-title {
-                    font-size: 45px;
-                }
+                .modal-title { }
 
                 p {
-                    font-size: 20px;
-                    line-height: 26px;
+                    font-size: 19px;
+                    line-height: 25px;
                     margin-block: 5px 18px;
                 }
 
@@ -82,7 +85,7 @@
 
                     .close_btn,
                     .logout_btn {
-                        font-size: 20px;
+                        font-size: 19px;
                         padding: 8px 48px;
                     }
                 }
@@ -95,14 +98,12 @@
             padding: 35px 40px;
 
             .modal-body {
-                .modal-title {
-                    font-size: 42px;
-                }
+                .modal-title { }
 
                 p {
-                    font-size: 19px;
+                    font-size: 18px;
                     line-height: 25px;
-                    margin-block: 5px 18px;
+                    margin-block: 5px 16px;
                 }
 
                 .group_btn {
@@ -110,8 +111,8 @@
 
                     .close_btn,
                     .logout_btn {
-                        font-size: 20px;
-                        padding: 8px 48px;
+                        font-size: 19px;
+                        padding: 8px 46px;
                     }
                 }
             }

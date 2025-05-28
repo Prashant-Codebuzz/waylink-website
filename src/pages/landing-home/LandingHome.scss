@@ -1135,6 +1135,13 @@
                 }
             }
 
+            .review-img{
+                span{
+                    display: flex !important;
+                    gap: .25rem !important;
+                }
+            }
+
             p {
                 font-family: var(--dm-sans);
                 font-weight: 500;

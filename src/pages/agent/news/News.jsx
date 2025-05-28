@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Css
@@ -20,6 +20,8 @@ const News = () => {
 
     const navigate = useNavigate();
 
+    const [pagination, setPagination] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
 
     return (
         <>
@@ -93,7 +95,7 @@ const News = () => {
                         </div>
                     </div>
 
-                    <Pagination />
+                    <Pagination pagination={pagination} onPageChange={setCurrentPage} />
 
                 </div>
             </section>

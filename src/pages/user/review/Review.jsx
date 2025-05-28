@@ -7,19 +7,38 @@ import "./Review.scss";
 import ReviewUser from '../../../assets/images/review/review_user.svg';
 import ReviewStar from '../../../assets/images/agent-detail/agent_star.svg';
 import ReviewRight from '../../../assets/images/review/review_right.svg';
-import StarRating from '../../../components/rating/StarRating';
+
+import Rating from 'react-rating';
+import { SentReviewRate } from '../../../components/star-rating/StarRating';
 
 // Ui-Package
-import { Rating } from 'react-simple-star-rating';
 
 const initialState = {
+    rating: 0,
     comment: ""
 }
 
 const Review = () => {
-    
-    const [rating, setRating] = useState(0);
+
     const [formData, setFormData] = useState(initialState);
+    // console.log(formData);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    }
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        console.log(formData);
+    }
+
 
     return (
         <>
@@ -50,32 +69,36 @@ const Review = () => {
                                         <p>Write your review for <span>Sendra Lily</span> service</p>
                                     </div>
 
-                                    <form>
-                                        <div className="mb-4">
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="mb-3">
                                             <div className="reviews-star d-flex justify-content-center gap-2">
                                                 {/* {[...Array(5)]?.map((_, imgIndex) => (
                                                     <img key={imgIndex} src={ReviewStar} alt="" className="img-fluid" />
                                                 ))} */}
-                                                <StarRating rating={rating} onRatingChange={setRating} editable={true} />
+                                            </div>
 
-                                                {/* <Rating
-                                                    initialValue={4}
-                                                    readonly
-                                                    size={26}
-                                                    fillColor="#FFC403"
-                                                    emptyColor="#D9D9D9"
-                                                    className="star-spacing"
-                                                /> */}
+                                            <div className="reviews-star d-flex justify-content-center gap-2">
+                                                <Rating
+                                                    initialRating={formData.rating}
+                                                    onChange={(value) => {
+                                                        setFormData((prev) => ({ ...prev, rating: value }))
+                                                    }}
+                                                    emptySymbol={<SentReviewRate stroke="#040273" />}
+                                                    fullSymbol={<SentReviewRate bgColor="#040273" starColor="#fff" />}
+                                                />
                                             </div>
                                         </div>
                                         <div className="mb-4">
                                             <textarea
                                                 type="text"
-                                                id="review"
-                                                name="review"
+                                                id="comment"
+                                                name="comment"
                                                 className="form-control"
                                                 placeholder="Enter your review"
                                                 rows={4}
+                                                value={formData.comment}
+                                                onChange={handleChange}
+                                                required
                                             />
                                         </div>
                                         <div>

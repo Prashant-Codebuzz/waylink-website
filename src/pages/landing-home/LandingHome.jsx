@@ -16,6 +16,7 @@ import HowHelpIcon4 from '../../assets/images/home/landing/how_help_icon4.png';
 import HowHelpIcon5 from '../../assets/images/home/landing/how_help_icon5.png';
 import TrueIcon from '../../assets/images/home/landing/true_icon.png';
 import OurConsultancyLeft from '../../assets/images/home/landing/our_consultancy_left.png';
+import AgentReviewStar from '../../assets/images/home/agent/agent_review_star.svg';
 import AgentButton from '../../assets/images/home/landing/agent_btn.png';
 import WhyWaylinkRight from '../../assets/images/home/landing/why_waylink_right.png';
 import WhyWaylinkLeft1 from '../../assets/images/home/landing/why_waylink_left1.png';
@@ -28,19 +29,6 @@ import TestimonialsLeft from '../../assets/images/home/landing/testimonials_left
 import TestimonialsRight from '../../assets/images/home/landing/testimonials_right.png';
 import TestimonialsStar from '../../assets/images/home/landing/testimonials_star.png';
 
-// import Australia from '../../assets/images/home/landing/country/australia.png';
-// import Belgium from '../../assets/images/home/landing/country/belgium.png';
-// import Canada from '../../assets/images/home/landing/country/canada.png';
-// import Denmark from '../../assets/images/home/landing/country/denmark.png';
-// import France from '../../assets/images/home/landing/country/france.png';
-// import Germany from '../../assets/images/home/landing/country/germany.png';
-// import Greece from '../../assets/images/home/landing/country/greece.png';
-// import Hungary from '../../assets/images/home/landing/country/hungary.png';
-// import Iceland from '../../assets/images/home/landing/country/iceland.png';
-// import Ireland from '../../assets/images/home/landing/country/ireland.png';
-// import Italy from '../../assets/images/home/landing/country/italy.png';
-// import Luxembourg from '../../assets/images/home/landing/country/luxembourg.png';
-
 // Custom-Hooks
 import useScrollToSection from '../../hooks/useScrollToSection';
 
@@ -51,8 +39,13 @@ import { ConsultancyTabsData, CountryChoiceData, CountryData } from '../../const
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
+
 import { useDispatch } from 'react-redux';
 import { reqToLandingAgent, reqToTopLandingReview } from '../../reduxToolkit/services/landing-home/agent/agentServices';
+
+
+import Rating from 'react-rating';
+import { TestimonialsRate } from '../../components/star-rating/StarRating';
 
 const LandingHome = ({ handleRoleSelect }) => {
 
@@ -707,7 +700,12 @@ const LandingHome = ({ handleRoleSelect }) => {
 
                                                 <div className="info">
                                                     <div className="name">{i.name}</div>
-                                                    <div className='expe'>Exp: {i?.experience?.length} Years</div>
+                                                    <div className='expe d-flex align-items-center justify-content-center'>
+                                                        <img src={AgentReviewStar} alt="" className='img-fluid me-1' />
+                                                        {parseFloat(i.averageRating || 0).toFixed(1)}
+                                                        <span className='mx-2'> | </span>
+                                                        Exp: {i?.experience || 0} Years
+                                                    </div>
                                                 </div>
 
                                                 <button type='button' className='agent_btn'>
@@ -904,10 +902,19 @@ const LandingHome = ({ handleRoleSelect }) => {
                                                         {/* <div className="org">{i?.workTitle}</div> */}
                                                     </div>
 
-                                                    <div className="review-img d-flex gap-1">
+                                                    {/* <div className="review-img d-flex gap-1">
                                                         {[...Array(i.rating)]?.map((_, imgIndex) => (
-                                                            <img key={imgIndex} src={i?.review} alt="" className="img-fluid" />
+                                                            <img key={imgIndex} src={TestimonialsStar} alt="" className="img-fluid" />
                                                         ))}
+                                                    </div> */}
+
+                                                    <div className="review-img d-flex gap-1">
+                                                        <Rating
+                                                            initialRating={i.rating}
+                                                            emptySymbol={<TestimonialsRate color="#fff" stroke="#040273" />}
+                                                            fullSymbol={<TestimonialsRate color="#040273" />}
+                                                            readonly
+                                                        />
                                                     </div>
 
                                                     <p>

@@ -5,6 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 // Css
 import "./Logout.scss";
 
+import { loaders } from '../../loader/loaders/Loader';
+
 const Logout = ({ show, handleClose, isLoading, handleLogout }) => {
     return (
         <Modal
@@ -19,7 +21,7 @@ const Logout = ({ show, handleClose, isLoading, handleLogout }) => {
                 <Modal.Title>Logout!</Modal.Title>
 
                 <p>
-                    Are you sure you want to <br /> 
+                    Are you sure you want to <br />
                     logout this account ?
                 </p>
 
@@ -33,7 +35,12 @@ const Logout = ({ show, handleClose, isLoading, handleLogout }) => {
                         disabled={isLoading}
                         onClick={handleLogout}
                     >
-                        Yes
+                        {
+                            isLoading ?
+                                loaders.button
+                                :
+                                "Yes"
+                        }
                     </button>
                 </div>
 

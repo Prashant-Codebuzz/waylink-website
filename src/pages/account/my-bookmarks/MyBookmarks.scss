@@ -71,6 +71,22 @@
                 z-index: 1;
             }
 
+            &.saved::before {
+                background-image: url('../../../assets/images/home/user/news_save.svg');
+                z-index: 1;
+            }
+
+            .bookmark_click {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                z-index: 2;
+                cursor: pointer;
+                background: transparent;
+            }
+
             .news_image {
                 height: 250px;
                 overflow: hidden;

@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 // Css
 import "./MyReviews.scss";
 
+// Image
+import AgentStar from '../../../assets/images/agent-detail/agent_star.svg';
+
 // Static-Data
 import { AgentReviewsData } from '../../../constants/data/Data';
 
-
 // Component-Pagination
 import Pagination from '../../../components/pagination/Pagination';
-import { useDispatch } from 'react-redux';
+
 import { reqToGetMyReviews } from '../../../reduxToolkit/services/user/account/accountServices';
-import AgentStar from '../../../assets/images/agent-detail/agent_star.svg';
 import { reqToGetMyAgentReviews } from '../../../reduxToolkit/services/agent/account/accountServices';
+
+import Rating from 'react-rating';
+import { ReviewsRate } from '../../../components/star-rating/StarRating';
 
 const MyReviews = ({ role }) => {
 
@@ -67,10 +72,25 @@ const MyReviews = ({ role }) => {
                                     return (
                                         <div className="col-lg-4" key={index}>
                                             <div className="box">
-                                                <div className="reviews-star d-flex gap-2">
-                                                    {[...Array(i?.rating)]?.map((_, imgIndex) => (
+                                                {/* <div className="review_img d-flex gap-2">
+                                                    {[...Array(5)]?.map((_, imgIndex) => (
                                                         <img key={imgIndex} src={AgentStar} alt="" className="img-fluid" />
                                                     ))}
+                                                </div> */}
+
+                                                <div className="review_img d-flex gap-2">
+                                                    {[...Array(5)]?.map((_, imgIndex) => (
+                                                        <img key={imgIndex} src={AgentStar} alt="" className="img-fluid" />
+                                                    ))}
+                                                </div>
+
+                                                <div className="review_img d-flex gap-2">
+                                                    <Rating
+                                                        initialRating={i.rating}
+                                                        emptySymbol={<ReviewsRate stroke="#040273" />}
+                                                        fullSymbol={<ReviewsRate bgColor="#040273" starColor="#fff" />}
+                                                        readonly
+                                                    />
                                                 </div>
 
                                                 <p>
@@ -99,7 +119,7 @@ const MyReviews = ({ role }) => {
                     <Pagination pagination={pagination} onPageChange={handleGetMyReview} />
 
                 </div>
-            </div>
+            </div >
             {/* ------ My-Reviews End ------ */}
 
         </>

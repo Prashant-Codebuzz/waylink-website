@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // Css
 import "./Home.scss";
@@ -21,16 +22,22 @@ import TestimonialsStar from '../../../assets/images/home/landing/testimonials_s
 // Static-Data
 import { AgentData, CountryData, LatestNewsData, TestimonialsData } from '../../../constants/data/Data';
 
+
 // Ui-Package
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
-import { useDispatch } from 'react-redux';
+import countries from 'world-countries';
+
+import { formatCountryName } from '../../../helper';
 import { reqToTopAgent, reqToTopReview } from '../../../reduxToolkit/services/user/default/agentListServices';
 
+import Rating from 'react-rating';
+import { TestimonialsRate } from '../../../components/star-rating/StarRating';
+
 const initialState = {
-    from: "india",
+    from: "India",
     to: ""
 }
 
@@ -39,27 +46,64 @@ const Home = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [country, setCountry] = useState(initialState);
+    // const [country, setCountry] = useState(initialState);
 
-    const handleSelectCountry = (e) => {
-        const { name, value } = e.target;
+    // const handleSelectCountry = (e) => {
+    //     const { name, value } = e.target;
 
-        // setCountry((prev) => ({
-        //     ...prev,
-        //     [name]: value,
-        // }));
+    //     const updatedCountry = {
+    //         ...country,
+    //         [name]: value,
+    //     };
 
-        const updatedCountry = {
-            ...country,
-            [name]: value,
+    //     setCountry(updatedCountry);
+
+    //     if (updatedCountry.from && updatedCountry.to) {
+    //         // navigate(`/user/visa/all/${updatedCountry.from}/${updatedCountry.to}`);
+    //     }
+    // }
+
+    // console.log(countries.sort((a, b) => a.name.common.localeCompare(b.name.common)).map((c) => console.log(c)));
+
+    const [countryVisa, setCountryVisa] = useState(initialState);
+
+    const handleSelectCountryVisa = (type, country) => {
+
+        const updatedCountryVisa = {
+            ...countryVisa,
+            [type]: country.name.common,
         };
+        setCountryVisa(updatedCountryVisa);
 
-        setCountry(updatedCountry);
 
-        if (updatedCountry.from && updatedCountry.to) {
-            navigate(`/user/visa?from=${updatedCountry.from}&to=${updatedCountry.to}`);
+        const dropdowns = document.querySelectorAll('.dropdown-country.show');
+        dropdowns.forEach(dropdown => {
+            const toggle = new bootstrap.Dropdown(dropdown);
+            toggle.hide();
+        });
+
+        if (updatedCountryVisa.from && updatedCountryVisa.to) {
+            const formattedFrom = formatCountryName(updatedCountryVisa.from);
+            const formattedTo = formatCountryName(updatedCountryVisa.to);
+
+            navigate(`/user/visa/all/${formattedFrom}/${formattedTo}`);
         }
     }
+
+
+
+
+
+
+
+    const [newsSaved, setNewsSaved] = useState({});
+
+    const handleNewsBookMark = (index) => {
+        setNewsSaved((prev) => ({
+            ...prev,
+            [index]: !prev[index],
+        }));
+    };
 
     // Testimonials
     const carouselRef = useRef();
@@ -144,9 +188,9 @@ const Home = () => {
 
                                 <form>
                                     <div className="input-group">
-                                        <span className='icon'>
+                                        {/* <span className='icon'>
                                             <img src={BannerInput} alt="" className='img-fluid' />
-                                        </span>
+                                        </span> */}
 
                                         {/* <input
                                             type="text"
@@ -156,7 +200,7 @@ const Home = () => {
                                             placeholder="Canada"
                                         /> */}
 
-                                        <select
+                                        {/* <select
                                             id="from"
                                             name="from"
                                             className={`form-select ${country.from === "" ? "default" : ""}`}
@@ -168,7 +212,55 @@ const Home = () => {
                                             <option value="india">India</option>
                                             <option value="australia">Australia</option>
                                             <option value="usa">USA</option>
-                                        </select>
+                                        </select> */}
+
+                                        <button
+                                            type='button'
+                                            className="dropdown-country"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            <div className='country_img'>
+                                                <img
+                                                    src={
+                                                        countryVisa?.from
+                                                            ? `${import.meta.env.VITE_APP_COUNTRY_URL}/${countries.find((i) => i.name.common === countryVisa.from)?.cca2?.toLowerCase()}.png`
+                                                            : BannerInput
+                                                    }
+                                                    alt=''
+                                                    className='img-fluid'
+                                                />
+                                            </div>
+                                            <span>{countryVisa?.from || 'Select Country'}</span>
+
+                                        </button>
+
+                                        <ul className="dropdown-menu">
+                                            {
+                                                countries
+                                                    ?.sort((a, b) => a.name.common.localeCompare(b.name.common))
+                                                    ?.map((country) => {
+                                                        return (
+                                                            <li key={country.cca3}>
+                                                                <button
+                                                                    type='button'
+                                                                    className={`dropdown-item ${country.name.common === countryVisa.from ? 'focus' : ''}`}
+                                                                    onClick={() => handleSelectCountryVisa("from", country)}
+                                                                >
+                                                                    <div className='country_icon'>
+                                                                        <img
+                                                                            src={`${import.meta.env.VITE_APP_COUNTRY_URL}/${country?.cca2?.toLowerCase()}.png`}
+                                                                            alt=''
+                                                                            className='img-fluid'
+                                                                        />
+                                                                    </div>
+                                                                    <span>{country?.name?.common}</span>
+                                                                </button>
+                                                            </li>
+                                                        )
+                                                    })
+                                            }
+                                        </ul>
                                     </div>
 
                                     <div className="timeline">
@@ -178,9 +270,9 @@ const Home = () => {
                                     </div>
 
                                     <div className="input-group">
-                                        <span className='icon'>
+                                        {/* <span className='icon'>
                                             <img src={BannerInput} alt="" className='img-fluid' />
-                                        </span>
+                                        </span> */}
 
                                         {/* <input
                                             type='text'
@@ -190,7 +282,7 @@ const Home = () => {
                                             placeholder="I want to travel to"
                                         /> */}
 
-                                        <select
+                                        {/* <select
                                             id="to"
                                             name="to"
                                             className={`form-select ${country.to === "" ? "default" : ""}`}
@@ -202,7 +294,54 @@ const Home = () => {
                                             <option value="india">India</option>
                                             <option value="australia">Australia</option>
                                             <option value="usa">USA</option>
-                                        </select>
+                                        </select> */}
+
+                                        <button
+                                            type='button'
+                                            className={`dropdown-country ${countryVisa.to === '' ? 'default' : ''}`}
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            <div className='country_img'>
+                                                <img
+                                                    src={
+                                                        countryVisa?.to
+                                                            ? `${import.meta.env.VITE_APP_COUNTRY_URL}/${countries.find((i) => i.name.common === countryVisa.to)?.cca2?.toLowerCase()}.png`
+                                                            : BannerInput
+                                                    }
+                                                    alt=''
+                                                    className='img-fluid'
+                                                />
+                                            </div>
+                                            <span>{countryVisa?.to || 'I want to travel to'}</span>
+                                        </button>
+
+                                        <ul className="dropdown-menu">
+                                            {
+                                                countries
+                                                    ?.sort((a, b) => a.name.common.localeCompare(b.name.common))
+                                                    ?.map((country) => {
+                                                        return (
+                                                            <li key={country.cca3}>
+                                                                <button
+                                                                    type='button'
+                                                                    className={`dropdown-item ${country.name.common === countryVisa.to ? 'focus' : ''}`}
+                                                                    onClick={() => handleSelectCountryVisa("to", country)}
+                                                                >
+                                                                    <div className='country_icon'>
+                                                                        <img
+                                                                            src={`${import.meta.env.VITE_APP_COUNTRY_URL}/${country?.cca2?.toLowerCase()}.png`}
+                                                                            alt=''
+                                                                            className='img-fluid'
+                                                                        />
+                                                                    </div>
+                                                                    <span>{country?.name?.common}</span>
+                                                                </button>
+                                                            </li>
+                                                        )
+                                                    })
+                                            }
+                                        </ul>
                                     </div>
                                 </form>
                             </div>
@@ -213,8 +352,8 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </div >
+            </section >
             {/* ------ Home-Banner End ------ */}
 
 
@@ -319,7 +458,17 @@ const Home = () => {
                                 LatestNewsData?.map((i, index) => {
                                     return (
                                         <div className="col-lg-4" key={index}>
-                                            <div className="box">
+                                            <div
+                                                className={`box ${newsSaved[index] ? 'saved' : ''}`}
+                                            >
+                                                <div
+                                                    className="bookmark_click"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleNewsBookMark(index);
+                                                    }}
+                                                />
+
                                                 <div className="news_image">
                                                     <img src={i?.image} alt="" className='img-fluid object-fit-cover' />
                                                 </div>
@@ -408,11 +557,21 @@ const Home = () => {
                                                         {/* <div className="org">{i?.workTitle}</div> */}
                                                     </div>
 
-                                                    <div className="review-img d-flex gap-1">
+                                                    {/* <div className="review-img d-flex gap-1">
                                                         {[...Array(i.rating)]?.map((_, imgIndex) => (
                                                             <img key={imgIndex} src={TestimonialsStar} alt="" className="img-fluid" />
                                                         ))}
+                                                    </div> */}
+
+                                                    <div className="review-img d-flex gap-1">
+                                                        <Rating
+                                                            initialRating={i.rating}
+                                                            emptySymbol={<TestimonialsRate color="#fff" stroke="#040273" />}
+                                                            fullSymbol={<TestimonialsRate color="#040273" />}
+                                                            readonly
+                                                        />
                                                     </div>
+
 
                                                     <p>
                                                         {i?.review}
@@ -435,3 +594,57 @@ const Home = () => {
 }
 
 export default Home;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import Select from 'react-select';
+
+
+// const [selectedFrom, setSelectedFrom] = useState({ value: 'India', label: 'India' });
+// const [selectedTo, setSelectedTo] = useState(null);
+
+// const countryOptions = countries.map((country) => ({
+//     value: country.name.common,
+//     label: (
+//         <div className="d-flex align-items-center gap-2">
+//             <img
+//                 src={`https://flagcdn.com/w40/${country.cca2.toLowerCase()}.png`}
+//                 alt={country.name.common}
+//                 style={{ width: 20 }}
+//             />
+//             {country.name.common}
+//         </div>
+//     ),
+// }));
+
+
+{/* <div className='input-group'>
+                                        <Select
+                                            options={countryOptions}
+                                            onChange={(selectedOption) => {
+                                                setSelectedTo(selectedOption);
+                                                if (selectedFrom && selectedOption) {
+                                                    // navigate(`/user/visa/all/${selectedFrom.value}/${selectedOption.value}`);
+                                                }
+                                            }}
+                                            placeholder="To"
+                                            value={selectedTo}
+                                            className='form-select-country'
+                                            classNamePrefix="custom-select"
+                                            isSearchable={false}
+                                        />
+                                    </div> */}

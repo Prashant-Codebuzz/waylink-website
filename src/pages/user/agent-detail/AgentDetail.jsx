@@ -24,6 +24,9 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { reqToAgentReview, reqToGetAgentDetail, reqToRelatedAgent } from '../../../reduxToolkit/services/user/default/agentListServices';
 
+import Rating from 'react-rating';
+import { AgentDetailRate, ReviewsRate } from '../../../components/star-rating/StarRating';
+
 const AgentDetail = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
@@ -118,13 +121,22 @@ const AgentDetail = () => {
                                 </div>
 
                                 <div className="reviews_data d-flex align-items-center">
-                                    <div className="d-flex gap-1 me-2">
+                                    {/* <div className="d-flex gap-1 me-2">
                                         {[...Array(Math.round(agentDetail?.averageRating || 0))].map((_, imgIndex) => (
                                             <img key={imgIndex} src={ReviewStar} alt="" className="img-fluid" />
                                         ))}
+                                    </div> */}
+
+                                    <div className="d-flex gap-1 me-2">
+                                        <Rating
+                                            initialRating={parseFloat(agentDetail?.averageRating || 0).toFixed(1)}
+                                            emptySymbol={<AgentDetailRate />}
+                                            fullSymbol={<AgentDetailRate color="#FFB444" />}
+                                            readonly
+                                        />
                                     </div>
 
-                                    (145 Reviews)
+                                    ({agentDetail?.totalRating || 0} Reviews)
                                 </div>
 
                                 <button
@@ -158,10 +170,19 @@ const AgentDetail = () => {
                                 agentReview?.map((i, index) => {
                                     return (
                                         <div className="box" key={index}>
-                                            <div className="review_img d-flex gap-2">
+                                            {/* <div className="review_img d-flex gap-2">
                                                 {[...Array(i?.rating)]?.map((_, imgIndex) => (
                                                     <img key={imgIndex} src={AgentStar} alt="" className="img-fluid" />
                                                 ))}
+                                            </div> */}
+
+                                            <div className="review_img d-flex gap-2">
+                                                <Rating
+                                                    initialRating={i.rating}
+                                                    emptySymbol={<ReviewsRate stroke="#040273" />}
+                                                    fullSymbol={<ReviewsRate bgColor="#040273" starColor="#fff" />}
+                                                    readonly
+                                                />
                                             </div>
 
                                             <p>

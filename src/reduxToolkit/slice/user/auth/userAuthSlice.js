@@ -58,11 +58,15 @@ const userAuthSlice = createSlice({
             state.loader = true;
         });
         builder.addCase(reqToUserSignIn.fulfilled, (state, action) => {
+            console.log("1", state, action);
+
             state.loader = false;
             state.user = action.payload.data.data;
             state.token = action.payload.data.data.authentication?.accessToken;
         });
         builder.addCase(reqToUserSignIn.rejected, (state, action) => {
+            console.log("2", state, action);
+            
             state.loader = false;
             state.error = action.payload;
         });

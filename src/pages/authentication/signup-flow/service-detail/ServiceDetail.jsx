@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // Image
 import CreateProfileLogo from '../../../../assets/images/authentication/create-profile-logo.svg';
-import close_img from '../../../../assets/images/authentication/close_img.svg';
+import CloseButtonImg from '../../../../assets/images/authentication/close_btn.svg';
 import UploadIcon from '../../../../assets/images/upload-icon.svg'
 import { reqToAgentWorkProfile } from '../../../../reduxToolkit/services/agent/auth/agentAuthServices';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ const initialState = {
     service: "",
     companyName: "",
     totalAgent: "",
-    document: "",
+    document: [],
 }
 
 const ServiceDetail = ({ authStep, setAuthStep, role }) => {
@@ -27,53 +27,64 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
     const loader = useSelector((state) => state.userAuth.loader);
 
     const [formData, setFormData] = useState(initialState);
-    const [files, setFiles] = useState([]);
-
-    const handleFileChange = (e) => {
-        const selectedFiles = Array.from(e.target.files);
-        setFiles(prevFiles => {
-            const combined = [...prevFiles, ...selectedFiles];
-            return combined.slice(0, 10);
-        });
-    };
-
-    const handleRemove = (indexToRemove) => {
-        setFiles(prevFiles => prevFiles.filter((_, index) => index !== indexToRemove));
-    }
+    console.log(formData);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
 
-        if (name === "experience") {
-            if (!/^\d*$/.test(value)) return;
+        if (name === "type") {
+            setFormData((prev) => ({
+                ...prev,
+                type: value,
+                workTitle: "",
+                experience: "",
+                service: "",
+                companyName: "",
+                totalAgent: "",
+                document: [],
+            }));
         }
+        else if (name === "document" && files) {
+            const selectedFiles = Array.from(files);
+            console.log(selectedFiles);
 
+            setFormData((prev) => ({
+                ...prev,
+                document: [...prev.document, ...selectedFiles].slice(0, 10),
+            }));
+        }
+        else {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
+    }
+
+    const handleRemove = (index) => {
         setFormData((prev) => ({
             ...prev,
-            [name]: files ? files[0] : value,
+            document: prev.document.filter((_, i) => i !== index)
         }));
     }
 
-    console.log(formData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formPayload = new FormData();
-
         formPayload.append("type", formData.type);
         formPayload.append("workTitle", formData.workTitle);
         formPayload.append("experience", formData.experience);
         formPayload.append("service", formData.service);
         formPayload.append("companyName", formData.companyName);
         formPayload.append("totalAgent", formData.totalAgent);
-        if (files && files.length > 0) {
-            files.forEach(file => {
-                formPayload.append("document", file);
-            });
-        }
+        formData?.document?.forEach((doc) => {
+            formPayload.append("document", doc);
+        })
 
         const res = await dispatch(reqToAgentWorkProfile(formPayload))
+    console.log(res);
 
         if (res?.payload?.data?.status) {
             localStorage.removeItem("otp-verify-token");
@@ -142,6 +153,7 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                             name="companyName"
                             className="form-control"
                             placeholder="Enter your company name"
+                            value={formData.companyName}
                             onChange={handleChange}
                             required
                         />
@@ -155,6 +167,7 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                         name="workTitle"
                         className="form-control"
                         placeholder="Enter your work"
+                        value={formData.workTitle}
                         onChange={handleChange}
                         required
                     />
@@ -163,14 +176,14 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                 <div className='mb-4'>
                     <input
                         type="text"
-                        inputMode="numeric"
-                        pattern="[0-9]*"
+                        pattern='\d*'
                         id="experience"
                         name="experience"
                         className="form-control"
                         placeholder="Enter your experience"
+                        value={formData.experience}
                         onChange={handleChange}
-                        value={formData.experience || ""}
+                        onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
                         required
                     />
                 </div>
@@ -179,62 +192,52 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                     <div className='mb-4'>
                         <input
                             type="text"
+                            pattern='\d*'
                             id="totalAgent"
                             name="totalAgent"
                             className="form-control"
                             placeholder="How many agents you have"
-                            value={formData.totalAgent || ""}
+                            value={formData.totalAgent}
                             onChange={handleChange}
+                            onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '')}
                             required
                         />
                     </div>
                 )}
 
                 <div className="mb-4">
-                    <div className="form-control mb-2">
+                    <div className="form-control mb-3">
                         <label htmlFor="document" className="m-0 w-100 d-flex justify-content-between" style={{ color: '#9E9E9E', fontWeight: '500', cursor: 'pointer' }}>
                             Upload document
                             <img src={UploadIcon} alt="UploadIcon" className='img-fluid' />
                         </label>
                         <input
+                            type="file"
                             id="document"
                             name='document'
-                            type="file"
-                            onChange={handleChange}
                             className="d-none"
+                            onChange={handleChange}
+                            accept='image/*'
                             multiple
                             max={'10'}
+                            required
                         />
                     </div>
 
                     {
-                        files.length > 0 && (
-                            <div className="mt-2 text-start d-flex flex-wrap gap-3">
-                                {files.map((file, index) => (
-                                    <span key={index} className="position-relative d-inline-flex align-items-center">
-                                        <img
-                                            src={URL.createObjectURL(file)}
-                                            alt={file.name}
-                                            style={{
-                                                width: '140px',
-                                                height: '140px',
-                                                objectFit: 'contain',
-                                                objectPosition: 'center'
-                                            }}
-                                        />
+                        formData?.document?.length > 0 && (
+                            <div className="document_view">
+                                {formData?.document?.map((img, index) => (
+                                    <div key={index} className="document">
+                                        <img src={URL.createObjectURL(img)} alt={img.name} className='image' />
                                         <button
                                             type="button"
-                                            className="border-0 position-absolute"
-                                            style={{
-                                                background: "transparent",
-                                                right: "8px",
-                                                top: '5px'
-                                            }}
+                                            className="close_btn"
                                             onClick={() => handleRemove(index)}
                                         >
-                                            <img src={close_img} alt="close_img" />
+                                            <img src={CloseButtonImg} alt="close_img" className='img-fluid' />
                                         </button>
-                                    </span>
+                                    </div>
                                 ))}
                             </div>
                         )}
@@ -246,7 +249,9 @@ const ServiceDetail = ({ authStep, setAuthStep, role }) => {
                         id="service"
                         name="service"
                         className="form-select"
+                        value={formData.service}
                         onChange={handleChange}
+                        required
                     >
                         <option value="">Select Your Service</option>
                         <option value="frontend">Frontend developer</option>

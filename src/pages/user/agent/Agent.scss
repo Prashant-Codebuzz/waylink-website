@@ -1,46 +1,148 @@
 /* ------ Agents Start ------ */
 .agent.top_agent {
     .top {
-        .filter_btn {
-            display: flex;
-            align-items: center;
+        .dropdown-country {
+            .dropdown-btn {
+                display: flex;
+                align-items: center;
+                
+                width: 100%;
+                max-width: 225px;
 
-            background-color: #0402731A;
-            border: 0;
-            border-radius: 16px;
-            padding: 18px 22px;
+                background-color: #0402731A;
+                border: 0;
+                border-radius: 16px;
+                padding: 18px 22px;
 
 
-            font-family: var(--dm-sans);
-            font-weight: 500;
-            font-size: 18px;
-            color: var(--blue);
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 18px;
+                color: var(--blue);
+
+                .country_img {
+                    img {
+                        width: 30px;
+                        height: 20px;
+                    }
+                }
+            }
+
+            .dropdown-menu {
+                border-radius: 12px;
+                border: 2px solid #0402731A;
+                max-width: 100%;
+                width: 220px;
+                height: 30%;
+                overflow: auto;
+
+                li {
+                    .dropdown-item {
+                        display: flex;
+                        align-items: center;
+                        font-family: var(--dm-sans);
+                        font-weight: 600;
+                        font-size: 16px;
+                        color: var(--blue);
+                        cursor: pointer;
+                        padding: 6px 18px;
+
+                        &:hover,
+                        &:focus {
+                            background-color: var(--blue);
+                            color: var(--white);
+
+                            .form-check-input {
+                                border: 2px solid var(--white);
+                                background-color: var(--blue);
+                            }
+                        }
+
+                        .country_icon {
+                            flex-shrink: 0;
+
+                            img {
+                                width: 32px;
+                                height: 22px;
+                            }
+                        }
+
+                        span {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                    }
+                }
+            }
         }
 
-        .dropdown-menu {
-            border-radius: 12px;
-            border: 2px solid #0402731A;
+        .filter {
+            .filter_btn {
+                display: flex;
+                align-items: center;
 
-            li {
-                .dropdown-item {
-                    font-family: var(--dm-sans);
-                    font-weight: 600;
-                    font-size: 16px;
-                    color: var(--blue);
-                    cursor: pointer;
-                    padding: 6px 18px;
+                background-color: #0402731A;
+                border: 0;
+                border-radius: 16px;
+                padding: 18px 22px;
 
-                    &:hover,
-                    &:focus {
-                        background-color: var(--blue);
-                        color: var(--white);
+
+                font-family: var(--dm-sans);
+                font-weight: 500;
+                font-size: 18px;
+                color: var(--blue);
+            }
+
+            .dropdown-menu {
+                border-radius: 12px;
+                border: 2px solid #0402731A;
+
+                li {
+                    .dropdown-item {
+                        display: flex;
+                        align-items: center;
+                        font-family: var(--dm-sans);
+                        font-weight: 600;
+                        font-size: 16px;
+                        color: var(--blue);
+                        cursor: pointer;
+                        padding: 6px 18px;
+
+                        &:hover,
+                        &:focus {
+                            background-color: var(--blue);
+                            color: var(--white);
+
+                            .form-check-input {
+                                border: 2px solid var(--white);
+                                background-color: var(--blue);
+                            }
+                        }
+
+                        .form-check-input {
+                            margin-top: 0;
+                            margin-left: 0;
+                            margin-right: 0.7em;
+                            border: 2px solid var(--blue);
+                            width: 20px;
+                            height: 20px;
+
+                            &:checked {
+                                background-color: var(--blue);
+                            }
+                        }
+
+                        label {
+                            cursor: pointer;
+                        }
                     }
                 }
             }
         }
 
         .input-group {
-            max-width: 75%;
+            max-width: 55%;
 
             .form-control {
                 background-color: var(--white);

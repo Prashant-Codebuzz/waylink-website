@@ -21,6 +21,17 @@ const MyBookmarks = ({ role }) => {
     const [pagination, setPagination] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
 
+
+    const [newsSaved, setNewsSaved] = useState({});
+
+    const handleNewsBookMark = (index) => {
+        setNewsSaved((prev) => ({
+            ...prev,
+            [index]: !prev[index],
+        }));
+    };
+
+
     return (
         <>
 
@@ -59,7 +70,17 @@ const MyBookmarks = ({ role }) => {
                                 LatestNewsData?.map((i, index) => {
                                     return (
                                         <div className="col-lg-4" key={index}>
-                                            <div className="box">
+                                            <div
+                                                className={`box ${newsSaved[index] ? 'saved' : ''}`}
+                                            >
+                                                <div
+                                                    className="bookmark_click"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleNewsBookMark(index);
+                                                    }}
+                                                />
+
                                                 <div className="news_image">
                                                     <img src={i?.image} alt="" className='img-fluid object-fit-cover' />
                                                 </div>

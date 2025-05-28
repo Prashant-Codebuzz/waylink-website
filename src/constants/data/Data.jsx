@@ -187,6 +187,17 @@ export const LatestNewsData = [
 
 
 
+// ------------ User-Agent ------------  
+// ------ Agent-Filter ------  
+export const AgentFilterData = [
+    { id: 'expr-AtoZ', label: 'Experience AtoZ', value: 'expr-LowToHigh', },
+    { id: 'expr-ZtoA', label: 'Experience ZtoA', value: 'expr-HighToLow', },
+    { id: 'rate-AtoZ', label: 'Rate AtoZ', value: 'rate-LowToHigh', },
+    { id: 'rate-ZtoA', label: 'Rate ZtoA', value: 'rate-HighToLow', }
+]
+
+
+
 // ------------ User-Agent-Detail ------------  
 // ------ Reviews ------  
 export const AgentReviewsData = [

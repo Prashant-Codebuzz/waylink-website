@@ -12,7 +12,7 @@ export const UserAuthLayout = () => {
 
     useEffect(() => {
         if (userToken) {
-            navigate("/user/home");
+            // navigate("/user/home");
         }
     }, [userToken]);
 
@@ -37,7 +37,7 @@ export const AgentAuthLayout = () => {
 
     useEffect(() => {
         if (agentToken) {
-            navigate("/agent/home");
+            // navigate("/agent/home");
         }
     }, [agentToken]);
 

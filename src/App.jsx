@@ -1,7 +1,7 @@
 import { useState } from 'react'
 // Css
 import './css/App.scss'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 // Scroll-To-Top
 import ScrollToTop from './components/scroll-to-top/ScrollToTop'
@@ -16,8 +16,8 @@ import { AgentDefaultLayOut, LandingLayOut, UserDefaultLayOut } from './componen
 // Landing-Home
 import LandingHome from './pages/landing-home/LandingHome'
 
-// Modal -- Role-Selection
-import RoleSelection from './components/modal/role-selection/RoleSelection'
+// Modal -- Login-Option
+import LoginOption from './components/modal/login-option/LoginOption'
 
 
 // Sign-In-Flow
@@ -142,7 +142,8 @@ function App() {
                     {/* Home */}
                     <Route path='/user/home' element={<UserHome />} />
                     {/* Visa */}
-                    <Route path='/user/visa' element={<UserVisa />} />
+                    <Route path="/user/visa" element={<Navigate to="/user/visa/all/India/Anyware" replace />} />
+                    <Route path='/user/visa/:category/:from/:to' element={<UserVisa />} />
                     {/* Agent */}
                     <Route path='/user/agent' element={<Agent />} />
                     {/* Agent-Detail */}
@@ -208,7 +209,7 @@ function App() {
             </Routes>
             <ChatBot />
             {/* Modal -- Role-Selection */}
-            <RoleSelection show={showRoleSelection} handleClose={handleClose} />
+            <LoginOption show={showRoleSelection} handleClose={handleClose} />
 
         </>
     )

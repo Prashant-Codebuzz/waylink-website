@@ -66,6 +66,13 @@
             }
 
             form {
+                .reviews-star{
+                    span{
+                        display: flex !important;
+                        gap: .5rem!important;
+                    }
+                }
+                
                 .form-control {
                     background: var(--fc-bg);
                     padding: 20px 25px;

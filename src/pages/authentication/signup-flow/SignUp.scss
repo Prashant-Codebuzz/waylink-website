@@ -229,17 +229,29 @@
             }
 
             .document_view {
-                text-align: left;
-                display: inline-flex;
                 position: relative;
+                display: flex;
                 align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
 
-                .close_btn {
-                    background-color: transparent;
-                    border: 0;
-                    position: absolute;
-                    right: 8px;
-                    top: 5px;
+                .document {
+                    position: relative;
+                    
+                    .image{
+                        border-radius: 16px;
+                        width: 140px;
+                        height: 140px;
+                        object-fit: cover;
+                    }
+
+                    .close_btn {
+                        background-color: transparent;
+                        border: 0;
+                        position: absolute;
+                        right: 10px;
+                        top: 7px;
+                    }
                 }
             }
 

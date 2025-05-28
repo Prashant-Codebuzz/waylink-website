@@ -31,7 +31,7 @@
 
         .info {
             max-width: 100%;
-            
+
             .agent_img {
                 max-width: 40%;
                 height: 100%;
@@ -76,6 +76,13 @@
             font-weight: 500;
             font-size: 20px;
             color: #5E5E5E;
+
+            .d-flex {
+                span {
+                    display: flex !important;
+                    gap: .25rem !important;
+                }
+            }
         }
 
         .chat_btn {
@@ -120,7 +127,12 @@
             border-radius: 16px;
             padding: 30px 28px;
 
-            .review {}
+            .review_img {
+                span {
+                    display: flex !important;
+                    gap: .5rem !important;
+                }
+            }
 
             p {
                 font-family: var(--dm-sans);

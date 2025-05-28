@@ -77,9 +77,10 @@ export const reqToCreateUserProfile = createAsyncThunk("reqToCreateUserProfile",
 })
 
 //reqToUserSignIn 
-export const reqToUserSignIn = createAsyncThunk("reqToUserSignIn", async (data) => {
+export const reqToUserSignIn = createAsyncThunk("reqToUserSignIn", async (data, { rejectWithValue }) => {
     try {
         const response = await Axios.post(apiendpoints.userSignIn, data)
+        console.log(response);
 
         if (response?.data?.status) {
             toast.success(response?.data?.message);
@@ -89,11 +90,17 @@ export const reqToUserSignIn = createAsyncThunk("reqToUserSignIn", async (data) 
             toast.error(response?.data?.message);
         }
     } catch (error) {
+        console.log(error);
+
         if (error?.message === "Network Error") {
             toast.error(error?.message);
+
+            return rejectWithValue(error.message);
         }
         else if (!error?.response?.data?.status) {
             toast.error(error?.response?.data?.message);
+
+            return rejectWithValue(error?.response?.data?.message);
         }
     }
 })

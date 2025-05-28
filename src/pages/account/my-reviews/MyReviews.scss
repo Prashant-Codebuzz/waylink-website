@@ -21,7 +21,13 @@
             border-radius: 16px;
             padding: 30px 30px;
 
-            .review {}
+
+            .review_img {
+                span {
+                    display: flex !important;
+                    gap: .5rem !important;
+                }
+            }
 
             p {
                 font-family: var(--dm-sans);
@@ -82,8 +88,6 @@
             .box {
                 padding: 30px 28px;
 
-                .review {}
-
                 p {
                     font-size: 18px;
                     line-height: 26px;
@@ -128,8 +132,6 @@
         .second {
             .box {
                 padding: 28px 26px;
-
-                .review {}
 
                 p {
                     font-size: 17px;

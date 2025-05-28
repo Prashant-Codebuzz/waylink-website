@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 
 // Css
-import "./RoleSelection.scss";
+import "./LoginOption.scss";
 
 // Image
 import ModalCloseBtn from '../../../assets/images/authentication/modal_close_btn.svg';
@@ -11,7 +11,7 @@ import AgentImage from '../../../assets/images/authentication/agent_img.svg';
 import UserImage from '../../../assets/images/authentication/user_img.svg';
 
 
-const RoleSelection = ({ show, handleClose }) => {
+const LoginOption = ({ show, handleClose }) => {
 
     const navigate = useNavigate();
 
@@ -29,9 +29,6 @@ const RoleSelection = ({ show, handleClose }) => {
             backdrop="static"
             keyboard={false}
         >
-            {/* <Modal.Header>
-                <Modal.Title>Select Entry Role</Modal.Title>
-            </Modal.Header> */}
             <Modal.Body>
                 <button type="button" className="close_modal" onClick={handleClose}>
                     <img src={ModalCloseBtn} alt="" className='img-fluid' />
@@ -66,4 +63,4 @@ const RoleSelection = ({ show, handleClose }) => {
     )
 }
 
-export default RoleSelection;
+export default LoginOption;
