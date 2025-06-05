@@ -12,6 +12,7 @@ const Pagination = ({ pagination, onPageChange }) => {
 
     const handleClick = (page, e) => {
         e.preventDefault();
+        
         if (page >= 1 && page <= lastPage && page !== currentPage) {
             onPageChange(page);
         }

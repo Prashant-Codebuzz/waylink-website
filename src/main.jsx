@@ -7,10 +7,12 @@ import store, { persistor } from './reduxToolkit/index.js'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Toaster } from 'react-hot-toast'
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 createRoot(document.getElementById('root')).render(
+    // <GoogleOAuthProvider>
     <BrowserRouter>
-    
+
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
                 <App />
@@ -20,4 +22,5 @@ createRoot(document.getElementById('root')).render(
         <Toaster position="top-center" />
 
     </BrowserRouter>
+    // </GoogleOAuthProvider>
 )

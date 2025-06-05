@@ -10,6 +10,9 @@ import ReviewRight from '../../../assets/images/review/review_right.svg';
 
 import Rating from 'react-rating';
 import { SentReviewRate } from '../../../components/star-rating/StarRating';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { reqToAgentSentReview } from '../../../reduxToolkit/services/user/default/agentListServices';
 
 // Ui-Package
 
@@ -19,6 +22,9 @@ const initialState = {
 }
 
 const Review = () => {
+
+    const { id } = useParams();
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState(initialState);
     // console.log(formData);
@@ -33,10 +39,22 @@ const Review = () => {
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         console.log(formData);
+
+        const payload = { ...formData, agentId: id };
+
+        try {
+            const res = await dispatch(reqToAgentSentReview(payload));
+
+            if (res?.payload?.data?.status) {
+                setFormData(initialState);
+            }
+        } catch (error) {
+            console.error("Error submitting form", error);
+        }
     }
 
 

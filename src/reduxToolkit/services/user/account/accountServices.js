@@ -4,14 +4,14 @@ import { apiendpoints } from "../../../../constants/api-routes/apiroutes";
 import toast from "react-hot-toast";
 
 
-// reqToGetMyReviews
-export const reqToGetMyReviews = createAsyncThunk("reqToGetMyReviews", async (data) => {
+// reqToUserGetProfile
+export const reqToUserGetProfile = createAsyncThunk("reqToUserGetProfile", async () => {
     try {
-        const response = await Axios.post(apiendpoints.getMyReview, data, authURLHeaders());
+        const response = await Axios.get(apiendpoints.userGetProfile, userHeaders("application/json"));
 
         if (response?.data?.status) {
             // toast.success(response?.data?.message);
-            return response
+            return response;
         } else {
             toast.error(response?.data?.message);
         }
@@ -24,6 +24,8 @@ export const reqToGetMyReviews = createAsyncThunk("reqToGetMyReviews", async (da
         }
     }
 })
+
+
 
 // reqToUserEditProfile
 export const reqToUserEditProfile = createAsyncThunk("reqToUserEditProfile", async (data) => {
@@ -45,3 +47,26 @@ export const reqToUserEditProfile = createAsyncThunk("reqToUserEditProfile", asy
         }
     }
 })
+
+
+// reqToGetMyReviews
+export const reqToGetMyReviews = createAsyncThunk("reqToGetMyReviews", async (data) => {
+    try {
+        const response = await Axios.get(`${apiendpoints.getMyReview}?page=${data?.page}&limit=${data?.limit}`, userHeaders("application/json"));
+
+        if (response?.data?.status) {
+            // toast.success(response?.data?.message);
+            return response
+        } else {
+            toast.error(response?.data?.message);
+        }
+    } catch (error) {
+        if (error?.message === "Network Error") {
+            toast.error(error?.message);
+        }
+        else if (!error?.response?.data?.status) {
+            toast.error(error?.response?.data?.message);
+        }
+    }
+})
+

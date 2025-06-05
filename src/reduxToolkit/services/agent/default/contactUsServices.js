@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 // reqToContactUs
 export const reqToContactUs = createAsyncThunk("reqToContactUs", async (data) => {
     try {
-        const response = await Axios.post(apiendpoints.postUserContactus, data, userHeaders("application/json"));
+        const response = await Axios.post(apiendpoints.postAgentContactus, data, userHeaders("application/json"));
 
         if (response?.data?.status) {
             toast.success(response?.data?.message);

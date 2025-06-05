@@ -149,7 +149,7 @@ function App() {
                     {/* Agent-Detail */}
                     <Route path='/user/agent-detail/:id' element={<AgentDetail />} />
                     {/* Review */}
-                    <Route path='/user/agent/review' element={<Review />} />
+                    <Route path='/user/agent/review/:id' element={<Review />} />
                     {/* News */}
                     <Route path='/user/news' element={<UserNews />} />
                     {/* News-Detail */}
@@ -193,7 +193,8 @@ function App() {
                     {/* Home */}
                     <Route path='/agent/home' element={<AgentHome />} />
                     {/* Visa */}
-                    <Route path='/agent/visa' element={<AgentVisa />} />
+                    <Route path="/agent/visa" element={<Navigate to="/agent/visa/all/India/Anyware" replace />} />
+                    <Route path='/agent/visa/:category/:from/:to' element={<AgentVisa />} />
                     {/* News */}
                     <Route path='/agent/news' element={<AgentNews />} />
                     {/* News-Detail */}
@@ -207,7 +208,9 @@ function App() {
                     <Route path='/agent/terms-conditions' element={<TermsConditions />} />
                 </Route>
             </Routes>
-            <ChatBot />
+
+            {/* <ChatBot /> */}
+
             {/* Modal -- Role-Selection */}
             <LoginOption show={showRoleSelection} handleClose={handleClose} />
 

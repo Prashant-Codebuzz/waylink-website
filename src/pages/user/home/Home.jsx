@@ -232,7 +232,6 @@ const Home = () => {
                                                 />
                                             </div>
                                             <span>{countryVisa?.from || 'Select Country'}</span>
-
                                         </button>
 
                                         <ul className="dropdown-menu">
@@ -339,7 +338,7 @@ const Home = () => {
                                                                 </button>
                                                             </li>
                                                         )
-                                                    })
+                                                    }) 
                                             }
                                         </ul>
                                     </div>

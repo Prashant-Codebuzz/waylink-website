@@ -22,7 +22,7 @@ const SignUpFlow = ({ role }) => {
     const [authStep, setAuthStep] = useState(1);
     const [email, setEmail] = useState("");
 
-    return (
+    return (        
         <>
 
             {/* ------ SignUp-Flow Start ------ */}

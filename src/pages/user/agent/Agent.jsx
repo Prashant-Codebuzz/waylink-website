@@ -34,13 +34,15 @@ const Agent = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [agentList, setAgentList] = useState([])
+    const user = useSelector((state) => state.allAgent);
+    console.log(user);
+
+    const [agentList, setAgentList] = useState([]);
 
     const [country, setCountry] = useState("India");
     const [filter, setFilter] = useState("");
     const [search, setSearch] = useState("");
 
-    const [debounceTimer, setDebounceTimer] = useState(null);
     const [pagination, setPagination] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -74,17 +76,7 @@ const Agent = () => {
     };
 
     useEffect(() => {
-        if (debounceTimer) {
-            clearTimeout(debounceTimer);
-        }
-
-        const timer = setTimeout(() => {
-            handleGetAllAgentList(currentPage);
-        }, 500);
-
-        setDebounceTimer(timer);
-
-        return () => clearTimeout(timer);
+        handleGetAllAgentList(currentPage);
     }, [search, filter, country, currentPage]);
 
     return (

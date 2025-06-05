@@ -34,8 +34,6 @@ const Visa = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    console.log(from, to);
-
 
     const [countryVisa, setCountryVisa] = useState({ from: normalizeCountryName(from), to: normalizeCountryName(to) });
     const [activeVisa, setActiveVisa] = useState(category);

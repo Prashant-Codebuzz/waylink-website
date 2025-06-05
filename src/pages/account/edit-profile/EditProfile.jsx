@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Css
 import "./EditProfile.scss";
@@ -9,9 +9,9 @@ import ProfileDummyUser from '../../../assets/images/account/profile_dummy_user.
 import Camera from '../../../assets/images/account/camera.svg';
 import PhoneInput from 'react-phone-input-2';
 import parsePhoneNumberFromString from 'libphonenumber-js';
-import { useDispatch } from 'react-redux';
-import { reqToUserEditProfile } from '../../../reduxToolkit/services/user/account/accountServices';
-import { reqToAgentEditProfile } from '../../../reduxToolkit/services/agent/account/accountServices';
+import { useDispatch, useSelector } from 'react-redux';
+import { reqToUserEditProfile, reqToUserGetProfile } from '../../../reduxToolkit/services/user/account/accountServices';
+import { reqToAgentEditProfile, reqToAgentGetProfile } from '../../../reduxToolkit/services/agent/account/accountServices';
 
 const initialState = {
     profile: null,
@@ -29,6 +29,10 @@ const EditProfile = ({ role }) => {
     const dispatch = useDispatch();
 
     const IsRoleUser = role === "user";
+
+    const user = useSelector((state) => state.user);
+    console.log(user);
+
 
     const [formData, setFormData] = useState(initialState);
     const [phone, setPhone] = useState('');
@@ -72,14 +76,21 @@ const EditProfile = ({ role }) => {
             return;
         }
         const payload = { ...formData, mobileNumber: phone }
+
+        if (!(formData.profile instanceof File)) {
+            delete payload.profile;
+        }
+
         if (IsRoleUser) {
             const res = await dispatch(reqToUserEditProfile(payload))
+            console.log(res);
 
             if (res?.payload?.data?.status) {
                 setFormData(initialState)
                 setPhone("")
                 setIsValid(false);
                 setError(false);
+                handleGetProfile();
             }
         } else {
             const res = await dispatch(reqToAgentEditProfile(payload))
@@ -89,10 +100,39 @@ const EditProfile = ({ role }) => {
                 setPhone("")
                 setIsValid(false);
                 setError(false);
+                handleGetProfile();
             }
 
         }
     }
+
+
+    const handleGetProfile = async () => {
+
+        if (IsRoleUser) {
+            const res = await dispatch(reqToUserGetProfile());
+            console.log(res);
+
+            if (res?.payload?.data?.status) {
+                setFormData(res?.payload?.data?.data);
+
+                setPhone(res?.payload?.data?.data?.mobileNumber);
+            }
+        } else {
+            const res = await dispatch(reqToAgentGetProfile());
+            console.log(res);
+
+            if (res?.payload?.data?.status) {
+                setFormData(res?.payload?.data?.data);
+
+                setPhone(res?.payload?.data?.data?.mobileNumber);
+            }
+        }
+    }
+
+    useEffect(() => {
+        handleGetProfile();
+    }, []);
 
     return (
         <>
@@ -106,10 +146,17 @@ const EditProfile = ({ role }) => {
 
                     <div className="second">
                         <form className="row" onSubmit={handleSubmit}>
-                            <div className="col-lg-12 mb-4 text-center  ">
+                            <div className="col-lg-12 mb-4 text-center">
                                 <div className="profile_container">
                                     <img
-                                        src={formData.profile ? URL.createObjectURL(formData?.profile) : ProfileDummyUser}
+                                        // src={formData.profile ? URL.createObjectURL(formData?.profile) : ProfileDummyUser}
+                                        src={
+                                            formData.profile instanceof File
+                                                ? URL.createObjectURL(formData?.profile)
+                                                : typeof formData.profile === 'string' && formData.profile.includes('static/icon-7797704_640.png')
+                                                    ? ProfileDummyUser
+                                                    : formData.profile || ProfileDummyUser
+                                        }
                                         alt="Profile"
                                         className="img-fluid profile_img"
                                     />
@@ -178,7 +225,6 @@ const EditProfile = ({ role }) => {
                                     required
                                     className="form-control"
                                     placeholder="Select BirthDate"
-                                    min={new Date().toISOString().split("T")[0]}
                                 />
                             </div>
                             <div className="col-lg-6 mb-4">

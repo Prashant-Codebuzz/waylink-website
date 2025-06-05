@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Css
@@ -20,15 +21,29 @@ import TestimonialsStar from '../../../assets/images/home/landing/testimonials_s
 // Static-Data
 import { AgentData, CountryData, LatestNewsData, ProfileData, TestimonialsData } from '../../../constants/data/Data';
 
+import countries from 'world-countries';
+
 // Ui-Package
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 
+import { reqToTopReview } from '../../../reduxToolkit/services/agent/default/agentListServices';
+
+import Rating from 'react-rating';
+import { TestimonialsRate } from '../../../components/star-rating/StarRating';
+import { formatCountryName } from '../../../helper';
+
+
+const initialState = {
+    from: "India",
+    to: ""
+}
+
 const Home = () => {
 
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
 
     // Testimonials
     const carouselRef = useRef();
@@ -68,6 +83,56 @@ const Home = () => {
         }
     };
 
+
+    const [countryVisa, setCountryVisa] = useState(initialState);
+
+    const handleSelectCountryVisa = (type, country) => {
+
+        const updatedCountryVisa = {
+            ...countryVisa,
+            [type]: country.name.common,
+        };
+        setCountryVisa(updatedCountryVisa);
+
+
+        const dropdowns = document.querySelectorAll('.dropdown-country.show');
+        dropdowns.forEach(dropdown => {
+            const toggle = new bootstrap.Dropdown(dropdown);
+            toggle.hide();
+        });
+
+        if (updatedCountryVisa.from && updatedCountryVisa.to) {
+            const formattedFrom = formatCountryName(updatedCountryVisa.from);
+            const formattedTo = formatCountryName(updatedCountryVisa.to);
+
+            navigate(`/agent/visa/all/${formattedFrom}/${formattedTo}`);
+        }
+    }
+
+    
+
+    const [newsSaved, setNewsSaved] = useState({});
+
+    const handleNewsBookMark = (index) => {
+        setNewsSaved((prev) => ({
+            ...prev,
+            [index]: !prev[index],
+        }));
+    };
+
+    
+
+    const [reviewList, setReviewList] = useState([])
+
+    const handleGetTopReview = async () => {
+        const res = await dispatch(reqToTopReview());
+        setReviewList(res?.payload?.data?.data);
+    }
+
+    useEffect(() => {
+        handleGetTopReview();
+    }, []);
+
     return (
         <>
 
@@ -93,17 +158,64 @@ const Home = () => {
 
                                 <form>
                                     <div className="input-group">
-                                        <span className='icon'>
+                                        {/* <span className='icon'>
                                             <img src={BannerInput} alt="" className='img-fluid' />
-                                        </span>
+                                        </span> */}
 
-                                        <input
+                                        {/* <input
                                             type="text"
                                             id="country"
                                             name="country"
                                             className="form-control"
                                             placeholder="Canada"
-                                        />
+                                        /> */}
+
+                                        <button
+                                            type='button'
+                                            className="dropdown-country"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            <div className='country_img'>
+                                                <img
+                                                    src={
+                                                        countryVisa?.from
+                                                            ? `${import.meta.env.VITE_APP_COUNTRY_URL}/${countries.find((i) => i.name.common === countryVisa.from)?.cca2?.toLowerCase()}.png`
+                                                            : BannerInput
+                                                    }
+                                                    alt=''
+                                                    className='img-fluid'
+                                                />
+                                            </div>
+                                            <span>{countryVisa?.from || 'Select Country'}</span>
+                                        </button>
+
+                                        <ul className="dropdown-menu">
+                                            {
+                                                countries
+                                                    ?.sort((a, b) => a.name.common.localeCompare(b.name.common))
+                                                    ?.map((country) => {
+                                                        return (
+                                                            <li key={country.cca3}>
+                                                                <button
+                                                                    type='button'
+                                                                    className={`dropdown-item ${country.name.common === countryVisa.from ? 'focus' : ''}`}
+                                                                    onClick={() => handleSelectCountryVisa("from", country)}
+                                                                >
+                                                                    <div className='country_icon'>
+                                                                        <img
+                                                                            src={`${import.meta.env.VITE_APP_COUNTRY_URL}/${country?.cca2?.toLowerCase()}.png`}
+                                                                            alt=''
+                                                                            className='img-fluid'
+                                                                        />
+                                                                    </div>
+                                                                    <span>{country?.name?.common}</span>
+                                                                </button>
+                                                            </li>
+                                                        )
+                                                    })
+                                            }
+                                        </ul>
                                     </div>
 
                                     <div className="timeline">
@@ -113,17 +225,64 @@ const Home = () => {
                                     </div>
 
                                     <div className="input-group">
-                                        <span className='icon'>
+                                        {/* <span className='icon'>
                                             <img src={BannerInput} alt="" className='img-fluid' />
-                                        </span>
+                                        </span> */}
 
-                                        <input
+                                        {/* <input
                                             type='text'
                                             id="location"
                                             name="location"
                                             className="form-control"
                                             placeholder="I want to travel to"
-                                        />
+                                        /> */}
+
+                                        <button
+                                            type='button'
+                                            className={`dropdown-country ${countryVisa.to === '' ? 'default' : ''}`}
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            <div className='country_img'>
+                                                <img
+                                                    src={
+                                                        countryVisa?.to
+                                                            ? `${import.meta.env.VITE_APP_COUNTRY_URL}/${countries.find((i) => i.name.common === countryVisa.to)?.cca2?.toLowerCase()}.png`
+                                                            : BannerInput
+                                                    }
+                                                    alt=''
+                                                    className='img-fluid'
+                                                />
+                                            </div>
+                                            <span>{countryVisa?.to || 'I want to travel to'}</span>
+                                        </button>
+
+                                        <ul className="dropdown-menu">
+                                            {
+                                                countries
+                                                    ?.sort((a, b) => a.name.common.localeCompare(b.name.common))
+                                                    ?.map((country) => {
+                                                        return (
+                                                            <li key={country.cca3}>
+                                                                <button
+                                                                    type='button'
+                                                                    className={`dropdown-item ${country.name.common === countryVisa.to ? 'focus' : ''}`}
+                                                                    onClick={() => handleSelectCountryVisa("to", country)}
+                                                                >
+                                                                    <div className='country_icon'>
+                                                                        <img
+                                                                            src={`${import.meta.env.VITE_APP_COUNTRY_URL}/${country?.cca2?.toLowerCase()}.png`}
+                                                                            alt=''
+                                                                            className='img-fluid'
+                                                                        />
+                                                                    </div>
+                                                                    <span>{country?.name?.common}</span>
+                                                                </button>
+                                                            </li>
+                                                        )
+                                                    })
+                                            }
+                                        </ul>
                                     </div>
                                 </form>
                             </div>
@@ -213,7 +372,17 @@ const Home = () => {
                                 LatestNewsData?.map((i, index) => {
                                     return (
                                         <div className="col-lg-4" key={index}>
-                                            <div className="box">
+                                            <div
+                                                className={`box ${newsSaved[index] ? 'saved' : ''}`}
+                                            >
+                                                <div
+                                                    className="bookmark_click"
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleNewsBookMark(index);
+                                                    }}
+                                                />
+
                                                 <div className="news_image">
                                                     <img src={i?.image} alt="" className='img-fluid object-fit-cover' />
                                                 </div>
@@ -287,9 +456,9 @@ const Home = () => {
                         </div>
                         <div className="col-lg-7">
                             <div className="right d-flex gap-5">
-                                <OwlCarousel key={TestimonialsData?.length} ref={carouselRef} className="owl-theme" {...options} >
+                                <OwlCarousel key={reviewList?.length} ref={carouselRef} className="owl-theme" {...options} >
 
-                                    {
+                                    {/* {
                                         TestimonialsData?.map((i, index) => {
                                             return (
                                                 <div className="box" key={index}>
@@ -314,7 +483,44 @@ const Home = () => {
                                                 </div>
                                             )
                                         })
+                                    } */}
+
+                                    {
+                                        reviewList?.map((i, index) => {
+                                            return (
+                                                <div className="box" key={index}>
+                                                    <div className="client-img">
+                                                        <img src={i?.profile} alt="" className='img-fluid' />
+                                                    </div>
+
+                                                    <div className="info">
+                                                        <div className="name">{i?.name}</div>
+                                                        {/* <div className="org">{i?.organization}</div> */}
+                                                    </div>
+
+                                                    {/* <div className="review-img d-flex gap-1">
+                                                        {[...Array(5)]?.map((_, imgIndex) => (
+                                                            <img key={imgIndex} src={TestimonialsStar} alt="" className="img-fluid" />
+                                                        ))}
+                                                    </div> */}
+
+                                                    <div className="review-img d-flex gap-1">
+                                                        <Rating
+                                                            initialRating={i.rating}
+                                                            emptySymbol={<TestimonialsRate color="#fff" stroke="#040273" />}
+                                                            fullSymbol={<TestimonialsRate color="#040273" />}
+                                                            readonly
+                                                        />
+                                                    </div>
+
+                                                    <p>
+                                                        {i?.review}
+                                                    </p>
+                                                </div>
+                                            )
+                                        })
                                     }
+
                                 </OwlCarousel>
 
                             </div>

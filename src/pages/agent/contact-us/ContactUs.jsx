@@ -8,6 +8,8 @@ import ContactRight from '../../../assets/images/contact-us/contact_right.svg';
 
 import PhoneInput from 'react-phone-input-2';
 import parsePhoneNumberFromString from 'libphonenumber-js';
+import { reqToContactUs } from '../../../reduxToolkit/services/agent/default/contactUsServices';
+import { useDispatch } from 'react-redux';
 
 const initialState = {
     name: "",
@@ -19,6 +21,8 @@ const initialState = {
 
 
 const ContactUs = () => {
+
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState(initialState)
     const [phone, setPhone] = useState('');
@@ -46,12 +50,31 @@ const ContactUs = () => {
         }));
     }
 
+    console.log(formData);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!isValid) {
             setError(true)
             return;
+        }
+
+        const payload = { ...formData, mobileNumber: phone };
+        console.log(payload);
+
+        try {
+            const res = await dispatch(reqToContactUs(payload));
+            console.log(res);
+
+            if (res?.payload?.data?.status) {
+                setFormData(initialState);
+                setPhone('');
+                setIsValid(false);
+                setError(false);
+            }
+        } catch (error) {
+            console.error("Error submitting form", error);
         }
     };
 

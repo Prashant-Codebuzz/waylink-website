@@ -2,10 +2,11 @@ import persistStore from "redux-persist/es/persistStore";
 import persistReducer from "redux-persist/es/persistReducer";
 import localStorage from "redux-persist/es/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import allAgentReducer from "../reduxToolkit/slice/user/default/agentListSlice"
 
 // User-Slice
 import userAuthReducer from "./slice/user/auth/userAuthSlice";
+// User-Slice
+import allAgentReducer from "../reduxToolkit/slice/user/default/agentListSlice"
 
 // Agent-Slice
 

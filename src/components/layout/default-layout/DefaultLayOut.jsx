@@ -27,7 +27,7 @@ export const LandingLayOut = ({ handleRoleSelect }) => {
 
     useEffect(() => {
         if (token) {
-            // navigate(role === "user" ? "/user/home" : "/agent/home");
+            navigate(role === "user" ? "/user/home" : "/agent/home");
         }
     }, [role, token]);
 
@@ -53,7 +53,7 @@ export const UserDefaultLayOut = () => {
     useEffect(() => {
         if (!userToken) {
             // navigate("/user/sign-in");
-            // navigate("/");
+            navigate("/");
         }
     }, [userToken]);
 
@@ -89,7 +89,7 @@ export const UserDefaultLayOut = () => {
         <>
 
             <UserHeader handleLogout={handleLogout} />
-                <Outlet />
+            <Outlet />
             <UserFooter />
 
             {/* Modal -- Logout */}
@@ -110,16 +110,47 @@ export const AgentDefaultLayOut = () => {
     useEffect(() => {
         if (!agentToken) {
             // navigate("/agent/sign-in");
-            // navigate("/");
+            navigate("/");
         }
     }, [agentToken]);
+
+
+    // Modal -- Logout
+    const [agentLogout, setAgentLogout] = useState({
+        modal: false,
+        loader: false,
+    });
+
+    const handleLogout = () => {
+        setAgentLogout((prev) => ({ ...prev, modal: true }));
+    }
+
+    const handleClose = () => {
+        setAgentLogout((prev) => ({ ...prev, modal: false }));
+    }
+
+    const confirmLogout = () => {
+        setAgentLogout((prev) => ({ ...prev, loader: true }));
+
+        setTimeout(() => {
+            localStorage.removeItem("agent-token");
+            localStorage.removeItem("role");
+
+            navigate("/");
+
+            setAgentLogout((prev) => ({ ...prev, loader: false }));
+        }, 500);
+    }
 
     return (
         <>
 
-            <AgentHeader />
-                <Outlet />
+            <AgentHeader handleLogout={handleLogout} />
+            <Outlet />
             <AgentFooter />
+
+            {/* Modal -- Logout */}
+            <Logout show={agentLogout.modal} handleClose={handleClose} isLoading={agentLogout.loader} handleLogout={confirmLogout} />
 
         </>
     )

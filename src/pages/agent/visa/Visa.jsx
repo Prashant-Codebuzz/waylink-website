@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Css
 import "./Visa.scss";
@@ -13,12 +13,74 @@ import SearchInput from '../../../assets/images/search-input.svg';
 // Static-Data
 import { VisaData } from '../../../constants/data/Data';
 
+// Package
+import countries from 'world-countries';
+
 // Component-Pagination
 import Pagination from '../../../components/pagination/Pagination';
 
+import { formatCountryName, normalizeCountryName } from '../../../helper';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+const initialState = {
+    from: "India",
+    to: "Anyware"
+}
+
 const Visa = () => {
 
+    const { category = 'all', from = 'India', to = 'Anyware' } = useParams();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const [countryVisa, setCountryVisa] = useState({ from: normalizeCountryName(from), to: normalizeCountryName(to) });
     const [activeVisa, setActiveVisa] = useState('all');
+
+    const [pagination, setPagination] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
+
+
+    const handleSelectCountryVisa = (type, coun) => {
+        let countryName = "";
+
+        if (typeof coun === "string") {
+            countryName = coun; // For 'Anyware' or other strings
+        } else {
+            countryName = coun.name.common; // For real countries
+        }
+
+        const updatedCountryVisa = {
+            ...countryVisa,
+            [type]: countryName,
+        };
+        setCountryVisa(updatedCountryVisa);
+
+
+        const dropdowns = document.querySelectorAll('.dropdown-country.show');
+        dropdowns.forEach(dropdown => {
+            const toggle = new bootstrap.Dropdown(dropdown);
+            toggle.hide();
+        });
+
+        if (updatedCountryVisa.from && updatedCountryVisa.to) {
+            const formattedFrom = formatCountryName(updatedCountryVisa.from);
+            const formattedTo = formatCountryName(updatedCountryVisa.to);
+
+            navigate(`/agent/visa/${activeVisa}/${formattedFrom}/${formattedTo}`);
+        }
+    }
+
+    const handleCategoryChange = (category) => {
+        setActiveVisa(category);
+        navigate(`/agent/visa/${category}/${countryVisa.from}/${countryVisa.to}`);
+    };
+
+
+    useEffect(() => {
+        setCountryVisa({ from: normalizeCountryName(from), to: normalizeCountryName(to) });
+        setActiveVisa(category);
+    }, [from, to, category]);
 
     return (
         <>
@@ -46,17 +108,65 @@ const Visa = () => {
 
                                 <form>
                                     <div className="input-group">
-                                        <span className='icon'>
+                                        {/* <span className='icon'>
                                             <img src={BannerInput} alt="" className='img-fluid' />
-                                        </span>
+                                        </span> */}
 
-                                        <input
+                                        {/* <input
                                             type="text"
                                             id="country"
                                             name="country"
                                             className="form-control"
                                             placeholder="Canada"
-                                        />
+                                        /> */}
+
+                                        <button
+                                            type='button'
+                                            className="dropdown-country"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            <div className='country_img'>
+                                                <img
+                                                    src={
+                                                        countryVisa?.from
+                                                            ? `${import.meta.env.VITE_APP_COUNTRY_URL}/${countries.find((i) => i.name.common === countryVisa.from)?.cca2?.toLowerCase()}.png`
+                                                            : BannerInput
+                                                    }
+                                                    alt=''
+                                                    className='img-fluid'
+                                                />
+                                            </div>
+                                            <span>{countryVisa?.from || 'Select Country'}</span>
+
+                                        </button>
+
+                                        <ul className="dropdown-menu">
+                                            {
+                                                countries
+                                                    ?.sort((a, b) => a.name.common.localeCompare(b.name.common))
+                                                    ?.map((country) => {
+                                                        return (
+                                                            <li key={country.cca3}>
+                                                                <button
+                                                                    type='button'
+                                                                    className={`dropdown-item ${country.name.common === countryVisa.from ? 'focus' : ''}`}
+                                                                    onClick={() => handleSelectCountryVisa("from", country)}
+                                                                >
+                                                                    <div className='country_icon'>
+                                                                        <img
+                                                                            src={`${import.meta.env.VITE_APP_COUNTRY_URL}/${country?.cca2?.toLowerCase()}.png`}
+                                                                            alt=''
+                                                                            className='img-fluid'
+                                                                        />
+                                                                    </div>
+                                                                    <span>{country?.name?.common}</span>
+                                                                </button>
+                                                            </li>
+                                                        )
+                                                    })
+                                            }
+                                        </ul>
                                     </div>
 
                                     <div className="timeline">
@@ -66,17 +176,81 @@ const Visa = () => {
                                     </div>
 
                                     <div className="input-group">
-                                        <span className='icon'>
+                                        {/* <span className='icon'>
                                             <img src={BannerInput} alt="" className='img-fluid' />
-                                        </span>
+                                        </span> */}
 
-                                        <input
+                                        {/* <input
                                             type='text'
                                             id="location"
                                             name="location"
                                             className="form-control"
                                             placeholder="I want to travel to"
-                                        />
+                                        /> */}
+
+                                        <button
+                                            type='button'
+                                            className="dropdown-country"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            <div className='country_img'>
+                                                <img
+                                                    src={
+                                                        countryVisa.to && countryVisa?.to !== 'Anyware'
+                                                            ? `${import.meta.env.VITE_APP_COUNTRY_URL}/${countries.find((i) => i.name.common === countryVisa.to)?.cca2?.toLowerCase()}.png`
+                                                            : BannerInput
+                                                    }
+                                                    alt=''
+                                                    className='img-fluid'
+                                                />
+                                            </div>
+                                            <span>{countryVisa?.to || 'Anyware'}</span>
+
+                                        </button>
+
+                                        <ul className="dropdown-menu">
+                                            <li key="anyware">
+                                                <button
+                                                    type='button'
+                                                    className={`dropdown-item ${'Anyware' === countryVisa.to ? 'focus' : ''}`}
+                                                    onClick={() => handleSelectCountryVisa("to", 'Anyware')}
+                                                >
+                                                    <div className='country_icon'>
+                                                        <img
+                                                            src={BannerInput}
+                                                            alt='Anyware'
+                                                            className='img-fluid'
+                                                        />
+                                                    </div>
+                                                    <span>Anyware</span>
+                                                </button>
+                                            </li>
+                                            {
+                                                countries
+                                                    ?.sort((a, b) => a.name.common.localeCompare(b.name.common))
+                                                    ?.map((country) => {
+                                                        return (
+                                                            <li key={country.cca3}>
+                                                                <button
+                                                                    type='button'
+                                                                    className={`dropdown-item ${country.name.common === countryVisa.to ? 'focus' : ''}`}
+                                                                    onClick={() => handleSelectCountryVisa("to", country)}
+                                                                >
+                                                                    <div className='country_icon'>
+                                                                        <img
+                                                                            src={`${import.meta.env.VITE_APP_COUNTRY_URL}/${country?.cca2?.toLowerCase()}.png`}
+                                                                            alt=''
+                                                                            className='img-fluid'
+                                                                        />
+                                                                    </div>
+                                                                    <span>{country?.name?.common}</span>
+                                                                </button>
+                                                            </li>
+                                                        )
+                                                    })
+                                            }
+                                        </ul>
                                     </div>
                                 </form>
                             </div>
@@ -147,7 +321,7 @@ const Visa = () => {
                             <button
                                 type='button'
                                 className={`visa_btn ${activeVisa === 'all' ? 'active' : ''}`}
-                                onClick={() => setActiveVisa('all')}
+                                onClick={() => handleCategoryChange('all')}
                             >
                                 All
                             </button>
@@ -159,7 +333,7 @@ const Visa = () => {
                                             <button
                                                 type='button'
                                                 className={`visa_btn ${activeVisa === i?.key ? 'active' : ''}`}
-                                                onClick={() => setActiveVisa(i?.key)}
+                                                onClick={() => handleCategoryChange(i?.key)}
                                             >
                                                 {i?.title}
                                             </button>
@@ -281,7 +455,7 @@ const Visa = () => {
                         </div>
                     </div>
 
-                    <Pagination />
+                    <Pagination pagination={pagination} onPageChange={setCurrentPage} />
 
                 </div>
             </div>

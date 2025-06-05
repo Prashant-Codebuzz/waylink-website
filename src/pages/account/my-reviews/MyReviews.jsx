@@ -32,14 +32,14 @@ const MyReviews = ({ role }) => {
         if (IsRoleUser) {
             const res = await dispatch(reqToGetMyReviews({
                 page,
-                limit: 6
+                limit: 9
             }));
             setMyReviews(res?.payload?.data?.data || []);
             setPagination(res?.payload?.data?.pagination || {});
         } else {
             const res = await dispatch(reqToGetMyAgentReviews({
                 page,
-                limit: 6
+                limit: 9
             }));
             setMyReviews(res?.payload?.data?.data || []);
             setPagination(res?.payload?.data?.pagination || {});
@@ -77,12 +77,6 @@ const MyReviews = ({ role }) => {
                                                         <img key={imgIndex} src={AgentStar} alt="" className="img-fluid" />
                                                     ))}
                                                 </div> */}
-
-                                                <div className="review_img d-flex gap-2">
-                                                    {[...Array(5)]?.map((_, imgIndex) => (
-                                                        <img key={imgIndex} src={AgentStar} alt="" className="img-fluid" />
-                                                    ))}
-                                                </div>
 
                                                 <div className="review_img d-flex gap-2">
                                                     <Rating

@@ -30,18 +30,23 @@ export const apiendpoints = {
     getTopReview: "/user-api/list/topReviews",
     getAgentReview: "/user-api/list/agentReview/:id",
     getRelatedAgent: "user-api/list/relatedAgent?country=:country",
+    postAgentReview: "/user-api/review",
+
 
     // user-account
-    getMyReview: '/user-api/list/reviewList',
+    userGetProfile: "/user-api/auth/userDetail",
     userEditProfile: "/user-api/auth/editProfile",
+    getMyReview: '/user-api/list/reviewList',
 
     // agent-list
     getAgentTopReview: "/agent-api/list/topReviews",
 
     // agent-account
-    getMyAgentReview: '/agent-api/list/reviewList',
+    agentGetProfile: "/agent-api/auth/agentDetail",
     agentEditProfile: "/agent-api/auth/editProfile",
+    getMyAgentReview: '/agent-api/list/reviewList',
 
     // contact-us 
-    getContactus: "/user-api/helpNsupport/add",
+    postUserContactus: "/user-api/helpNsupport/add",
+    postAgentContactus: "/agent-api/helpNsupport/add",
 }

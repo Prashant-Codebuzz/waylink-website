@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { reqToAgentReview, reqToGetAgentDetail, reqToGetAllAgent, reqToRelatedAgent, reqToTopReview } from "../../../services/user/default/agentListServices";
 
 const initialState = {
-    loader: false,
+    loader: false,               
     data: [],
     error: ""
 }
@@ -11,7 +11,7 @@ const allAgent = createSlice({
     name: "allAgent",
     initialState,
     reducers: {},
-    extraReducers: (builder) => {
+    extraReducers: (builder) => {   
         // reqToGetAllAgent
         builder.addCase(reqToGetAllAgent.pending, (state) => {
             state.loader = true;

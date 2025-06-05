@@ -7,16 +7,16 @@ import "./Header.scss";
 // Image
 import Logo from '../../../assets/images/header/logo.png';
 
-const AgentHeader = () => {
+const AgentHeader = ({ handleLogout }) => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.removeItem("agent-token");
-        localStorage.removeItem("role");
+    // const handleLogout = () => {
+    //     localStorage.removeItem("agent-token");
+    //     localStorage.removeItem("role");
 
-        navigate("/");
-    }
+    //     navigate("/");
+    // }
     
     return (
         <>

@@ -15,6 +15,8 @@ import { reqToAgentSignIn } from '../../../../reduxToolkit/services/agent/auth/a
 
 import { loaders } from '../../../../components/loader/loaders/Loader';
 
+import { GoogleLogin } from '@react-oauth/google';
+
 
 const initialState = {
     email: "",
@@ -81,6 +83,27 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
     //     const url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
 
     //     window.location.href = url;
+    // };
+
+
+    // const redirectToGoogle = async (credentialResponse) => {
+    // console.log(credentialResponse);
+
+    // try {
+    //     const res = await axios.post("http://192.168.1.38:1600/user-api/auth/signUpWithGoogle", {
+    //         token: credentialResponse.credential
+    //     });
+
+    //     if (res.data?.status) {
+    //         localStorage.setItem("user-token", res.data.data.authentication.accessToken);
+    //         navigate("/user/home");
+    //     } else {
+    //         alert("Google login failed.");
+    //     }
+    // } catch (error) {
+    //     console.error("Google login error:", error);
+    //     alert("Something went wrong during Google Sign-In.");
+    // }
     // };
 
 
@@ -168,10 +191,25 @@ const SignIn = ({ authStep, setAuthStep, role }) => {
                 <span></span>
             </div>
 
-            <button type='button' className='google_btn d-flex align-items-center justify-content-center'>
+            <button
+                type='button'
+                className='google_btn d-flex align-items-center justify-content-center'
+            // onClick={redirectToGoogle}
+            >
                 <img src={GoogleLogo} alt="Google" className='img-fluid me-3' />
                 Continue with Google
             </button>
+
+            {/* <div className='d-flex justify-content-center'>
+                <GoogleLogin
+                    onSuccess={redirectToGoogle}
+                    onError={() => console.log("Google login failed")}
+                    size="large"
+                    theme="outline"
+                    text="continue_with"
+                    width="100%"
+                />
+            </div> */}
 
             <p className='account mb-0'>
                 Don’t have an account? <Link to={IsRoleUser ? "/user/sign-up" : "/agent/sign-up"}>Sign up</Link>
